@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0CA678">
+<meta name="robots" content="noindex,nofollow">
+<title>Panel Admin</title>
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;700;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+/* ---- khusus halaman admin ---- */
+.adminbar{background:var(--accent);color:var(--accent-ink);padding:14px 20px;box-shadow:0 4px 16px rgba(0,0,0,.08);position:sticky;top:0;z-index:40}
+.adminbar .inner{max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.adminbar .who{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.25rem;line-height:1.1}
+.adminbar .who small{display:block;font-family:'Poppins';font-weight:400;font-size:.76rem;opacity:.92;margin-top:2px}
+
+/* gerbang login */
+.gate{max-width:400px;margin:8vh auto 0}
+.gate .lock{font-size:2.6rem;text-align:center;display:block}
+
+/* pratinjau white-label langsung */
+.preview{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-top:6px}
+.preview .pvbar{padding:12px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.preview .pvbrand{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.05rem;line-height:1.1}
+.preview .pvbrand small{display:block;font-family:'Poppins';font-weight:400;font-size:.7rem;opacity:.92;margin-top:2px}
+.preview .pvchip{background:#fff;border-radius:999px;padding:4px 12px;font-weight:700;font-size:.8rem;color:#2f2f45;white-space:nowrap}
+.preview .pvbody{padding:14px;background:var(--page);display:flex;align-items:center;gap:10px}
+.preview .pvmascot{font-size:1.8rem}
+.preview .pvfoot{font-size:.72rem;color:var(--ink-soft);padding:8px 14px;border-top:1px solid var(--line);background:var(--card)}
+.preview img.pvlogo{max-height:34px;max-width:150px;display:block}
+
+.warn{background:var(--amber-bg);border:1px solid var(--amber);border-radius:12px;padding:10px 12px;font-size:.78rem;line-height:1.55;margin-top:10px}
+.warn b{color:#8a5a00}
+.okbox{background:var(--green-bg);border:1px solid var(--green);border-radius:12px;padding:10px 12px;font-size:.78rem;line-height:1.55;margin-top:10px}
+.cnote{font-size:.74rem;color:var(--ink-soft);margin-top:6px;line-height:1.5}
+.jsonerr{border-color:var(--coral)!important}
+.bar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.cstat{font-size:.74rem;color:var(--ink-soft);margin-top:4px}
+</style>
+</head>
+<body>
+
+<div class="adminbar">
+  <div class="inner">
+    <div class="who" id="brandBox">Panel Admin</div>
+    <div class="row">
+      <a class="btn sm" href="index.html" style="background:#fff">⬅ Ke game</a>
+      <button class="btn sm" id="btnLogout" onclick="logoutAdmin()" style="background:#fff;display:none">🚪 Keluar</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- GERBANG LOGIN -->
+  <div id="gate">
+    <div class="panel gate" style="text-align:center;padding:30px 24px">
+      <span class="lock">🔒</span>
+      <div class="ptitle" style="margin-top:8px">Masuk Admin</div>
+      <div class="pdesc">Masukkan password untuk mengatur aplikasi.</div>
+      <div class="field" style="margin-top:16px;text-align:left">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" autocomplete="current-password" onkeydown="if(event.key==='Enter')tryLogin()">
+      </div>
+      <button class="btn solid" style="width:100%" onclick="tryLogin()">Masuk</button>
+      <div class="warn" style="text-align:left">
+        <b>⚠️ Ini bukan pengaman sungguhan.</b> Password diperiksa di browser, jadi
+        siapa pun yang membaca kode halaman bisa melewatinya. Gunanya sekadar agar
+        anak tidak asal masuk. Yang benar-benar mengamankan data di server adalah
+        <b>ADMIN_KEY</b> — lihat tab Merek.
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL -->
+  <div id="panel" class="hidden">
+    <div class="panel adminwrap">
+      <div class="ptitle">⚙️ Panel Admin</div>
+      <div class="pdesc">White-label, kelola konten soal, dan dashboard.</div>
+      <div class="tabbar" style="margin-top:12px">
+        <button id="tabBrand" class="on" onclick="adminTab('brand')">Merek</button>
+        <button id="tabContent" onclick="adminTab('content')">Konten soal</button>
+        <button id="tabDash" onclick="adminTab('dash')">Dashboard</button>
+      </div>
+
+      <!-- TAB MEREK -->
+      <div id="paneBrand">
+        <div class="section-t">Pratinjau</div>
+        <div class="preview" id="pv">
+          <div class="pvbar" id="pvBar">
+            <div class="pvbrand" id="pvBrand"></div>
+            <span class="pvchip">⭐ 12</span>
+          </div>
+          <div class="pvbody"><span class="pvmascot" id="pvMascot">⭐</span><span style="font-size:.85rem">Halo, teman kecil!</span></div>
+          <div class="pvfoot" id="pvFoot"></div>
+        </div>
+        <div class="cnote">Berubah seketika saat kamu mengetik. Tekan 💾 Simpan agar berlaku di game.</div>
+
+        <div class="section-t">Identitas Merek</div>
+        <div class="row2">
+          <div class="field"><label>Nama baris 1</label><input type="text" id="fL1" oninput="livePreview()"></div>
+          <div class="field"><label>Nama baris 2 <span class="fh">(warna aksen)</span></label><input type="text" id="fL2" oninput="livePreview()"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Emoji merek</label><input type="text" id="fEmoji" oninput="livePreview()"></div>
+          <div class="field"><label>Maskot</label><input type="text" id="fMascot" oninput="livePreview()"></div>
+        </div>
+        <div class="field"><label>Logo <span class="fh">(URL gambar — opsional, menggantikan teks nama)</span></label><input type="text" id="fLogo" placeholder="https://..." oninput="livePreview()"></div>
+        <div class="field"><label>Sub-judul header</label><input type="text" id="fSub" oninput="livePreview()"></div>
+        <div class="field"><label>Teks footer</label><input type="text" id="fFooter" oninput="livePreview()"></div>
+
+        <div class="section-t">Warna Aksen</div>
+        <div class="field"><div class="colorrow"><input type="color" id="fAccent" oninput="livePreview()"><div class="swatches" id="swatches"></div></div></div>
+
+        <div class="section-t">Keamanan &amp; Data</div>
+        <div class="field"><label>Password admin baru <span class="fh">(kosongkan jika tidak diubah)</span></label><input type="password" id="fPass" placeholder="••••••••" autocomplete="new-password"></div>
+        <div class="field"><label>Kunci server admin <span class="fh">(untuk simpan konten/dashboard ke server — cocokkan env ADMIN_KEY)</span></label><input type="password" id="fAdminKey" placeholder="opsional" autocomplete="off"></div>
+        <div class="pdesc" id="keyStatus"></div>
+
+        <div class="section-t">Suara</div>
+        <div class="field"><label>Suara Gemini <span class="fh">(opsional — mis. Kore, Aoede, Puck, Leda; kosong = bawaan server)</span></label><input type="text" id="fVoice" placeholder="Kore"></div>
+        <div class="pdesc" id="ttsStatus"></div>
+
+        <div class="bar">
+          <button class="btn solid" onclick="saveAdmin()">💾 Simpan</button>
+          <button class="btn" onclick="resetBranding()">↺ Reset merek</button>
+          <button class="btn coral" onclick="resetProgress()">🗑 Reset bintang</button>
+        </div>
+      </div>
+
+      <!-- TAB KONTEN -->
+      <div id="paneContent" class="hidden">
+        <div class="pdesc" style="margin-top:10px">Edit soal per permainan (format JSON). <b>Simpan (lokal)</b> hanya berlaku di perangkat ini; <b>Simpan ke server</b> berlaku untuk semua pemain.</div>
+        <div class="cchips" id="contentChips"></div>
+        <div class="field"><textarea id="contentArea" spellcheck="false" oninput="validateArea()"></textarea></div>
+        <div class="pdesc" id="contentHelp"></div>
+        <div class="cstat" id="contentStat"></div>
+        <div class="bar">
+          <button class="btn solid" onclick="saveContentLocal()">💾 Simpan (lokal)</button>
+          <button class="btn" onclick="loadContentDefault()">↺ Muat bawaan</button>
+          <button class="btn" onclick="saveContentServer()" id="btnSrv">☁ Simpan ke server</button>
+        </div>
+      </div>
+
+      <!-- TAB DASHBOARD -->
+      <div id="paneDash" class="hidden">
+        <div class="pdesc" style="margin-top:10px">Statistik agregat (butuh mode server + kunci admin).</div>
+        <div class="dashgrid" style="margin-top:10px">
+          <div class="statbox"><div class="l">Total game dimainkan</div><div class="v" id="dsGames">—</div></div>
+          <div class="statbox"><div class="l">Jumlah pemain unik</div><div class="v" id="dsPlayers">—</div></div>
+        </div>
+        <div class="field" style="margin-top:10px"><label>Sebagian nama pemain</label><div id="dsNames" class="pdesc"></div></div>
+        <div class="row"><button class="btn solid" onclick="loadDashboard()">🔄 Muat statistik</button></div>
+        <div class="pdesc" id="dashMsg" style="margin-top:8px"></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="plabel">Status server</div>
+      <div class="ptitle" style="font-size:1.05rem">Kemampuan yang aktif</div>
+      <div class="pdesc" id="capNote" style="margin-top:6px"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+
+<script src="shared.js"></script>
+<script>
+/* ==================================================== gerbang login
+   Password diperiksa di sisi klien — penghalang praktis, BUKAN pengaman.
+   Penulisan ke server diamankan terpisah oleh ADMIN_KEY (header x-admin-key). */
+function tryLogin(){
+  if($('loginPass').value===CFG.adminPass){isAdmin=true;openPanel();}
+  else showFeedback('Password salah 🔒',false);
+}
+function openPanel(){
+  $('gate').classList.add('hidden');$('panel').classList.remove('hidden');
+  $('btnLogout').style.display='';
+  fillAdminForm();adminTab('brand');
+}
+function logoutAdmin(){
+  isAdmin=false;$('panel').classList.add('hidden');$('gate').classList.remove('hidden');
+  $('btnLogout').style.display='none';$('loginPass').value='';
+  showFeedback('Keluar dari admin',true);
+}
+
+/* ==================================================== tab */
+function adminTab(t){
+  ['brand','content','dash'].forEach(function(x){
+    var n=x.charAt(0).toUpperCase()+x.slice(1);
+    $('pane'+n).classList.toggle('hidden',x!==t);
+    $('tab'+n).classList.toggle('on',x===t);
+  });
+  if(t==='content')initContentEditor();
+}
+
+/* ==================================================== tab merek */
+function fillAdminForm(){
+  $('fL1').value=CFG.brandL1;$('fL2').value=CFG.brandL2;$('fEmoji').value=CFG.brandEmoji;
+  $('fMascot').value=CFG.mascot;$('fLogo').value=CFG.logo;$('fSub').value=CFG.subtitle;
+  $('fFooter').value=CFG.footer;$('fAccent').value=CFG.accent;$('fPass').value='';
+  $('fAdminKey').value=localStorage.getItem(LS_ADMINKEY)||'';
+  $('fVoice').value=localStorage.getItem('bic_voice')||'';
+  var sw=$('swatches');sw.innerHTML='';
+  PRESET_COLORS.forEach(function(col){
+    var s=document.createElement('div');s.className='swatch';s.style.background=col;s.title=col;
+    s.onclick=function(){$('fAccent').value=col;livePreview();};
+    sw.appendChild(s);
+  });
+  livePreview();renderCaps();
+}
+
+/* Pratinjau memakai nilai form, bukan CFG — supaya terlihat sebelum disimpan. */
+function livePreview(){
+  var accent=$('fAccent').value||DEFAULT_CFG.accent;
+  var ink=contrast(accent);
+  $('pvBar').style.background=accent;$('pvBar').style.color=ink;
+  var l1=$('fL1').value,l2=$('fL2').value,em=$('fEmoji').value,sub=$('fSub').value,logo=$('fLogo').value.trim();
+  if(logo){
+    $('pvBrand').innerHTML='<img class="pvlogo" src="'+esc(logo)+'" alt="logo" '+
+      'onerror="this.replaceWith(document.createTextNode(\'(logo gagal dimuat)\'))">';
+  }else{
+    $('pvBrand').innerHTML=esc(l1)+' '+esc(l2)+' '+esc(em)+'<small>'+esc(sub)+'</small>';
+  }
+  $('pvMascot').textContent=$('fMascot').value||'⭐';
+  $('pvFoot').textContent=$('fFooter').value;
+}
+
+function saveAdmin(){
+  CFG.brandL1=$('fL1').value.trim();CFG.brandL2=$('fL2').value.trim();
+  CFG.brandEmoji=$('fEmoji').value.trim();CFG.mascot=$('fMascot').value.trim()||'⭐';
+  CFG.logo=$('fLogo').value.trim();CFG.subtitle=$('fSub').value.trim();
+  CFG.footer=$('fFooter').value.trim();CFG.accent=$('fAccent').value;
+  var np=$('fPass').value;if(np)CFG.adminPass=np;
+  var ak=$('fAdminKey').value;
+  if(ak)localStorage.setItem(LS_ADMINKEY,ak);else localStorage.removeItem(LS_ADMINKEY);
+  var v=$('fVoice').value.trim();
+  if(v)localStorage.setItem('bic_voice',v);else localStorage.removeItem('bic_voice');
+  saveCfg();applyBranding();
+  document.title='Panel Admin — '+(CFG.brandL1+' '+CFG.brandL2).trim();
+  fillAdminForm();
+  showFeedback('Tersimpan! ✅',true);
+}
+function resetBranding(){
+  if(!confirm('Kembalikan pengaturan merek ke bawaan? (Password admin ikut direset)'))return;
+  CFG=Object.assign({},DEFAULT_CFG);saveCfg();applyBranding();fillAdminForm();
+  showFeedback('Merek direset',true);
+}
+/* Progres pemain milik game; di sini cukup hapus kuncinya lalu game membaca ulang. */
+function resetProgress(){
+  if(!confirm('Hapus semua bintang, XP, badge, dan riwayat di perangkat ini?'))return;
+  localStorage.removeItem(LS_PROG);
+  showFeedback('Progres dihapus (muat ulang game untuk melihatnya)',true);
+}
+
+/* ==================================================== tab konten */
+var contentKey='huruf';
+var CONTENT_KEYS=['huruf','antonim','sinonim','warna','beda','suku','kalimat','tanda','katadepan','baku','baca',
+  'katatanya','imbuhan','kapital','jeniskata','peribahasa','cerita'];
+function initContentEditor(){
+  var chips=$('contentChips');chips.innerHTML='';
+  CONTENT_KEYS.forEach(function(k){
+    var b=document.createElement('button');
+    b.className=(k===contentKey?'on':'');b.textContent=k;
+    b.onclick=function(){contentKey=k;initContentEditor();};
+    chips.appendChild(b);
+  });
+  loadContentArea();
+  $('contentHelp').textContent=CONTENT_HELP[contentKey];
+  $('btnSrv').disabled=!ONLINE;
+  $('btnSrv').title=ONLINE?'':'Butuh mode server (Redis)';
+}
+function loadContentArea(){
+  $('contentArea').value=JSON.stringify(currentContent()[contentKey],null,1);
+  validateArea();
+}
+function loadContentDefault(){
+  $('contentArea').value=JSON.stringify(DEF_CONTENT[contentKey],null,1);
+  validateArea();
+  showFeedback('Dimuat dari bawaan (belum disimpan)',true);
+}
+/* Validasi hidup: beri tahu JSON rusak sebelum tombol Simpan ditekan. */
+function validateArea(){
+  var el=$('contentArea'),st=$('contentStat');
+  try{
+    var v=JSON.parse(el.value);
+    if(!Array.isArray(v)||!v.length){el.classList.add('jsonerr');st.textContent='⚠ Harus berupa array tidak kosong.';return null;}
+    el.classList.remove('jsonerr');
+    st.textContent='✅ JSON valid — '+v.length+' soal.';
+    return v;
+  }catch(e){
+    el.classList.add('jsonerr');st.textContent='⚠ JSON tidak valid: '+e.message;return null;
+  }
+}
+function saveContentLocal(){
+  var v=validateArea();if(!v){showFeedback('Perbaiki JSON dulu',false);return;}
+  var m={};m[contentKey]=v;applyContent(m);
+  var stored=storedContent();stored[contentKey]=v;
+  localStorage.setItem(LS_CONTENT,JSON.stringify(stored));
+  showFeedback('Konten "'+contentKey+'" disimpan lokal ✅',true);
+}
+async function saveContentServer(){
+  if(!ONLINE){showFeedback('Butuh mode server (Redis)',false);return;}
+  var key=localStorage.getItem(LS_ADMINKEY)||$('fAdminKey').value;
+  if(!key){showFeedback('Isi "Kunci server admin" di tab Merek dulu',false);adminTab('brand');return;}
+  var v=validateArea();if(!v){showFeedback('Perbaiki JSON dulu',false);return;}
+  var m={};m[contentKey]=v;applyContent(m);
+  try{
+    var res=await fetch('/api/content',{method:'POST',
+      headers:{'Content-Type':'application/json','x-admin-key':key},
+      body:JSON.stringify({content:currentContent()})});
+    var j=await res.json();
+    if(j.ok)showFeedback('Konten disimpan ke server (berlaku untuk semua) ☁',true);
+    else showFeedback('Gagal: '+(j.error||'?'),false);
+  }catch(e){showFeedback('Gagal menyimpan ke server',false);}
+}
+
+/* ==================================================== dashboard */
+async function loadDashboard(){
+  var msg=$('dashMsg');
+  if(!ONLINE){msg.textContent='Mode lokal — statistik agregat tidak tersedia. Aktifkan Redis (lihat PANDUAN-INSTALL.md tahap 2).';return;}
+  var key=localStorage.getItem(LS_ADMINKEY)||$('fAdminKey').value;
+  if(!key){msg.textContent='Isi "Kunci server admin" di tab Merek dulu.';return;}
+  try{
+    var res=await fetch('/api/stats',{headers:{'x-admin-key':key}});
+    var j=await res.json();
+    if(j.error){msg.textContent='Gagal: '+j.error;return;}
+    $('dsGames').textContent=j.games!=null?j.games:'—';
+    $('dsPlayers').textContent=j.players!=null?j.players:'—';
+    $('dsNames').textContent=(j.names||[]).map(esc).join(', ')||'—';
+    msg.textContent='Diperbarui '+new Date().toLocaleTimeString('id-ID');
+  }catch(e){msg.textContent='Gagal memuat statistik.';}
+}
+
+/* ==================================================== status kemampuan server */
+function renderCaps(){
+  $('ttsStatus').innerHTML=TTS_AVAILABLE
+    ? '<span class="dot-on">● Suara Gemini aktif</span>'
+    : '<span class="dot-off">● Gemini nonaktif</span> — pakai suara bawaan browser (set GEMINI_API_KEY di server untuk suara native).';
+  $('keyStatus').innerHTML=ADMIN_AVAILABLE
+    ? '<span class="dot-on">● ADMIN_KEY terpasang di server</span> — simpan ke server & dashboard bisa dipakai.'
+    : '<span class="dot-off">● ADMIN_KEY belum diset di server</span> — semua penulisan ke server akan ditolak.';
+  var rows=[
+    ['Mode server (Redis)',ONLINE,'papan bintang lintas perangkat + Live quiz'],
+    ['ADMIN_KEY',ADMIN_AVAILABLE,'simpan konten global + dashboard'],
+    ['Gemini TTS',TTS_AVAILABLE,'suara native Bahasa Indonesia'],
+  ];
+  $('capNote').innerHTML=rows.map(function(r){
+    return (r[1]?'<span class="dot-on">●</span> ':'<span class="dot-off">●</span> ')+
+      '<b>'+r[0]+'</b> — '+(r[1]?'aktif':'nonaktif')+'. <span style="color:var(--ink-soft)">'+r[2]+'</span>';
+  }).join('<br>')+'<br><br><span style="color:var(--ink-soft)">Cara mengaktifkan: lihat PANDUAN-INSTALL.md.</span>';
+}
+
+/* ==================================================== init */
+(function init(){
+  bootContent();
+  applyBranding();
+  /* applyBranding() menyetel title ke nama merek (benar untuk game). Di sini
+     kembalikan identitas halaman, tapi tetap ikut white-label. */
+  document.title='Panel Admin — '+(CFG.brandL1+' '+CFG.brandL2).trim();
+  detectCaps().then(function(){ if(isAdmin)fillAdminForm(); renderCaps(); });
+  setTimeout(function(){$('loginPass').focus();},60);
+})();
+</script>
+</body>
+</html>

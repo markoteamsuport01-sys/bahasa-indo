@@ -1,0 +1,1434 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0CA678">
+<meta name="description" content="Game edukasi Bahasa Indonesia: kosakata, kalimat, tanda baca, membaca, menyimak. Main sendiri atau bareng teman.">
+<title>Petualangan Bahasa Indonesia Ceria</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+<style>
+.starchip{background:#fff;color:var(--ink);border-radius:999px;padding:6px 16px;font-weight:700;font-size:1rem;display:flex;align-items:center;gap:6px;box-shadow:0 3px 8px rgba(0,0,0,.12);white-space:nowrap}
+.codebox{display:inline-flex;align-items:center;gap:10px;border:2px dashed var(--accent);border-radius:14px;padding:10px 14px;margin-top:10px;flex-wrap:wrap}
+.codebox .k{font-size:.66rem;font-weight:700;text-transform:uppercase;color:var(--ink-soft);line-height:1.1;max-width:44px}
+.codebox .code{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.3rem;letter-spacing:1px}
+.modenote{font-size:.76rem;color:var(--ink-soft);margin-top:10px;line-height:1.5}
+.dot-off{color:var(--amber);font-weight:700}
+.selgrid{display:flex;gap:12px;flex-wrap:wrap;margin-top:4px}
+.selcard{flex:1;min-width:150px;border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;text-align:left;transition:transform .1s}
+.selcard:active{transform:scale(.98)}
+.selcard .n{font-family:'Baloo 2',cursive;font-weight:700;font-size:1.05rem}
+.selcard .d{font-size:.75rem;color:var(--ink-soft);margin-top:2px;line-height:1.35}
+.selcard.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.selcard.on .d{color:var(--accent-ink);opacity:.92}
+.quickbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:12px 16px;margin-bottom:18px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+.qinfo{display:flex;gap:8px;flex-wrap:wrap}
+.qchip{display:inline-flex;align-items:center;gap:7px;border:1.5px dashed var(--line);border-radius:999px;padding:5px 13px}
+.qchip .k{font-size:.6rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.qchip b{font-family:'Baloo 2',cursive;font-weight:800;font-size:.98rem}
+.gamegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media(max-width:640px){.gamegrid{grid-template-columns:1fr 1fr}}
+@media(max-width:380px){.gamegrid{grid-template-columns:1fr}}
+.gcard{background:#fff;border:2px solid;border-radius:18px;padding:16px 12px;text-align:center;transition:transform .15s;position:relative}
+.gcard:active{transform:scale(.96)}
+.gcard .ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.7rem;margin:0 auto 8px}
+.gcard .gname{font-family:'Baloo 2',cursive;font-weight:700;font-size:1rem;line-height:1.15}
+.gcard .gsub{font-size:.72rem;color:var(--ink-soft);margin-top:2px}
+.gcard .gbest{font-size:.7rem;color:var(--ink-soft);margin-top:6px;min-height:1em}
+.lbrow{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;background:#faf7ef;margin-top:8px}
+.lbrow .rank{font-weight:800;font-family:'Baloo 2',cursive;width:26px;text-align:center}
+.lbrow .who{flex:1;min-width:0}
+.lbrow .who .nm{font-weight:700}
+.lbrow .who .mt{font-size:.72rem;color:var(--ink-soft)}
+.lbrow .st{font-weight:800;color:var(--amber);white-space:nowrap}
+.lbrow.me{outline:2px solid var(--accent)}
+.lbempty{font-size:.85rem;color:var(--ink-soft);padding:10px 2px}
+.gamehead{border-radius:18px;padding:14px 18px;color:#fff;margin-bottom:14px}
+.gamehead .t{font-family:'Baloo 2',cursive;font-weight:700;font-size:1.2rem}
+.gamehead .s{font-size:.78rem;opacity:.95}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:600;font-size:.9rem}
+.dots{display:flex;gap:5px}
+.dot{width:12px;height:12px;border-radius:50%;background:#fff;border:2px solid #cfcfda}
+.dot.ok{background:var(--green);border-color:var(--green)}
+.dot.bad{background:var(--coral);border-color:var(--coral)}
+.dot.now{border-color:var(--ink)}
+.qcard{background:#fff;border:3px solid;border-radius:22px;padding:22px 18px;text-align:center;min-height:180px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.qcard .bigemoji{font-size:3.6rem;line-height:1}
+.qcard .qword{font-family:'Baloo 2',cursive;font-weight:800;font-size:2.1rem;letter-spacing:2px}
+.qcard .qtext{font-size:1.08rem;font-weight:600;line-height:1.5}
+.qcard .qpara{background:var(--blue-bg);border-radius:14px;padding:12px;font-size:.92rem;text-align:left;line-height:1.6}
+.qcard .hint{font-size:.8rem;color:var(--ink-soft)}
+.speakbtn{align-self:center;background:var(--accent);color:#fff;border-radius:999px;padding:12px 22px;font-weight:700;font-size:1rem}
+.miniSpk{align-self:center;background:#fff;border:2px solid var(--accent);color:var(--accent);border-radius:999px;padding:6px 16px;font-weight:700;font-size:.85rem;margin-top:2px}
+.miniSpk:active{transform:scale(.94)}
+.slots{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;min-height:52px}
+.slot{min-width:52px;height:48px;border-bottom:4px dotted #c8c8d6;border-radius:6px;font-family:'Baloo 2',cursive;font-weight:800;font-size:1.5rem;display:flex;align-items:center;justify-content:center;padding:0 8px}
+.slot.filled{border-bottom-style:solid}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.answers.wide{grid-template-columns:1fr}
+.answers.tri{grid-template-columns:repeat(3,1fr)}
+.abtn{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:14px 10px;font-weight:700;font-size:1.05rem;color:var(--ink);box-shadow:0 4px 0 var(--ink);transition:transform .1s}
+.abtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.abtn.correct{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 0 #2b8c3c}
+.abtn.wrong{background:var(--coral);border-color:var(--coral);color:#fff;box-shadow:0 4px 0 #d84f4f;animation:shake .35s}
+.abtn.picked{outline:3px solid var(--blue);outline-offset:2px}
+.abtn:disabled{cursor:default;opacity:.9}
+.abtn.tile{font-family:'Baloo 2',cursive;font-size:1.3rem;padding:12px}
+.abtn.bigemo{font-size:2rem;padding:16px}
+.abtn.used{opacity:.25;pointer-events:none}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.util{display:flex;justify-content:center;gap:10px;margin-top:12px}
+.util button{border:2px solid var(--ink-soft);color:var(--ink-soft);border-radius:999px;padding:7px 16px;font-weight:600;font-size:.85rem}
+/* live */
+.livebar{height:12px;border-radius:999px;background:#eee;overflow:hidden;margin-bottom:12px}
+.livebar > i{display:block;height:100%;background:var(--accent);width:100%;transition:width .2s linear}
+.livegrid{display:grid;grid-template-columns:1fr 240px;gap:16px}
+@media(max-width:720px){.livegrid{grid-template-columns:1fr}}
+.playerchip{display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:10px;background:#faf7ef;margin-top:6px}
+.playerchip .pdot{width:9px;height:9px;border-radius:50%;background:#c8c8d6}
+.playerchip .pdot.on{background:var(--green)}
+.playerchip .ps{margin-left:auto;font-weight:800;color:var(--amber)}
+.livetype{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.livetype button{border:2px solid var(--line);border-radius:14px;padding:12px 8px;font-weight:700;text-align:center}
+.livetype button.on{border-color:var(--accent);background:var(--teal-bg)}
+.livetype button .e{font-size:1.6rem;display:block}
+.feedback.bad{background:var(--coral)}
+.badgetoast{position:fixed;left:50%;top:78px;transform:translateX(-50%) translateY(-160%);background:#fff;color:var(--ink);border:2px solid var(--amber);border-radius:16px;padding:12px 18px;z-index:120;transition:transform .3s;box-shadow:0 8px 24px rgba(0,0,0,.15);display:flex;gap:10px;align-items:center;max-width:90%}
+.badgetoast.show{transform:translateX(-50%) translateY(0)}
+.badgetoast .be{font-size:1.8rem}
+.confetti{position:fixed;top:-12px;border-radius:3px;z-index:60;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+.resHead{text-align:center;margin-bottom:14px}
+.resHead .stars{font-size:1.8rem;letter-spacing:4px}
+.resHead .nm{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.5rem;margin-top:2px}
+.statgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.reslink{text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.bigbtn{border-radius:999px;padding:11px 24px;font-family:'Baloo 2',cursive;font-weight:700;font-size:1rem;color:#fff}
+.bigbtn.play{background:var(--green)}
+.bigbtn.menu{background:var(--blue)}
+.bigbtn.coral{background:var(--coral)}
+.bigbtn:active{transform:translateY(2px)}
+.newbadges{margin-top:12px;text-align:center;font-size:.85rem}
+.newbadges .nb{display:inline-flex;align-items:center;gap:5px;background:var(--amber-bg);border-radius:999px;padding:4px 10px;margin:3px;font-weight:600}
+/* profile */
+.xpbar{height:14px;border-radius:999px;background:#eee;overflow:hidden;margin:6px 0}
+.xpbar > i{display:block;height:100%;background:var(--accent)}
+.badgegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:8px}
+.badge{border:1.5px solid var(--line);border-radius:14px;padding:10px 6px;text-align:center;opacity:.35}
+.badge.have{opacity:1;border-color:var(--amber);background:var(--amber-bg)}
+.badge .be{font-size:1.6rem}
+.badge .bn{font-size:.68rem;font-weight:700;margin-top:2px;line-height:1.2}
+.hist{margin-top:8px;max-height:180px;overflow:auto}
+.histrow{display:flex;justify-content:space-between;gap:8px;font-size:.8rem;padding:7px 4px;border-bottom:1px solid var(--line)}
+.histrow .hg{font-weight:600}
+.histrow .hm{color:var(--ink-soft)}
+.footer{text-align:center;margin-top:24px;color:var(--ink-soft);font-size:.78rem;line-height:1.7}
+.footer .adminlink{color:var(--ink-soft);text-decoration:underline;font-size:.78rem}
+/* ---- sapaan + pangkat ---- */
+.greetcard{display:flex;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px 18px;margin-bottom:14px;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+.greetcard .av{width:58px;height:58px;border-radius:50%;background:var(--teal-bg);display:grid;place-items:center;font-size:2rem;flex:0 0 auto;transition:transform .15s}
+.greetcard .av:active{transform:scale(.92)}
+.greetcard .gt{flex:1;min-width:0}
+.greetcard .gt h1{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.4rem;line-height:1.15}
+.greetcard .rk{font-size:.8rem;color:var(--ink-soft);margin-top:2px}
+.greetcard .rk b{color:var(--accent)}
+.rankbar{height:7px;border-radius:999px;background:#ececf2;overflow:hidden;margin-top:7px;max-width:280px}
+.rankbar>i{display:block;height:100%;background:var(--accent);transition:width .6s ease}
+/* ---- misi harian ---- */
+.mission{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px dashed var(--line)}
+.mission:last-child{border-bottom:0}
+.mission .mi{font-size:1.2rem;width:26px;text-align:center;flex:0 0 auto}
+.mission .mt{flex:1;min-width:0}
+.mission .mn{font-weight:600;font-size:.87rem;line-height:1.3}
+.mission .mbar{height:6px;border-radius:999px;background:#ececf2;overflow:hidden;margin-top:5px}
+.mission .mbar>i{display:block;height:100%;background:var(--amber);transition:width .5s}
+.mission .mc{font-size:.74rem;color:var(--ink-soft);font-weight:700;white-space:nowrap}
+.mission.done .mn{color:var(--green)}
+.mission.done .mbar>i{background:var(--green)}
+.streakchip{display:inline-flex;align-items:center;gap:5px;background:var(--amber-bg);color:#a05a00;border-radius:999px;padding:3px 11px;font-size:.74rem;font-weight:700;white-space:nowrap}
+/* ---- baris statistik ---- */
+.statsrow{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+@media(max-width:560px){.statsrow{grid-template-columns:1fr 1fr}}
+.statcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 10px;text-align:center;box-shadow:0 6px 18px rgba(0,0,0,.04)}
+.statcard .n{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.55rem;color:var(--accent);line-height:1}
+.statcard .l{font-size:.6rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-top:5px}
+/* ---- tab peta/daftar ---- */
+.viewtabs{display:inline-flex;gap:4px;background:#ececf2;border-radius:999px;padding:4px;margin-bottom:14px}
+.viewtabs button{border-radius:999px;padding:6px 16px;font-weight:700;font-size:.82rem;color:var(--ink-soft)}
+.viewtabs button.on{background:#fff;color:var(--ink);box-shadow:0 2px 6px rgba(0,0,0,.1)}
+/* ---- kartu terkunci ---- */
+.gcard.locked{border-color:var(--line)!important;background:#f4f4f8;box-shadow:none}
+.gcard.locked .ic{background:#e6e6ee!important;color:#9a9aab!important}
+.gcard.locked .gname{color:#9a9aab!important}
+.gcard.locked .gsub,.gcard.locked .gbest{color:#a8a8b8}
+.gcard .flag{position:absolute;top:-8px;right:-6px;background:var(--coral);color:#fff;font-size:.58rem;font-weight:700;border-radius:999px;padding:3px 9px;letter-spacing:.05em}
+.gcard .gstars{letter-spacing:1px}
+/* ---- peta petualangan ---- */
+.mapwrap{position:relative;padding:4px 0 8px;margin-bottom:18px}
+.mapwrap::before{content:'';position:absolute;left:50%;top:6px;bottom:6px;width:5px;margin-left:-2.5px;background:repeating-linear-gradient(180deg,var(--line) 0 9px,transparent 9px 18px);border-radius:999px}
+.mapnode{position:relative;display:flex;align-items:center;gap:12px;width:min(100%,430px);margin-bottom:12px;padding:11px 14px;background:#fff;border:2px solid;border-radius:18px;text-align:left;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.mapnode.right{margin-left:auto}
+.mapnode .mo{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;font-size:1.45rem;flex:0 0 auto}
+.mapnode .mb{flex:1;min-width:0}
+.mapnode .mname{font-family:'Baloo 2',cursive;font-weight:700;font-size:.98rem;line-height:1.15}
+.mapnode .mmeta{font-size:.7rem;color:var(--ink-soft);margin-top:2px}
+.mapnode .mst{font-size:.82rem;letter-spacing:1px;white-space:nowrap}
+.mapnode.locked{background:#f4f4f8;border-color:var(--line)!important}
+.mapnode.locked .mo{background:#e6e6ee!important;color:#9a9aab!important}
+.mapnode.locked .mname{color:#9a9aab}
+/* ---- koleksi: lencana + album stiker ---- */
+.collhead{font-size:.68rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin:15px 0 8px}
+.lencana{display:flex;flex-wrap:wrap;gap:8px}
+.lenc{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;font-size:.78rem;font-weight:600;opacity:.5}
+.lenc.have{opacity:1;border-color:var(--amber);background:var(--amber-bg)}
+.lenc .lc{font-size:.7rem;color:var(--ink-soft);font-weight:700}
+.stickers{display:grid;grid-template-columns:repeat(10,1fr);gap:7px}
+@media(max-width:560px){.stickers{grid-template-columns:repeat(6,1fr)}}
+.stk{aspect-ratio:1;border-radius:12px;border:1.5px dashed var(--line);display:grid;place-items:center;font-size:1.1rem;color:#c9c9d4;background:#fbfbfd}
+.stk.have{border-style:solid;border-color:var(--amber);background:var(--amber-bg);color:inherit}
+.stkinfo{font-size:.75rem;color:var(--ink-soft);text-align:center;margin-top:10px}
+.stkinfo a{color:var(--ink-soft)}
+/* ---- panel aplikasi ---- */
+.appline{display:flex;align-items:center;gap:11px;padding:10px 12px;border-radius:13px;background:#faf7ef;margin-top:9px}
+.appline .ai{font-size:1.1rem}
+.appline .at{flex:1;min-width:0}
+.appline .an{font-weight:600;font-size:.85rem}
+.appline .ad{font-size:.72rem;color:var(--ink-soft);margin-top:1px}
+.appline.ok{background:var(--green-bg)}
+.appline.warn{background:var(--amber-bg)}
+/* ---- popup pasang aplikasi (PWA) ---- */
+.instwrap{position:fixed;inset:0;z-index:130;display:flex;align-items:flex-end;justify-content:center;background:rgba(20,20,35,.55);animation:instFade .22s ease}
+.instcard{position:relative;background:#fff;width:100%;max-width:470px;max-height:92vh;overflow:auto;border-radius:26px 26px 0 0;padding:14px 20px calc(20px + env(safe-area-inset-bottom,0px));box-shadow:0 -12px 40px rgba(0,0,0,.28);animation:instUp .3s cubic-bezier(.2,.9,.3,1)}
+@media(min-width:560px){.instwrap{align-items:center;padding:18px}.instcard{border-radius:26px;padding-bottom:20px;animation:instPop .24s ease}}
+.instgrab{width:44px;height:5px;border-radius:999px;background:#e6e6ee;margin:0 auto 13px}
+@media(min-width:560px){.instgrab{display:none}}
+.insthead{display:flex;align-items:center;gap:13px;padding-right:30px}
+.insticon{width:58px;height:58px;border-radius:16px;object-fit:cover;background:var(--accent);box-shadow:0 4px 12px rgba(0,0,0,.16);flex:0 0 auto}
+.insttitle{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.22rem;line-height:1.15}
+.instsub{font-size:.76rem;color:var(--ink-soft);margin-top:2px}
+.instclose{position:absolute;top:12px;right:12px;width:32px;height:32px;border-radius:50%;background:#f1f1f6;color:var(--ink-soft);font-size:1rem;line-height:1;z-index:2}
+.instperks,.inststeps{display:grid;gap:8px;margin:14px 0 2px}
+.instperk,.inststep{display:flex;gap:10px;background:#faf7ef;border-radius:13px;padding:10px 12px}
+.instperk{align-items:center}
+.inststep{align-items:flex-start}
+.instperk .pe{font-size:1.15rem}
+.instperk .pt{font-weight:600;font-size:.82rem}
+.instperk .pd{font-size:.71rem;color:var(--ink-soft);margin-top:1px}
+.inststep .sn{flex:0 0 auto;width:22px;height:22px;border-radius:50%;background:var(--accent);color:var(--accent-ink);font-weight:800;font-size:.75rem;display:grid;place-items:center;margin-top:1px}
+.inststep .sx{font-size:.81rem;line-height:1.5}
+.instkey{display:inline-flex;align-items:center;gap:4px;background:#fff;border:1.5px solid var(--line);border-radius:8px;padding:1px 7px;font-weight:700;font-size:.76rem;white-space:nowrap}
+.instacts{display:flex;gap:9px;margin-top:16px}
+.instacts .btn{flex:1;padding:13px 14px;border-radius:14px;font-size:.92rem;font-weight:700}
+.instacts .btn.solid{font-family:'Baloo 2',cursive;font-size:1.05rem}
+.instnote{font-size:.7rem;color:var(--ink-soft);text-align:center;margin-top:11px}
+@keyframes instUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes instPop{from{transform:scale(.94);opacity:0}to{transform:none;opacity:1}}
+@keyframes instFade{from{opacity:0}to{opacity:1}}
+/* ---- interaktif & animasi ---- */
+.soundbtn{background:#fff;color:var(--ink);border-radius:999px;width:38px;height:38px;font-size:1.1rem;box-shadow:0 3px 8px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center}
+.soundbtn:active{transform:scale(.9)}
+/* setup wizard */
+.wizard{max-width:560px;margin:4vh auto 0}
+.steps{display:flex;align-items:flex-start;justify-content:center;margin-bottom:18px}
+.steps .st{display:flex;flex-direction:column;align-items:center;gap:6px;flex:0 0 auto}
+.steps .bub{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);background:var(--card);display:grid;place-items:center;font-family:'Baloo 2',cursive;font-weight:800;font-size:1rem;color:var(--ink-soft);transition:transform .2s,background .2s}
+.steps .st.on .bub{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);transform:scale(1.12)}
+.steps .st.done .bub{background:var(--green);border-color:var(--green);color:#fff}
+.steps .lbl{font-size:.64rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft)}
+.steps .st.on .lbl{color:var(--ink)}
+.steps .bar{flex:1;height:3px;min-width:14px;background:var(--line);border-radius:2px;margin:16px 6px 0}
+.steps .bar.done{background:var(--green)}
+.wizinput{width:100%;border:2.5px solid var(--accent);border-radius:14px;padding:12px 16px;font-size:1rem;text-align:center}
+.wizjoin{display:flex;gap:6px;margin-top:12px}
+.wizjoin input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font-weight:700;text-transform:uppercase}
+.wizsum{margin-top:14px;border-top:1px dashed var(--line);padding-top:12px;font-size:.84rem;color:var(--ink-soft);line-height:1.8}
+.wizsum b{color:var(--ink)}
+@media(max-width:420px){.steps .lbl{display:none}}
+@keyframes cardIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+.qcard{animation:cardIn .26s ease}
+@keyframes cardPop{0%{opacity:0;transform:scale(.9)}60%{transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}
+.gcard{animation:cardPop .3s ease backwards}
+@keyframes correctPop{0%{transform:scale(1)}40%{transform:scale(1.13)}100%{transform:scale(1)}}
+.abtn.correct{animation:correctPop .45s ease}
+@keyframes chipPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.2)}}
+.starchip.pulse{animation:chipPulse .5s ease}
+@keyframes mascotPop{0%{transform:scale(1)}30%{transform:scale(1.5) rotate(-10deg)}100%{transform:scale(1)}}
+#ghMascot{display:inline-block}
+#ghMascot.react{animation:mascotPop .5s ease}
+.floatmsg{position:fixed;left:50%;top:42%;font-family:'Baloo 2',cursive;font-weight:800;font-size:2.2rem;color:var(--accent);z-index:110;pointer-events:none;animation:floatUp 1s ease forwards;text-shadow:0 3px 0 #fff,0 0 12px rgba(0,0,0,.15)}
+@keyframes floatUp{0%{opacity:0;transform:translate(-50%,20px) scale(.7)}25%{opacity:1;transform:translate(-50%,0) scale(1.1)}100%{opacity:0;transform:translate(-50%,-70px) scale(1)}}
+.sparkle{position:fixed;z-index:110;pointer-events:none;font-size:1.3rem;animation:sparkleAnim .7s ease forwards}
+@keyframes sparkleAnim{0%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(var(--dx),var(--dy)) scale(.3)}}
+.livebar > i{transition:width .2s linear,background .3s}
+.livebar.low > i{background:var(--coral)}
+</style>
+</head>
+<body>
+
+<div class="appbar">
+  <div class="inner">
+    <div class="brand" id="brandBox">Bahasa Indonesia Ceria<small>Bermain sambil belajar Bahasa Indonesia!</small></div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="soundbtn" id="soundBtn" onclick="toggleSound()" aria-label="Nyala/matikan suara" title="Suara">🔊</button>
+      <div class="starchip" title="Total bintang">⭐ <span id="totalStars">0</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- SETUP WIZARD -->
+  <div id="setup" class="hidden">
+    <div class="wizard">
+      <div class="steps" id="stepBar"></div>
+
+      <div class="panel" style="padding:28px 24px">
+        <!-- 1. Nama -->
+        <div id="step0" class="hidden" style="text-align:center">
+          <span style="font-size:3rem;display:inline-block" id="gateMascot">⭐</span>
+          <h2 style="font-size:1.7rem;margin-top:10px">Halo, teman kecil!</h2>
+          <p style="color:var(--ink-soft);margin:6px 0 18px">Siapa namamu? Ayo kumpulkan bintang sebanyak-banyaknya!</p>
+          <input id="nameInput" class="wizinput" placeholder="Tulis namamu di sini" maxlength="24" aria-label="Nama pemain"
+                 onkeydown="if(event.key==='Enter')wizNext()">
+        </div>
+
+        <!-- 2. Level -->
+        <div id="step1" class="hidden">
+          <div class="plabel">Level</div>
+          <div class="ptitle">Pilih tingkat tantangan</div>
+          <div class="pdesc">Bisa diganti kapan saja dari menu utama.</div>
+          <div class="selgrid" id="wizLevelGrid" style="margin-top:10px"></div>
+        </div>
+
+        <!-- 3. Fokus -->
+        <div id="step2" class="hidden">
+          <div class="plabel">Fokus belajar</div>
+          <div class="ptitle">Mau belajar apa hari ini?</div>
+          <div class="pdesc">Pilih satu bidang, atau "Semua" untuk semua permainan.</div>
+          <div class="selgrid" id="wizFocusGrid" style="margin-top:10px"></div>
+        </div>
+
+        <!-- 4. Main -->
+        <div id="step3" class="hidden" style="text-align:center">
+          <span style="font-size:3rem;display:inline-block">🚀</span>
+          <h2 style="font-size:1.6rem;margin-top:8px">Siap bertualang!</h2>
+          <div class="wizsum" id="wizSummary" style="text-align:left"></div>
+          <div class="modenote" id="wizModeNote" style="text-align:left"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <button class="btn" id="wizBack" onclick="wizGo(STEP-1)">⬅ Kembali</button>
+        <div style="flex:1"></div>
+        <button class="bigbtn coral" id="wizNext" onclick="wizNext()">Lanjut ➡</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOME -->
+  <div id="home" class="hidden">
+    <div class="greetcard">
+      <button class="av" id="greetMascot" onclick="openProfile()" aria-label="Buka profil" title="Profil">⭐</button>
+      <div class="gt">
+        <h1>Halo, <span id="greetName">teman</span>! 👋</h1>
+        <div class="rk" id="greetRank"></div>
+        <div class="rankbar"><i id="rankFill" style="width:0%"></i></div>
+      </div>
+      <button class="btn" onclick="changePlayer()">Ganti pemain</button>
+    </div>
+
+    <div class="quickbar">
+      <div class="qinfo">
+        <span class="qchip"><span class="k">Level</span><b id="roomLevel">Pemula</b></span>
+        <span class="qchip"><span class="k">Fokus</span><b id="focusTitle">Semua</b></span>
+      </div>
+      <div class="row">
+        <button class="btn sm" onclick="showSetup(1)">⚙️ Ubah</button>
+      </div>
+    </div>
+
+    <!-- misi harian -->
+    <div class="panel">
+      <div class="row" style="justify-content:space-between">
+        <div class="ptitle" style="font-size:1.15rem">🎯 Misi Hari Ini</div>
+        <span class="streakchip" id="streakChip">🔥 0 hari beruntun</span>
+      </div>
+      <div class="pdesc">Selesaikan untuk bonus 5 ⭐ tiap misi. Misi baru tiap hari.</div>
+      <div id="missionList"></div>
+    </div>
+
+    <!-- main bersama -->
+    <div class="panel">
+      <div class="plabel">Main bersama</div>
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div style="flex:1;min-width:180px">
+          <div class="ptitle" style="font-size:1.2rem">Kamu main sendiri</div>
+          <div class="pdesc">Buat room lalu bagikan kodenya, atau masukkan kode dari temanmu. Room kamu sekarang: <b id="roomCode">—</b></div>
+        </div>
+        <button class="btn solid sm" onclick="goLive()">+ Buat room</button>
+      </div>
+      <div class="wizjoin">
+        <input id="homeJoin" placeholder="Punya kode? Ketik di sini" maxlength="8" aria-label="Kode room teman"
+               onkeydown="if(event.key==='Enter')joinRoom()">
+        <button class="btn" onclick="joinRoom()">Masuk</button>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn sm" onclick="newRoom()">Buat kode baru</button>
+        <button class="btn sm" onclick="copyCode()">Salin kode</button>
+        <button class="btn sm" onclick="shareRoom()">Bagikan link</button>
+      </div>
+      <div class="modenote" id="modeNote"></div>
+    </div>
+
+    <div class="statsrow">
+      <div class="statcard"><div class="n" id="stcGames">0</div><div class="l">Permainan</div></div>
+      <div class="statcard"><div class="n" id="stcStars">0</div><div class="l">Bintangmu</div></div>
+      <div class="statcard"><div class="n" id="stcStick">0</div><div class="l">Stiker</div></div>
+      <div class="statcard"><div class="n" id="stcStreak">0</div><div class="l">Hari beruntun</div></div>
+    </div>
+
+    <div class="viewtabs">
+      <button id="tabMap" onclick="setView('map')">🗺️ Peta</button>
+      <button id="tabList" onclick="setView('list')">☰ Daftar</button>
+    </div>
+    <div class="gamegrid" id="gameGrid"></div>
+    <div class="mapwrap hidden" id="gameMap"></div>
+
+    <!-- koleksi -->
+    <div class="panel" style="margin-top:18px">
+      <div class="ptitle" style="font-size:1.15rem">🎁 Koleksiku</div>
+      <div class="pdesc">Kumpulkan bintang untuk membuka stiker, dan dapat ⭐⭐⭐ di semua permainan satu fokus untuk mendapat lencananya.</div>
+      <div class="collhead">🏅 Lencana Ahli</div>
+      <div class="lencana" id="lencanaList"></div>
+      <div class="collhead">🎟️ Album Stiker</div>
+      <div class="stickers" id="stickerGrid"></div>
+      <div class="stkinfo" id="stickerInfo"></div>
+    </div>
+
+    <div class="panel">
+      <div class="row" style="justify-content:space-between">
+        <div>
+          <div class="ptitle">🏆 Papan bintang <span id="lbRoomTag" style="font-size:.8rem;color:var(--ink-soft);font-weight:400"></span></div>
+          <div class="pdesc" id="lbHint"></div>
+        </div>
+        <button class="btn sm" onclick="refreshBoard(true)">Refresh</button>
+      </div>
+      <div id="lbList"></div>
+    </div>
+
+    <!-- aplikasi -->
+    <div class="panel">
+      <div class="row" style="justify-content:space-between">
+        <div class="ptitle" style="font-size:1.15rem">📱 Aplikasi</div>
+        <span class="pdesc" id="appVer"></span>
+      </div>
+      <div id="appLines"></div>
+      <div class="stkinfo"><a href="#" onclick="refreshShell();return false">Ada yang aneh? Muat ulang isi terbaru</a></div>
+    </div>
+
+    <div class="footer">
+      <div id="footerText">Dibuat dengan ❤ untuk belajar Bahasa Indonesia</div>
+      <a class="adminlink" href="#" onclick="resetProgress();return false">Reset progres</a> ·
+      <a class="adminlink" href="admin.html">Admin</a>
+    </div>
+  </div>
+
+  <!-- GAME -->
+  <div id="game" class="hidden">
+    <div class="row" style="margin-bottom:12px"><button class="btn sm" onclick="goHome()">⬅ Menu</button></div>
+    <div class="gamehead" id="gameHead"><div style="display:flex;justify-content:space-between;align-items:center;gap:10px"><div><div class="t" id="ghTitle"></div><div class="s" id="ghSub"></div></div><span id="ghMascot" style="font-size:1.7rem">🙂</span></div></div>
+    <div class="hud"><div>Skor: <span id="hudScore">0</span></div><div class="dots" id="hudDots"></div></div>
+    <div id="playArea"></div>
+  </div>
+
+  <!-- LIVE -->
+  <div id="live" class="hidden">
+    <div class="row" style="margin-bottom:12px">
+      <button class="btn sm" onclick="leaveLive()">⬅ Keluar Live</button>
+      <div style="font-weight:700">🎮 Live Room <span id="liveCode"></span></div>
+    </div>
+    <div id="liveArea"></div>
+  </div>
+
+
+</div>
+
+<div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+<div class="badgetoast" id="badgeToast" role="status" aria-live="polite"></div>
+
+
+<!-- result modal -->
+<div class="overlay hidden" id="resultModal" role="dialog" aria-modal="true" aria-label="Hasil permainan">
+  <div class="modal">
+    <button class="x" onclick="closeResult()" aria-label="Tutup">✕</button>
+    <div class="resHead"><div class="stars" id="resStars">⭐</div><div class="nm" id="resName">Pemain</div></div>
+    <div class="statgrid">
+      <div class="statbox"><div class="l">Total bintang</div><div class="v" id="stTotal">0</div></div>
+      <div class="statbox"><div class="l">Room</div><div class="v" id="stRoom">—</div></div>
+      <div class="statbox"><div class="l">Game terakhir</div><div class="v" id="stGame">—</div></div>
+      <div class="statbox"><div class="l">Fokus</div><div class="v" id="stFocus">—</div></div>
+      <div class="statbox"><div class="l">Level pemain</div><div class="v" id="stPlv">—</div></div>
+      <div class="statbox"><div class="l">Benar</div><div class="v" id="stCorrect">—</div></div>
+      <div class="statbox"><div class="l">Perolehan ronde</div><div class="v" id="stDelta">—</div></div>
+      <div class="statbox"><div class="l">XP didapat</div><div class="v" id="stXp">—</div></div>
+    </div>
+    <div class="newbadges hidden" id="newBadges"></div>
+    <div class="reslink"><button class="bigbtn play" onclick="replay()">🔁 Main lagi</button><button class="bigbtn coral" onclick="closeResult()">Tutup</button></div>
+  </div>
+</div>
+
+<!-- profile modal -->
+<div class="overlay hidden" id="profileModal" role="dialog" aria-modal="true" aria-label="Profil pemain">
+  <div class="modal">
+    <button class="x" onclick="closeProfile()" aria-label="Tutup">✕</button>
+    <div id="profileBody"></div>
+  </div>
+</div>
+
+<!-- popup pasang aplikasi (PWA) -->
+<div class="instwrap hidden" id="installSheet" role="dialog" aria-modal="true" aria-labelledby="instTitle">
+  <div class="instcard" id="instCard">
+    <button class="instclose" onclick="closeInstall()" aria-label="Nanti saja">✕</button>
+    <div class="instgrab"></div>
+    <div class="insthead">
+      <img class="insticon" id="instIcon" src="icon-192.png" alt="" onerror="this.style.visibility='hidden'">
+      <div>
+        <div class="insttitle" id="instTitle">Pasang di layar utama</div>
+        <div class="instsub" id="instSub"></div>
+      </div>
+    </div>
+    <div id="instBody"></div>
+    <div class="instacts" id="instActs"></div>
+    <div class="instnote" id="instNote"></div>
+  </div>
+</div>
+
+<script src="shared.js"></script>
+<script>
+/* ==================================================== config */
+/* Konfigurasi merek, kunci localStorage, esc/contrast/applyBranding -> shared.js */
+
+/* ==================================================== player + progress */
+let player=localStorage.getItem(LS_PLAYER)||'';
+let prog=loadProgress();
+function loadProgress(){
+  const d={best:{},bestStars:{},totalStars:0,xp:0,streak:0,lastPlayed:'',history:[],badges:[],gamesPlayed:{},daily:null};
+  let p;
+  try{p={...d,...(JSON.parse(localStorage.getItem(LS_PROG)||'{}'))};}catch(e){return {...d};}
+  /* localStorage bisa rusak, tersisa dari versi lain, atau diedit tangan. Satu nilai
+     bertipe salah (mis. history berupa string) cukup untuk mematikan seluruh halaman,
+     jadi bentuknya dipaksa benar di satu tempat — di sini. */
+  const obj=v=>(v&&typeof v==='object'&&!Array.isArray(v))?v:{};
+  const num=v=>(typeof v==='number'&&isFinite(v))?v:0;
+  p.best=obj(p.best);p.bestStars=obj(p.bestStars);p.gamesPlayed=obj(p.gamesPlayed);
+  p.history=Array.isArray(p.history)?p.history:[];
+  p.badges=Array.isArray(p.badges)?p.badges:[];
+  p.totalStars=num(p.totalStars);p.xp=num(p.xp);p.streak=num(p.streak);
+  p.lastPlayed=typeof p.lastPlayed==='string'?p.lastPlayed:'';
+  if(!p.daily||typeof p.daily!=='object'||Array.isArray(p.daily))p.daily=null;
+  return p;
+}
+function saveProgress(){try{localStorage.setItem(LS_PROG,JSON.stringify(prog));}catch(e){}}
+/* Progres versi lama hanya menyimpan `best` (skor), belum `bestStars` — padahal
+   bintang per permainan itulah yang dipakai kartu, Lencana Ahli, dan tampilan Peta.
+   Tanpa pengisian ulang ini, pemain lama membuka menu dan melihat "Belum dimainkan"
+   di semua kartu meski bintangnya sudah banyak. Dipanggil sekali dari init(). */
+function migrateProgress(){
+  if(prog.starsMigrated)return;
+  prog.bestStars=prog.bestStars||{};
+  (prog.history||[]).forEach(h=>{
+    const gm=GAMES.find(g=>g.name===h.game);
+    if(gm&&(h.stars||0)>(prog.bestStars[gm.id]||0))prog.bestStars[gm.id]=h.stars;
+  });
+  /* Pernah dimainkan tapi sudah lewat dari 30 riwayat terakhir: tiap sesi selesai
+     selalu memberi minimal 1 bintang, jadi 1 adalah dasar yang aman. */
+  Object.keys(prog.best||{}).concat(Object.keys(prog.gamesPlayed||{}))
+    .forEach(id=>{if(GAMES.some(g=>g.id===id)&&!prog.bestStars[id])prog.bestStars[id]=1;});
+  prog.starsMigrated=true;saveProgress();
+}
+function playerLevel(xp){const lvl=1+Math.floor(xp/100);return {level:lvl,into:xp%100,need:100};}
+function todayStr(){const d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+function yesterdayStr(){const d=new Date(Date.now()-864e5);return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+
+const BADGES=[
+  {id:'mulai',emoji:'🌱',name:'Langkah Pertama',desc:'Main game pertamamu',check:p=>p.history.length>=1},
+  {id:'b25',emoji:'⭐',name:'Pengumpul Bintang',desc:'25 bintang',check:p=>p.totalStars>=25},
+  {id:'b75',emoji:'🌟',name:'Bintang Terang',desc:'75 bintang',check:p=>p.totalStars>=75},
+  {id:'b150',emoji:'💫',name:'Bintang Juara',desc:'150 bintang',check:p=>p.totalStars>=150},
+  {id:'sempurna',emoji:'🏆',name:'Sempurna!',desc:'Benar semua satu game',check:p=>p.history.some(h=>h.rounds>0&&h.correct===h.rounds)},
+  {id:'streak3',emoji:'🔥',name:'Rajin 3 Hari',desc:'Main 3 hari beruntun',check:p=>p.streak>=3},
+  {id:'streak7',emoji:'🔥',name:'Rajin Seminggu',desc:'Main 7 hari beruntun',check:p=>p.streak>=7},
+  {id:'kolektor',emoji:'🎒',name:'Kolektor',desc:'Coba semua permainan',check:p=>Object.keys(p.gamesPlayed||{}).length>=GAMES.length},
+  {id:'lvl5',emoji:'🚀',name:'Pemain Hebat',desc:'Capai level 5',check:p=>playerLevel(p.xp).level>=5}
+];
+
+/* ==================================================== room/mode */
+/* ONLINE, ADMIN_AVAILABLE -> shared.js */
+let room=localStorage.getItem(LS_ROOM)||'',pollTimer=null;
+function randCode(){const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=a[Math.floor(Math.random()*a.length)];return s;}
+function ensureRoom(){if(!room){room=randCode();localStorage.setItem(LS_ROOM,room);}}
+
+/* Bank soal + applyContent/currentContent -> shared.js */
+
+/* ==================================================== levels/cats/games */
+const LEVELS={beginner:{name:'Pemula',short:'Beginner',desc:'Kata pendek, 3 pilihan',opts:3,band:[0,6]},intermediate:{name:'Menengah',short:'Intermediate',desc:'Kata lebih panjang, 4 pilihan',opts:4,band:[5,8]},advanced:{name:'Mahir',short:'Advanced',desc:'Kalimat panjang, 5 pilihan',opts:5,band:[7,99]}};
+let level=localStorage.getItem('bic_level')||'beginner';
+const CATS=[{id:'all',name:'Semua',desc:'Semua permainan'},{id:'kosakata',name:'Kosakata',desc:'Kata, warna, lawan/persamaan'},{id:'kalimat',name:'Kalimat',desc:'Suku kata & susun kalimat'},{id:'tatabahasa',name:'Tata Bahasa',desc:'Tanda baca, imbuhan, huruf kapital'},{id:'membaca',name:'Membaca',desc:'Baca & jawab'},{id:'menyimak',name:'Menyimak',desc:'Dengar & pilih'},{id:'berhitung',name:'Berhitung',desc:'Angka, jumlah & soal cerita'},{id:'ungkapan',name:'Ungkapan',desc:'Peribahasa & ungkapan'}];
+let focus=localStorage.getItem('bic_focus')||'all';
+const GAMES=[
+  {id:'huruf',name:'Tebak Huruf',sub:'Huruf yang hilang',emoji:'🔤',color:'coral',cat:'kosakata'},
+  {id:'antonim',name:'Lawan Kata',sub:'Cari lawan katanya',emoji:'🔄',color:'purple',cat:'kosakata'},
+  {id:'dengar',name:'Dengar & Pilih',sub:'Simak, lalu pilih gambar',emoji:'👂',color:'teal',cat:'menyimak'},
+  {id:'suku',name:'Susun Suku Kata',sub:'Ketuk sesuai urutan',emoji:'🧩',color:'amber',cat:'kalimat'},
+  {id:'kalimat',name:'Susun Kalimat',sub:'Urutkan jadi kalimat',emoji:'📝',color:'green',cat:'kalimat'},
+  {id:'tanda',name:'Tanda Baca',sub:'Pilih tanda yang tepat',emoji:'❓',color:'blue',cat:'tatabahasa'},
+  {id:'baca',name:'Baca & Jawab',sub:'Baca dulu, lalu jawab',emoji:'📖',color:'teal',cat:'membaca'},
+  {id:'sinonim',name:'Persamaan Kata',sub:'Cari kata yang mirip',emoji:'🟰',color:'purple',cat:'kosakata'},
+  {id:'warna',name:'Tebak Warna',sub:'Apa nama warnanya?',emoji:'🎨',color:'coral',cat:'kosakata'},
+  {id:'beda',name:'Mana yang Beda?',sub:'Cari yang berbeda',emoji:'🧐',color:'amber',cat:'kosakata'},
+  {id:'katadepan',name:'Kata Depan',sub:'di, ke, atau dari?',emoji:'📍',color:'green',cat:'tatabahasa'},
+  {id:'angka',name:'Ayo Berhitung',sub:'Hitung jumlahnya',emoji:'🔢',color:'blue',cat:'berhitung'},
+  {id:'baku',name:'Kata Baku',sub:'Mana ejaan yang benar?',emoji:'📚',color:'purple',cat:'tatabahasa'},
+  {id:'katatanya',name:'Kata Tanya',sub:'apa, siapa, mengapa…',emoji:'❔',color:'blue',cat:'tatabahasa'},
+  {id:'imbuhan',name:'Imbuhan',sub:'me-, di-, pe-, ter-',emoji:'🔧',color:'green',cat:'tatabahasa'},
+  {id:'kapital',name:'Huruf Kapital',sub:'Kata mana yang kapital?',emoji:'🔠',color:'coral',cat:'tatabahasa'},
+  {id:'jeniskata',name:'Jenis Kata',sub:'Benda, kerja, atau sifat?',emoji:'🏷️',color:'amber',cat:'tatabahasa'},
+  {id:'peribahasa',name:'Peribahasa',sub:'Apa maknanya?',emoji:'🗣️',color:'purple',cat:'ungkapan'},
+  {id:'cerita',name:'Soal Cerita',sub:'Baca, lalu hitung',emoji:'🧮',color:'blue',cat:'berhitung'},
+  {id:'dengarkata',name:'Dengar & Tulis',sub:'Simak, lalu pilih katanya',emoji:'🎧',color:'teal',cat:'menyimak'}
+];
+const ROUNDS=8;
+
+/* ==================================================== pangkat · kunci · koleksi · misi */
+/* Pangkat naik lewat TOTAL BINTANG — mata uang yang sama dengan chip di pojok kanan
+   atas, jadi anak mudah paham kemajuannya. XP tetap dipakai untuk "level pemain"
+   di modal Profil (dua ukuran berbeda, sengaja tidak digabung). */
+const RANKS=[{min:0,name:'Penjelajah Kata',emoji:'🌱'},{min:40,name:'Pembaca Cilik',emoji:'📖'},
+  {min:100,name:'Perangkai Kalimat',emoji:'✍️'},{min:180,name:'Ahli Ejaan',emoji:'🔤'},
+  {min:280,name:'Pujangga Muda',emoji:'🪶'},{min:400,name:'Maestro Bahasa',emoji:'👑'}];
+function rankOf(stars){let i=0;RANKS.forEach((r,k)=>{if(stars>=r.min)i=k;});
+  const cur=RANKS[i],next=RANKS[i+1]||null;
+  return {cur,next,into:stars-cur.min,span:next?next.min-cur.min:1,left:next?next.min-stars:0};}
+
+/* Tangga buka kunci: permainan ke-i terbuka pada UNLOCK[i] bintang. Rapat di awal
+   (hampir tiap sesi ada mainan baru) lalu melebar supaya selalu ada tujuan. Guru/orang
+   tua bisa membuka semuanya sekaligus lewat sakelar di modal Profil. */
+const UNLOCK=[0,2,5,8,12,16,20,25,30,36,42,48,55,62,70,78,86,95,104,114];
+/* Permainan PERTAMA tiap fokus selalu gratis. Tanpa aturan ini, anak yang memilih
+   fokus "Ungkapan" (permainannya jauh di urutan bawah) akan membuka menu berisi
+   kartu terkunci semua dan tidak bisa main apa pun. Sisanya mengantre di tangga. */
+const FREE_GAMES=new Set(CATS.filter(c=>c.id!=='all').map(c=>(GAMES.find(g=>g.cat===c.id)||{}).id));
+const GATED_GAMES=GAMES.filter(g=>!FREE_GAMES.has(g.id)).map(g=>g.id);
+function unlockAt(id){const i=GATED_GAMES.indexOf(id);return i<0?0:UNLOCK[Math.min(i+1,UNLOCK.length-1)];}
+let TEACHER=localStorage.getItem('bic_teacher')==='on';
+function isUnlocked(id){return TEACHER||prog.totalStars>=unlockAt(id);}
+function unlockedCount(){return GAMES.filter(g=>isUnlocked(g.id)).length;}
+function lockNote(id){return Math.max(0,unlockAt(id)-prog.totalStars)+' ⭐ lagi';}
+function toggleTeacher(){TEACHER=!TEACHER;localStorage.setItem('bic_teacher',TEACHER?'on':'off');
+  showFeedback(TEACHER?'Semua permainan dibuka 🔓':'Kunci bertahap dinyalakan lagi 🔒',true);
+  renderProfile();renderHome();}
+
+/* Album stiker: 1 stiker tiap 10 bintang. */
+const STICKERS=['🌟','🍀','🐣','🦋','🌈','🍓','🐬','🚀','🎨','🐨','🍩','🐙','🎪','🌻','🐳','🎁','🦉','🍉','🎠','🐝',
+  '🧁','🐧','🌵','🎺','🦄','🍒','🐢','🎯','🌴','🐼','🍰','🦜','⛵','🎈','🌸','🧩','🦩','🍭','🐘','🏰',
+  '🐠','🌺','🎸','🦁','🍇','🐕','🎡','🌞','👑','🎂'];
+const STARS_PER_STICKER=10;
+function stickerCount(){return Math.min(STICKERS.length,Math.floor(prog.totalStars/STARS_PER_STICKER));}
+
+/* Lencana Ahli: dapat ⭐⭐⭐ di SEMUA permainan satu fokus. */
+const LENCANA=CATS.filter(c=>c.id!=='all').map(c=>({id:c.id,name:'Ahli '+c.name}));
+function catGames(cid){return GAMES.filter(g=>g.cat===cid);}
+function bestStars(id){return (prog.bestStars||{})[id]||0;}
+function catMastered(cid){return catGames(cid).filter(g=>bestStars(g.id)>=3).length;}
+function lencanaSet(){return LENCANA.filter(l=>{const t=catGames(l.id).length;return t>0&&catMastered(l.id)>=t;}).map(l=>l.id);}
+
+/* Misi harian — 3 misi, bonus bintang tiap selesai. */
+const MISSIONS=[
+  {id:'kategori',emoji:'📚',target:2,text:n=>'Main di '+n+' kategori berbeda',read:c=>c.cats.length},
+  {id:'runtun',emoji:'🔥',target:8,text:n=>'Dapat '+n+' jawaban beruntun',read:c=>c.combo},
+  {id:'sempurna',emoji:'🏆',target:1,text:n=>'Selesaikan '+n+' permainan dengan ⭐⭐⭐',read:c=>c.perfect},
+  {id:'main3',emoji:'🎮',target:3,text:n=>'Main '+n+' permainan hari ini',read:c=>c.games},
+  {id:'benar20',emoji:'✅',target:20,text:n=>'Jawab benar '+n+' soal hari ini',read:c=>c.correct},
+  {id:'bintang6',emoji:'⭐',target:6,text:n=>'Kumpulkan '+n+' bintang hari ini',read:c=>c.stars},
+  {id:'coba',emoji:'🆕',target:1,text:n=>'Coba '+n+' permainan yang belum pernah dimainkan',read:c=>c.baru}
+];
+const MISSION_BONUS=5;
+/* Misi diturunkan dari TANGGAL, bukan diacak: satu hari penuh misinya tetap (tidak
+   berubah saat halaman dimuat ulang) dan besok berganti sendiri tanpa perlu disimpan. */
+function dayHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function todaysMissions(){const h=dayHash(todayStr()),pool=MISSIONS.slice(),out=[];
+  for(let i=0;i<3&&pool.length;i++)out.push(pool.splice((h>>>(i*7))%pool.length,1)[0]);
+  return out;}
+function ensureDaily(){const t=todayStr(),d=prog.daily;
+  if(!d||d.date!==t||!d.c||typeof d.c!=='object')prog.daily={date:t,c:{games:0,cats:[],stars:0,perfect:0,combo:0,correct:0,baru:0},done:[]};
+  const c=prog.daily.c;
+  if(!Array.isArray(c.cats))c.cats=[];
+  if(!Array.isArray(prog.daily.done))prog.daily.done=[];
+  ['games','stars','perfect','combo','correct','baru'].forEach(k=>{if(typeof c[k]!=='number'||!isFinite(c[k]))c[k]=0;});
+  return prog.daily;}
+function claimMissions(){const d=ensureDaily();let bonus=0;const won=[];
+  todaysMissions().forEach(m=>{if(d.done.includes(m.id))return;
+    if(m.read(d.c)>=m.target){d.done.push(m.id);bonus+=MISSION_BONUS;won.push(m);}});
+  if(bonus)prog.totalStars+=bonus;
+  return {bonus,won};}
+
+/* ==================================================== helpers */
+/* $, esc, showFeedback -> shared.js (jangan dideklarasikan ulang: SyntaxError) */
+const shuffle=a=>a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+function badgeToast(b){sfx('badge');const t=$('badgeToast');t.innerHTML=`<span class="be">${b.emoji}</span><div><div style="font-weight:800">Badge baru!</div><div style="font-size:.82rem">${esc(b.name)} — ${esc(b.desc)}</div></div>`;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);}
+function confetti(){const cols=[CFG.accent,...Object.values(C).map(c=>c[0])];for(let i=0;i<40;i++){const d=document.createElement('div');d.className='confetti';d.style.left=Math.random()*100+'vw';d.style.width=d.style.height=(6+Math.random()*8)+'px';d.style.background=cols[i%cols.length];d.style.animationDuration=(1.6+Math.random()*1.4)+'s';d.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),3600);}}
+/* ---- suara ucap: Gemini (native ID) -> fallback TTS browser ---- */
+/* TTS_AVAILABLE -> shared.js */
+let TTS_VOICE=localStorage.getItem('bic_voice')||'';
+const ttsCache=new Map();
+let ttsAudio=null;
+function speakBrowser(text){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='id-ID';u.rate=.85;speechSynthesis.speak(u);}catch(e){}}
+async function speakGemini(text){
+  let url=ttsCache.get(text);
+  if(!url){
+    const res=await fetch('/api/tts?text='+encodeURIComponent(text)+(TTS_VOICE?'&voice='+encodeURIComponent(TTS_VOICE):''));
+    if(!res.ok)throw new Error('tts');
+    const j=await res.json();
+    if(!j.audio)throw new Error('noaudio');
+    url='data:'+(j.mime||'audio/wav')+';base64,'+j.audio;
+    ttsCache.set(text,url);
+  }
+  try{if(ttsAudio){ttsAudio.pause();}}catch(e){}
+  ttsAudio=new Audio(url);await ttsAudio.play();
+}
+function speak(text){
+  if(!SOUND.on)return;
+  text=String(text||'').trim();if(!text)return;
+  if(TTS_AVAILABLE){speakGemini(text).catch(()=>speakBrowser(text));}
+  else speakBrowser(text);
+}
+function spk(t){return `<button class="miniSpk" onclick="speak('${String(t).replace(/'/g,"\\'")}')" aria-label="Dengar pengucapan">🔊 Dengar</button>`;}
+
+/* ---- suara (Web Audio) + animasi ---- */
+const REDUCED=(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)||false;
+const SOUND={on:localStorage.getItem('bic_sound')!=='off',ctx:null};
+function actx(){try{if(!SOUND.ctx)SOUND.ctx=new (window.AudioContext||window.webkitAudioContext)();if(SOUND.ctx.state==='suspended')SOUND.ctx.resume();}catch(e){}return SOUND.ctx;}
+function tone(freq,start,dur,type,vol){const c=actx();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(c.destination);const t=c.currentTime+start;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol||0.15,t+0.015);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.start(t);o.stop(t+dur+0.03);}
+function sfx(n){if(!SOUND.on)return;try{
+  if(n==='tap')tone(330,0,0.06,'triangle',0.05);
+  else if(n==='correct')[523,659,784].forEach((f,i)=>tone(f,i*0.08,0.2,'triangle',0.14));
+  else if(n==='wrong'){tone(220,0,0.18,'sawtooth',0.11);tone(160,0.09,0.22,'sawtooth',0.09);}
+  else if(n==='win')[523,659,784,1047].forEach((f,i)=>tone(f,i*0.12,0.32,'triangle',0.16));
+  else if(n==='badge')[784,1047,1319].forEach((f,i)=>tone(f,i*0.09,0.26,'sine',0.13));
+  else if(n==='combo')[659,988].forEach((f,i)=>tone(f,i*0.07,0.16,'square',0.09));
+}catch(e){}}
+function toggleSound(){SOUND.on=!SOUND.on;localStorage.setItem('bic_sound',SOUND.on?'on':'off');$('soundBtn').textContent=SOUND.on?'🔊':'🔇';SOUND.on?sfx('tap'):showFeedback('Suara dimatikan 🔇',true);}
+function floatMsg(text){if(REDUCED)return;const d=document.createElement('div');d.className='floatmsg';d.textContent=text;document.body.appendChild(d);setTimeout(()=>d.remove(),1000);}
+function sparkleBurst(el){if(REDUCED||!el||!el.getBoundingClientRect)return;const r=el.getBoundingClientRect();const cx=r.left+r.width/2,cy=r.top+r.height/2;const em=['✨','⭐','🌟','💫'];for(let i=0;i<6;i++){const s=document.createElement('div');s.className='sparkle';s.textContent=em[i%em.length];s.style.left=cx+'px';s.style.top=cy+'px';const a=(i/6)*6.283+Math.random();const dist=44+Math.random()*40;s.style.setProperty('--dx',(Math.cos(a)*dist).toFixed(0)+'px');s.style.setProperty('--dy',(Math.sin(a)*dist).toFixed(0)+'px');document.body.appendChild(s);setTimeout(()=>s.remove(),750);}}
+function ghReact(good){const m=$('ghMascot');if(!m)return;m.textContent=good?'😄':'😅';m.classList.remove('react');void m.offsetWidth;m.classList.add('react');}
+function animateCount(el,from,to){if(REDUCED||from===to){el.textContent=to;return;}const dur=600,t0=performance.now();(function step(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(from+(to-from)*p);if(p<1)requestAnimationFrame(step);})(t0);}
+function setStars(n){const el=$('totalStars');if(!el)return;animateCount(el,parseInt(el.textContent)||0,n);const chip=document.querySelector('.starchip');if(chip){chip.classList.remove('pulse');void chip.offsetWidth;chip.classList.add('pulse');}}
+function reveal(el){el.classList.remove('hidden');el.classList.remove('screen-anim');void el.offsetWidth;el.classList.add('screen-anim');}
+function bandFilter(items,lenOf){const [lo,hi]=LEVELS[level].band;const inb=items.filter(x=>{const l=lenOf(x);return l>=lo&&l<=hi;});return inb.length>=ROUNDS?inb:items;}
+function pickDistinct(pool,n,exclude){return shuffle(pool.filter(x=>!exclude.includes(x))).slice(0,n);}
+function opts(){return LEVELS[level].opts;}
+
+/* ==================================================== screens */
+function hideAll(){['setup','home','game','live'].forEach(s=>$(s).classList.add('hidden'));}
+function goHome(){if(!player){showSetup();return;}stopLiveTimer();hideAll();reveal($('home'));renderHome();startPolling();}
+function changePlayer(){showSetup(0);}
+
+/* ==================================================== setup wizard */
+const STEPS=[{lbl:'Nama'},{lbl:'Level'},{lbl:'Fokus'},{lbl:'Main'}];
+let STEP=0;
+
+function showSetup(s){
+  hideAll();reveal($('setup'));stopPolling();stopLiveTimer();ensureRoom();
+  $('nameInput').value=player||'';   /* wizGo(>0) memvalidasi langkah nama, jadi isi dulu */
+  STEP=0;wizGo(s||0);
+}
+
+/* Validasi + simpan langkah yang sedang terbuka. false = tak boleh maju. */
+function wizCommit(s){
+  if(s===0){
+    const v=$('nameInput').value.trim();
+    if(!v){showFeedback('Tulis namamu dulu ya 😊',false);$('nameInput').focus();return false;}
+    player=v;localStorage.setItem(LS_PLAYER,player);
+  }
+  return true;
+}
+function wizGo(s){
+  if(s<0||s>=STEPS.length)return;
+  if(s>STEP&&!wizCommit(STEP))return;
+  STEP=s;renderWiz();
+}
+function wizNext(){
+  if(!wizCommit(STEP))return;
+  if(STEP===STEPS.length-1){goHome();return;}
+  STEP++;renderWiz();
+}
+function renderWiz(){
+  const sb=$('stepBar');sb.innerHTML='';
+  STEPS.forEach((st,i)=>{
+    if(i){const bar=document.createElement('div');bar.className='bar'+(i<=STEP?' done':'');sb.appendChild(bar);}
+    const b=document.createElement('button');
+    b.className='st'+(i===STEP?' on':'')+(i<STEP?' done':'');
+    b.setAttribute('aria-current',i===STEP?'step':'false');
+    b.setAttribute('aria-label','Langkah '+(i+1)+': '+st.lbl);
+    b.innerHTML=`<span class="bub">${i<STEP?'✓':i+1}</span><span class="lbl">${st.lbl}</span>`;
+    b.onclick=()=>wizGo(i);
+    sb.appendChild(b);
+  });
+  STEPS.forEach((_,i)=>$('step'+i).classList.toggle('hidden',i!==STEP));
+  reveal($('step'+STEP));
+  $('wizBack').classList.toggle('hidden',STEP===0);
+  $('wizNext').textContent=STEP===STEPS.length-1?'Ayo main! 🚀':'Lanjut ➡';
+
+  if(STEP===0){$('nameInput').value=player||'';setTimeout(()=>$('nameInput').focus(),50);}
+  if(STEP===1)renderWizGrid('wizLevelGrid',Object.entries(LEVELS).map(([k,v])=>({id:k,n:v.name,d:v.desc})),level,k=>{level=k;localStorage.setItem('bic_level',k);renderWiz();});
+  if(STEP===2)renderWizGrid('wizFocusGrid',CATS.map(c=>({id:c.id,n:c.name,d:(c.id==='all'?GAMES.length:GAMES.filter(g=>g.cat===c.id).length)+' game'})),focus,k=>{focus=k;localStorage.setItem('bic_focus',k);renderWiz();});
+  if(STEP===3){
+    const fc=CATS.find(c=>c.id===focus);
+    $('wizSummary').innerHTML=`Halo <b>${esc(player||'teman')}</b>! Kamu main di level <b>${esc(LEVELS[level].name)}</b>, fokus <b>${esc(fc.name)}</b>.<br>
+      Ada <b>${unlockedCount()} dari ${GAMES.length} permainan</b> yang terbuka — sisanya dibuka dengan bintang. Mau main bareng teman? Buat room dari menu utama.`;
+    updateModeNote();
+  }
+}
+function renderWizGrid(id,items,sel,pick){
+  const g=$(id);g.innerHTML='';
+  items.forEach(it=>{
+    const b=document.createElement('button');
+    b.className='selcard'+(it.id===sel?' on':'');
+    b.innerHTML=`<div class="n">${esc(it.n)}</div><div class="d">${esc(it.d)}</div>`;
+    b.onclick=()=>pick(it.id);
+    g.appendChild(b);
+  });
+}
+/* Room sekarang tinggal di menu utama (kartu "Main bersama"), bukan langkah wizard. */
+function newRoom(){room=randCode();localStorage.setItem(LS_ROOM,room);$('roomCode').textContent=room;showFeedback('Kode room baru: '+room,true);refreshBoard();}
+function joinRoom(){
+  const v=($('homeJoin').value||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8);
+  if(!v){showFeedback('Masukkan kode room',false);return;}
+  room=v;localStorage.setItem(LS_ROOM,room);$('homeJoin').value='';$('roomCode').textContent=room;
+  showFeedback('Masuk room '+room,true);refreshBoard();
+}
+
+let VIEW=localStorage.getItem('bic_view')||'list';
+function setView(v){VIEW=v;localStorage.setItem('bic_view',v);renderGames();}
+
+function renderHome(){
+  ensureRoom();
+  $('totalStars').textContent=prog.totalStars;
+  $('greetName').textContent=player;
+  $('greetMascot').textContent=CFG.mascot;
+  const rk=rankOf(prog.totalStars);
+  $('greetRank').innerHTML=rk.next
+    ? `<b>${rk.cur.emoji} ${esc(rk.cur.name)}</b> · ${rk.left} ⭐ lagi naik pangkat jadi ${esc(rk.next.name)}`
+    : `<b>${rk.cur.emoji} ${esc(rk.cur.name)}</b> · pangkat tertinggi, hebat! 🎉`;
+  $('rankFill').style.width=(rk.next?Math.round(rk.into/rk.span*100):100)+'%';
+  $('roomCode').textContent=room;$('roomLevel').textContent=LEVELS[level].name;
+  $('focusTitle').textContent=CATS.find(c=>c.id===focus).name;
+  $('lbRoomTag').textContent='(Room '+room+(ONLINE?' • server)':' lokal)');
+  $('lbHint').textContent=ONLINE?'Papan bintang tersinkron antar perangkat.':'Teman bisa join dengan kode '+room+' atau link. Sinkron lintas perangkat perlu mode server.';
+  $('stcGames').textContent=unlockedCount();
+  $('stcStars').textContent=prog.totalStars;
+  $('stcStick').textContent=stickerCount();
+  $('stcStreak').textContent=prog.streak;
+  renderMissions();renderGames();renderCollection();renderAppPanel();
+  refreshBoard();
+}
+
+function renderMissions(){
+  const d=ensureDaily(),el=$('missionList');el.innerHTML='';
+  $('streakChip').textContent='🔥 '+prog.streak+' hari beruntun';
+  todaysMissions().forEach(m=>{
+    const got=Math.min(m.target,m.read(d.c)),done=d.done.includes(m.id)||got>=m.target;
+    const row=document.createElement('div');row.className='mission'+(done?' done':'');
+    row.innerHTML=`<div class="mi">${done?'✅':m.emoji}</div>
+      <div class="mt"><div class="mn">${esc(m.text(m.target))}</div>
+      <div class="mbar"><i style="width:${Math.round(got/m.target*100)}%"></i></div></div>
+      <div class="mc">${got}/${m.target}</div>`;
+    el.appendChild(row);
+  });
+}
+
+function starTxt(id){const s=bestStars(id);return s?'⭐'.repeat(s)+'☆'.repeat(3-s):'';}
+function playOrTease(gm){
+  if(isUnlocked(gm.id))return startGame(gm.id);
+  sfx('wrong');showFeedback('🔒 '+gm.name+' masih terkunci — kumpulkan '+lockNote(gm.id),false);
+}
+function renderGames(){
+  $('tabMap').classList.toggle('on',VIEW==='map');
+  $('tabList').classList.toggle('on',VIEW!=='map');
+  $('gameGrid').classList.toggle('hidden',VIEW==='map');
+  $('gameMap').classList.toggle('hidden',VIEW!=='map');
+  const list=focus==='all'?GAMES:GAMES.filter(x=>x.cat===focus);
+  VIEW==='map'?renderMap(list):renderGrid(list);
+}
+function renderGrid(list){
+  const g=$('gameGrid');g.innerHTML='';
+  list.forEach(gm=>{
+    const [c,bg]=C[gm.color],open=isUnlocked(gm.id);
+    const el=document.createElement('button');el.className='gcard'+(open?'':' locked');el.style.borderColor=c;
+    const foot=!open?`🔒 Terkunci · ${lockNote(gm.id)}`
+      :bestStars(gm.id)?`<span class="gstars">${starTxt(gm.id)}</span> · ${prog.best[gm.id]||0} poin`
+      :'Belum dimainkan';
+    el.innerHTML=`<div class="ic"${open?` style="background:${bg};color:${c}"`:''}>${open?gm.emoji:'🔒'}</div>
+      <div class="gname"${open?` style="color:${c}"`:''}>${esc(gm.name)}</div>
+      <div class="gsub">${esc(gm.sub)}</div><div class="gbest">${foot}</div>
+      ${open&&!prog.gamesPlayed[gm.id]?'<span class="flag">BARU</span>':''}`;
+    el.onclick=()=>playOrTease(gm);g.appendChild(el);
+  });
+}
+function renderMap(list){
+  const m=$('gameMap');m.innerHTML='';
+  list.forEach((gm,i)=>{
+    const [c,bg]=C[gm.color],open=isUnlocked(gm.id);
+    const el=document.createElement('button');el.className='mapnode'+(i%2?' right':'')+(open?'':' locked');el.style.borderColor=c;
+    el.innerHTML=`<div class="mo"${open?` style="background:${bg};color:${c}"`:''}>${open?gm.emoji:'🔒'}</div>
+      <div class="mb"><div class="mname">${esc(gm.name)}</div>
+      <div class="mmeta">${open?esc(gm.sub):'Terkunci · '+lockNote(gm.id)}</div></div>
+      <div class="mst">${open?(starTxt(gm.id)||'☆☆☆'):''}</div>`;
+    el.onclick=()=>playOrTease(gm);m.appendChild(el);
+  });
+}
+
+function renderCollection(){
+  const have=lencanaSet(),el=$('lencanaList');el.innerHTML='';
+  LENCANA.forEach(l=>{
+    const tot=catGames(l.id).length,got=catMastered(l.id),ok=have.includes(l.id);
+    const s=document.createElement('span');s.className='lenc'+(ok?' have':'');
+    s.innerHTML=`${ok?'🏅':'🔒'} ${esc(l.name)} <span class="lc">${got}/${tot}</span>`;
+    el.appendChild(s);
+  });
+  const n=stickerCount(),grid=$('stickerGrid');grid.innerHTML='';
+  STICKERS.forEach((s,i)=>{const d=document.createElement('div');d.className='stk'+(i<n?' have':'');d.textContent=i<n?s:'?';grid.appendChild(d);});
+  const left=(n+1)*STARS_PER_STICKER-prog.totalStars;
+  $('stickerInfo').textContent=n>=STICKERS.length
+    ? `${n} dari ${STICKERS.length} stiker · album penuh! 🎉`
+    : `${n} dari ${STICKERS.length} stiker · ${left} ⭐ lagi menuju stiker berikutnya`;
+}
+
+/* ==================================================== panel aplikasi (PWA) */
+const APP_ID='bhs-indo-v5',LS_INST='bic_install_v1';
+let deferredPrompt=null,persisted=null,instBack=null;
+function isInstalled(){try{return (window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true;}catch(e){return false;}}
+function offlineReady(){return !!(navigator.serviceWorker&&navigator.serviceWorker.controller);}
+function appLine(cls,icon,name,desc,btn){
+  return `<div class="appline ${cls}"><div class="ai">${icon}</div>
+    <div class="at"><div class="an">${name}</div><div class="ad">${desc}</div></div>${btn||''}</div>`;
+}
+function renderAppPanel(){
+  const el=$('appLines');if(!el)return;
+  $('appVer').textContent=APP_ID;
+  let h='';
+  if(isInstalled())h+=appLine('ok','✅','Sudah dipasang','Aplikasi berjalan dari layar utama.','');
+  else if(deferredPrompt)h+=appLine('','📥','Belum dipasang','Pasang untuk dapat ikon di layar utama.','<button class="btn solid sm" onclick="openInstall(true)">Pasang</button>');
+  else h+=appLine('','📥','Belum dipasang','Browser ini memasang lewat menunya sendiri — langkahnya ada di panduan.','<button class="btn sm" onclick="openInstall(true)">Cara pasang</button>');
+  h+=offlineReady()
+    ? appLine('ok','✅','Siap dimainkan tanpa internet','Semua soal sudah tersimpan di perangkat ini.','')
+    : appLine('','🌐','Belum siap offline','Buka sekali lewat http/https supaya isinya tersimpan.','');
+  h+=persisted===true
+    ? appLine('ok','🛡️','Progres terlindungi','Bintang, stiker, dan lencana aman dari pembersihan otomatis.','')
+    : appLine('warn','⚠️','Progres belum terlindungi','Browser boleh menghapusnya saat ruang penyimpanan menipis.','<button class="btn solid sm" onclick="doPersist()">Lindungi</button>');
+  el.innerHTML=h;
+}
+window.addEventListener('beforeinstallprompt',e=>{
+  /* Chrome/Edge menyimpan event-nya supaya popup kita yang tampil, bukan mini-infobar. */
+  e.preventDefault();deferredPrompt=e;renderAppPanel();
+  setTimeout(()=>maybeOfferInstall(),4000);
+});
+window.addEventListener('appinstalled',()=>{
+  deferredPrompt=null;
+  const m=instMemo();m.done=true;instSave(m);
+  closeInstall(true);
+  sfx('win');confetti();showFeedback('Aplikasi terpasang! Cari ikonnya di layar utama 🎉',true);
+  renderAppPanel();
+});
+
+/* ---- popup pasang aplikasi -------------------------------------------------
+   Satu popup untuk dua keadaan: kalau browser menyediakan beforeinstallprompt
+   kita tinggal memanggilnya; kalau tidak (iOS, browser dalam aplikasi, Samsung)
+   yang tampil panduan langkah sesuai browsernya. Penolakan diingat dan ditunda
+   makin lama supaya tidak jadi gangguan. */
+function instMemo(){try{return {dismiss:0,snooze:0,shown:0,done:false,...(JSON.parse(localStorage.getItem(LS_INST)||'{}'))};}catch(e){return {dismiss:0,snooze:0,shown:0,done:false};}}
+function instSave(m){try{localStorage.setItem(LS_INST,JSON.stringify(m));}catch(e){}}
+function instPlatform(){
+  const ua=navigator.userAgent||'';
+  /* Browser bawaan WhatsApp/IG/FB tidak bisa memasang PWA — link game sering
+     dibagikan lewat sana, jadi arahkan pindah ke Chrome dulu. */
+  if(/FBAN|FBAV|Instagram|Line\/|WhatsApp|TikTok|MicroMessenger/i.test(ua))return 'inapp';
+  const iOS=/iPad|iPhone|iPod/.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(iOS)return /CriOS|FxiOS|EdgiOS/i.test(ua)?'ios-other':'ios';
+  if(/Android/i.test(ua))return /SamsungBrowser/i.test(ua)?'samsung':'android';
+  return 'desktop';
+}
+const INST_GUIDE={
+  inapp:{sub:'Buka dulu lewat Chrome ya',steps:[
+    'Ketuk tombol <span class="instkey">⋮</span> atau <span class="instkey">•••</span> di pojok layar.',
+    'Pilih <b>“Buka di Chrome”</b> atau <b>“Buka di browser”</b>.',
+    'Setelah terbuka di Chrome, tawaran pasang ini muncul lagi.']},
+  ios:{sub:'iPhone / iPad · Safari',steps:[
+    'Ketuk tombol <span class="instkey">⬆️ Bagikan</span> di bawah layar.',
+    'Gulir ke bawah, pilih <b>“Tambahkan ke Layar Utama”</b>.',
+    'Ketuk <b>Tambah</b> — ikonnya langsung muncul di layar utama.']},
+  'ios-other':{sub:'iPhone / iPad',steps:[
+    'Buka halaman ini lewat <b>Safari</b> (browser lain di iPhone belum bisa memasang).',
+    'Di Safari ketuk <span class="instkey">⬆️ Bagikan</span>.',
+    'Pilih <b>“Tambahkan ke Layar Utama”</b> lalu <b>Tambah</b>.']},
+  samsung:{sub:'Android · Samsung Internet',steps:[
+    'Ketuk menu <span class="instkey">☰</span> di kanan bawah.',
+    'Pilih <b>“Tambahkan halaman ke”</b> → <b>Layar Beranda</b>.',
+    'Ketuk <b>Tambahkan</b>.']},
+  android:{sub:'Android · Chrome',steps:[
+    'Ketuk tombol <span class="instkey">⋮</span> di kanan atas.',
+    'Pilih <b>“Instal aplikasi”</b> atau <b>“Tambahkan ke Layar utama”</b>.',
+    'Ketuk <b>Instal</b>.']},
+  desktop:{sub:'Komputer · Chrome / Edge',steps:[
+    'Lihat ikon <span class="instkey">⊕ Instal</span> di ujung kanan kolom alamat.',
+    'Klik ikon itu, lalu klik <b>Instal</b>.',
+    'Tidak ada ikonnya? Buka menu <span class="instkey">⋮</span> → <b>Cast, simpan, dan bagikan</b> → <b>Instal halaman sebagai aplikasi</b>.']}
+};
+function renderInstall(){
+  const brand=(CFG.brandL1+' '+CFG.brandL2).trim();
+  const ready=!!deferredPrompt,g=INST_GUIDE[instPlatform()]||INST_GUIDE.desktop;
+  $('instTitle').textContent=ready?'Pasang '+brand:'Cara pasang '+brand;
+  $('instSub').innerHTML=ready?'Cukup sekali ketuk — tanpa Play Store, tanpa unduhan besar.':esc(g.sub);
+  if(CFG.logo)$('instIcon').src=CFG.logo;
+  const perks=[
+    ['🏠','Ikon di layar utama','Anak tinggal ketuk, tak perlu cari-cari link lagi.'],
+    ['✈️','Bisa dimainkan tanpa internet','Semua soal tersimpan di perangkat ini.'],
+    ['🎯','Layar penuh, tanpa gangguan','Tidak ada kolom alamat atau tab lain yang mengalihkan.'],
+    ['🛡️','Progres lebih aman','Bintang, stiker, dan lencana tidak gampang terhapus.']
+  ].slice(0,ready?4:2);
+  let h='<div class="instperks">'+perks.map(p=>
+    `<div class="instperk"><div class="pe">${p[0]}</div><div><div class="pt">${p[1]}</div><div class="pd">${p[2]}</div></div></div>`).join('')+'</div>';
+  if(!ready)h+='<div class="inststeps">'+g.steps.map((s,i)=>
+    `<div class="inststep"><div class="sn">${i+1}</div><div class="sx">${s}</div></div>`).join('')+'</div>';
+  $('instBody').innerHTML=h;
+  $('instActs').innerHTML=(ready
+      ? '<button class="btn solid" id="instGo" onclick="doInstall()">📥 Pasang sekarang</button>'
+      : '<button class="btn solid" id="instGo" onclick="closeInstall(true)">Oke, saya coba</button>')
+    +'<button class="btn" onclick="closeInstall()">Nanti saja</button>';
+  $('instNote').textContent=ready
+    ? 'Gratis · ukurannya kecil · bisa dihapus kapan saja seperti aplikasi biasa.'
+    : 'Panduan ini juga tersimpan di panel 📱 Aplikasi pada halaman menu.';
+}
+function openInstall(manual){
+  if(isInstalled()){if(manual)showFeedback('Aplikasi sudah terpasang ✅',true);return;}
+  const w=$('installSheet');if(!w)return;
+  renderInstall();
+  instBack=document.activeElement;
+  w.classList.remove('hidden');
+  const m=instMemo();m.shown=(m.shown||0)+1;m.last=Date.now();instSave(m);
+  setTimeout(()=>{const b=$('instGo');if(b)b.focus();},60);
+}
+/* quiet = ditutup karena alurnya lanjut (mis. dialog browser terbuka), bukan ditolak. */
+function closeInstall(quiet){
+  const w=$('installSheet');if(!w||w.classList.contains('hidden'))return;
+  w.classList.add('hidden');
+  if(!quiet){
+    const m=instMemo();m.dismiss=(m.dismiss||0)+1;
+    const days=m.dismiss===1?3:(m.dismiss===2?14:0);
+    if(days)m.snooze=Date.now()+days*864e5;else m.done=true;   /* tiga kali menolak = berhenti menawarkan */
+    instSave(m);
+  }
+  try{if(instBack&&instBack.focus)instBack.focus();}catch(e){}
+  instBack=null;renderAppPanel();
+}
+/* Ditawarkan hanya di menu, setelah anak sempat main — bukan saat soal berjalan. */
+function maybeOfferInstall(){
+  if(isInstalled()||!$('installSheet')||!$('installSheet').classList.contains('hidden'))return;
+  if($('home').classList.contains('hidden'))return;
+  if(!$('resultModal').classList.contains('hidden')||!$('profileModal').classList.contains('hidden'))return;
+  const m=instMemo();
+  if(m.done||(m.snooze&&Date.now()<m.snooze))return;
+  if(prog.totalStars<3)return;
+  if(!deferredPrompt&&(instPlatform()==='desktop'||instPlatform()==='ios-other'))return;
+  openInstall(false);
+}
+async function doInstall(){
+  if(!deferredPrompt){openInstall(true);return;}
+  closeInstall(true);
+  const p=deferredPrompt;deferredPrompt=null;
+  let outcome='dismissed';
+  try{p.prompt();const c=await p.userChoice;outcome=(c&&c.outcome)||'dismissed';}catch(e){}
+  if(outcome!=='accepted'){
+    /* Batal di dialog browser: eventnya hangus, jadi jangan langsung menawarkan lagi. */
+    const m=instMemo();m.snooze=Date.now()+3*864e5;instSave(m);
+    showFeedback('Belum jadi dipasang — bisa lewat panel 📱 Aplikasi kapan saja',false);
+  }
+  renderAppPanel();
+}
+async function checkPersist(){
+  try{persisted=(navigator.storage&&navigator.storage.persisted)?await navigator.storage.persisted():null;}catch(e){persisted=null;}
+  renderAppPanel();
+}
+async function doPersist(){
+  try{const ok=await navigator.storage.persist();persisted=ok;
+    showFeedback(ok?'Progres dilindungi 🛡️':'Browser menolak — coba pasang aplikasinya dulu',ok);}
+  catch(e){showFeedback('Browser ini belum mendukung perlindungan progres',false);}
+  renderAppPanel();
+}
+/* Buang cache + service worker lalu muat ulang — jalan keluar kalau anak melihat
+   versi lama setelah admin mengubah konten. */
+async function refreshShell(){
+  try{
+    if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)));}
+    if(navigator.serviceWorker){const rs=await navigator.serviceWorker.getRegistrations();await Promise.all(rs.map(r=>r.unregister()));}
+  }catch(e){}
+  location.reload();
+}
+function resetProgress(){
+  if(!confirm('Hapus semua bintang, stiker, lencana, dan riwayat di perangkat ini?'))return;
+  localStorage.removeItem(LS_PROG);prog=loadProgress();saveProgress();
+  setStars(0);showFeedback('Progres direset',true);renderHome();
+}
+
+/* ==================================================== room actions */
+function roomLink(){const u=new URL(location.href);u.hash='';u.search='?room='+room+'&level='+level;return u.toString();}
+async function clip(text,label){try{await navigator.clipboard.writeText(text);showFeedback(label+' disalin ✅',true);}catch(e){prompt('Salin manual:',text);}}
+function copyCode(){clip(room,'Kode');}
+function copyLink(){clip(roomLink(),'Link');}
+async function shareRoom(){const data={title:CFG.brandL1+' '+CFG.brandL2,text:'Ayo main bareng di room '+room+'!',url:roomLink()};if(navigator.share){try{await navigator.share(data);}catch(e){}}else clip(roomLink(),'Link');}
+
+/* ==================================================== single-player engine */
+let cur=null;
+/* Admin boleh mengecilkan bank soal lewat editor konten. Kalau isinya kurang dari
+   ROUNDS, antrean jadi pendek dan ronde berikutnya mengambil `undefined` — layar
+   membeku tanpa tombol. Di sini antrean diulang (diacak lagi) sampai penuh. */
+function padQueue(q){
+  if(!Array.isArray(q)||!q.length)return [];
+  const out=q.slice();
+  while(out.length<ROUNDS)out.push(...shuffle(q).slice(0,ROUNDS-out.length));
+  return out.slice(0,ROUNDS);
+}
+function startGame(id){const gm=GAMES.find(g=>g.id===id);const q=padQueue(buildQueue(id));
+  if(!q.length){showFeedback('Bank soal "'+gm.name+'" kosong — periksa panel Admin.',false);return;}
+  cur={gm,round:0,score:0,combo:0,maxCombo:0,results:[],queue:q};hideAll();reveal($('game'));stopPolling();const [c]=C[gm.color];$('gameHead').style.background=c;$('ghMascot').textContent='🙂';$('ghTitle').textContent=gm.emoji+' '+gm.name;$('ghSub').textContent=gm.sub+' • '+LEVELS[level].name+' • '+CATS.find(x=>x.id===gm.cat).name;nextRound();}
+function replay(){closeResult();if(cur)startGame(cur.gm.id);}
+function buildQueue(id){
+  if(id==='huruf')return shuffle(bandFilter(HURUF,x=>x[1].length)).slice(0,ROUNDS);
+  if(id==='dengar')return shuffle(bandFilter(HURUF,x=>x[1].length)).slice(0,ROUNDS);
+  if(id==='suku')return shuffle(bandFilter(SUKU,x=>x[1].length)).slice(0,ROUNDS);
+  if(id==='kalimat')return shuffle(bandFilter(KALIMAT,x=>x.split(' ').length*2)).slice(0,ROUNDS);
+  if(id==='tanda')return shuffle(TANDA).slice(0,ROUNDS);
+  if(id==='antonim')return shuffle(ANTONIM).slice(0,ROUNDS);
+  if(id==='sinonim')return shuffle(SINONIM).slice(0,ROUNDS);
+  if(id==='warna')return shuffle(WARNA).slice(0,ROUNDS);
+  if(id==='beda')return shuffle(BEDA).slice(0,ROUNDS);
+  if(id==='katadepan')return shuffle(KATADEPAN).slice(0,ROUNDS);
+  if(id==='baku')return shuffle(bandFilter(BAKU,x=>x[0].length)).slice(0,ROUNDS);
+  if(id==='katatanya')return shuffle(KATATANYA).slice(0,ROUNDS);
+  if(id==='imbuhan')return shuffle(IMBUHAN).slice(0,ROUNDS);
+  if(id==='kapital')return shuffle(bandFilter(KAPITAL,x=>x[1].length)).slice(0,ROUNDS);
+  if(id==='jeniskata')return shuffle(JENISKATA).slice(0,ROUNDS);
+  if(id==='peribahasa')return shuffle(PERIBAHASA).slice(0,ROUNDS);
+  if(id==='dengarkata')return shuffle(bandFilter(HURUF,x=>x[1].length)).slice(0,ROUNDS);
+  /* Soal cerita naik bersama level: angka kecil dulu, mundur ke seluruh bank bila kurang. */
+  if(id==='cerita'){const max=level==='beginner'?10:level==='intermediate'?15:99;const inb=CERITA.filter(x=>x[1]<=max);return shuffle(inb.length>=ROUNDS?inb:CERITA).slice(0,ROUNDS);}
+  if(id==='angka'){const max=level==='beginner'?5:level==='intermediate'?8:10;const q=[];for(let i=0;i<ROUNDS;i++)q.push({emoji:shuffle(COUNT_EMO)[0],count:1+Math.floor(Math.random()*max)});return q;}
+  if(id==='baca'){const q=[];shuffle(BACA).forEach(b=>b.q.forEach(x=>q.push({p:b.p,q:x})));return shuffle(q).slice(0,ROUNDS);}
+}
+function drawHud(){$('hudScore').textContent=cur.score;const d=$('hudDots');d.innerHTML='';for(let i=0;i<ROUNDS;i++){const dot=document.createElement('div');dot.className='dot'+(cur.results[i]===true?' ok':cur.results[i]===false?' bad':i===cur.round?' now':'');d.appendChild(dot);}}
+function nextRound(){if(cur.round>=ROUNDS)return finish();drawHud();const id=cur.gm.id,item=cur.queue[cur.round];({huruf:rHuruf,dengar:rDengar,suku:rSuku,kalimat:rKalimat,tanda:rTanda,antonim:rAntonim,baca:rBaca,sinonim:rSinonim,warna:rWarna,beda:rBeda,katadepan:rKatadepan,angka:rAngka,baku:rBaku,
+   katatanya:rKatatanya,imbuhan:rImbuhan,kapital:rKapital,jeniskata:rJeniskata,peribahasa:rPeribahasa,cerita:rCerita,dengarkata:rDengarKata})[id](item);}
+function settle(good,correctText){cur.results[cur.round]=good;ghReact(good);
+  if(good){cur.score+=10;cur.combo=(cur.combo||0)+1;cur.maxCombo=Math.max(cur.maxCombo||0,cur.combo);sfx('correct');sparkleBurst(document.querySelector('#opts .abtn.correct')||$('playArea'));showFeedback(shuffle(['Hebat! 🎉','Keren! 🌟','Pintar sekali! 👏','Tepat! ✨'])[0],true);if(cur.combo>=3){cur.score+=5;floatMsg('Combo x'+cur.combo+'! 🔥');sfx('combo');}}
+  else{cur.combo=0;sfx('wrong');showFeedback('Belum tepat 😅 Jawaban: '+correctText,false);}
+  drawHud();cur.round++;setTimeout(nextRound,good?850:1450);}
+function qcardHTML(color,inner){const [c,bg]=C[color];return `<div class="qcard" style="border-color:${c};background:${bg}">${inner}</div>`;}
+function lockOpts(){document.querySelectorAll('#opts .abtn').forEach(b=>b.disabled=true);}
+function markCorrect(text){document.querySelectorAll('#opts .abtn').forEach(b=>{if(b.textContent===String(text))b.classList.add('correct');});}
+
+function rHuruf([emo,word]){const first=word[0],masked='_'+word.slice(1);const pool='abcdeghijklmnoprstuwy'.split('');const o=shuffle([first,...pickDistinct(pool,opts()-1,[first])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="bigemoji">${emo}</div><div class="qword">${masked}</div><div class="hint">Huruf apa yang hilang?</div>${spk(word)}`)+`<div class="answers ${o.length>=4?'tri':''}" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn tile';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===first?'correct':'wrong');if(x!==first)markCorrect(first);settle(x===first,first);};$('opts').appendChild(b);});}
+function rDengar([emo,word]){const distract=pickDistinct(HURUF.map(h=>h[0]),opts()-1,[emo]);const o=shuffle([emo,...distract]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<button class="speakbtn" onclick="speak('${word}')">🔊 Dengar lagi</button><div class="hint">Dengarkan, lalu pilih gambar yang benar!</div>`)+`<div class="answers ${o.length>=3?'tri':''}" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn bigemo';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===emo?'correct':'wrong');if(x!==emo)markCorrect(emo);settle(x===emo,word+' '+emo);};$('opts').appendChild(b);});setTimeout(()=>speak(word),350);}
+function rSuku([emo,word,parts]){let picked=[];const tiles=shuffle(parts.map((p,i)=>({p,i})));const render=()=>{$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="bigemoji">${emo}</div><div class="slots">${parts.map((_,i)=>`<div class="slot ${picked[i]!==undefined?'filled':''}">${picked[i]??''}</div>`).join('')}</div><div class="hint">Ketuk suku kata sesuai urutan!</div>`)+`<div class="answers ${parts.length>2?'tri':''}" id="opts"></div><div class="util"><button onclick="window._undoSuku()">↩ Hapus</button></div>`;tiles.forEach(t=>{const b=document.createElement('button');b.className='abtn tile'+(t.used?' used':'');b.textContent=t.p;b.onclick=()=>{sfx('tap');t.used=true;picked.push(t.p);check();};$('opts').appendChild(b);});};const check=()=>{if(picked.length===parts.length){const good=picked.join('')===word;render();lockOpts();settle(good,word);}else render();};window._undoSuku=()=>{if(!picked.length)return;const last=picked.pop();const t=tiles.find(x=>x.used&&x.p===last);if(t)t.used=false;render();};render();}
+function rKalimat(sentence){const words=sentence.split(' ');let picked=[];const tiles=shuffle(words.map((w,i)=>({w,i})));const render=()=>{$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext" style="min-height:2.2em">${picked.join(' ')||'…'}</div><div class="hint">Ketuk kata untuk menyusun kalimat (${picked.length}/${words.length})</div>`)+`<div class="answers wide" id="opts"></div><div class="util"><button onclick="window._undoKal()">↩ Hapus</button></div>`;tiles.forEach(t=>{const b=document.createElement('button');b.className='abtn'+(t.used?' used':'');b.textContent=t.w;b.onclick=()=>{sfx('tap');t.used=true;picked.push(t.w);check();};$('opts').appendChild(b);});};const check=()=>{if(picked.length===words.length){const good=picked.join(' ')===sentence;render();lockOpts();settle(good,sentence+'.');}else render();};window._undoKal=()=>{if(!picked.length)return;const last=picked.pop();const t=tiles.find(x=>x.used&&x.w===last);if(t)t.used=false;render();};render();}
+function rTanda([sent,mark]){$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext">“${sent} <b style="color:${C[cur.gm.color][0]}">__</b>”</div><div class="hint">Tanda baca apa yang tepat di akhir kalimat?</div>`)+`<div class="answers tri" id="opts"></div>`;['.','?','!'].forEach(m=>{const b=document.createElement('button');b.className='abtn tile';b.textContent=m;b.onclick=()=>{lockOpts();b.classList.add(m===mark?'correct':'wrong');if(m!==mark)markCorrect(mark);const names={'.':'titik ( . )','?':'tanda tanya ( ? )','!':'tanda seru ( ! )'};settle(m===mark,names[mark]);};$('opts').appendChild(b);});}
+function rAntonim([word,anto]){const pool=ANTONIM.flat().filter(x=>x!==word&&x!==anto);const o=shuffle([anto,...pickDistinct(pool,opts()-1,[anto])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qword" style="font-size:1.7rem">${cap(word)}</div><div class="hint">Apa lawan kata dari “${word}”?</div>${spk(word)}`)+`<div class="answers" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===anto?'correct':'wrong');if(x!==anto)markCorrect(cap(anto));settle(x===anto,anto);};$('opts').appendChild(b);});}
+function rBaca(item){const [qq,options,ans]=item.q;const order=shuffle(options.map((o,i)=>({o,i})));$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qpara">📖 ${item.p}</div><div class="qtext" style="font-size:.98rem">${qq}</div>`)+`<div class="answers wide" id="opts"></div>`;order.forEach(({o,i})=>{const b=document.createElement('button');b.className='abtn';b.style.fontSize='.95rem';b.textContent=o;b.onclick=()=>{lockOpts();b.classList.add(i===ans?'correct':'wrong');if(i!==ans)markCorrect(options[ans]);settle(i===ans,options[ans]);};$('opts').appendChild(b);});}
+function rSinonim([word,syn]){const pool=SINONIM.flat().filter(x=>x!==word&&x!==syn);const o=shuffle([syn,...pickDistinct(pool,opts()-1,[syn])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qword" style="font-size:1.7rem">${cap(word)}</div><div class="hint">Apa persamaan kata dari “${word}”?</div>${spk(word)}`)+`<div class="answers" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===syn?'correct':'wrong');if(x!==syn)markCorrect(cap(syn));settle(x===syn,syn);};$('opts').appendChild(b);});}
+function rWarna([name,hex]){const pool=WARNA.map(w=>w[0]).filter(x=>x!==name);const o=shuffle([name,...pickDistinct(pool,opts()-1,[name])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div style="width:96px;height:96px;border-radius:22px;margin:0 auto;background:${hex};border:3px solid rgba(0,0,0,.12)"></div><div class="hint">Apa nama warna ini?</div>`)+`<div class="answers" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===name?'correct':'wrong');if(x!==name)markCorrect(cap(name));settle(x===name,name);};$('opts').appendChild(b);});}
+function rBeda({g,odd}){const o=shuffle([...g,odd]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext">Mana yang berbeda?</div><div class="hint">Pilih kata yang tidak sekelompok!</div>`)+`<div class="answers" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===odd?'correct':'wrong');if(x!==odd)markCorrect(cap(odd));settle(x===odd,odd);};$('opts').appendChild(b);});}
+/* Tanpa tombol 🔊: kedua ejaan berbeda bunyi, jadi TTS membocorkan jawaban. */
+function rBaku([baku,salah]){const o=shuffle([baku,salah]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="bigemoji">📚</div><div class="qtext">Mana penulisan yang <b style="color:${C[cur.gm.color][0]}">baku</b>?</div><div class="hint">Pilih ejaan yang benar menurut KBBI.</div>`)+`<div class="answers" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===baku?'correct':'wrong');if(x!==baku)markCorrect(baku);settle(x===baku,'"'+baku+'"');};$('opts').appendChild(b);});}
+function rKatadepan([sent,ans]){const o=['di','ke','dari'];const hi=sent.replace('___',`<b style="color:${C[cur.gm.color][0]}">___</b>`);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext">“${hi}”</div><div class="hint">Kata depan apa yang tepat?</div>`)+`<div class="answers tri" id="opts"></div>`;o.forEach(m=>{const b=document.createElement('button');b.className='abtn tile';b.textContent=m;b.onclick=()=>{lockOpts();b.classList.add(m===ans?'correct':'wrong');if(m!==ans)markCorrect(ans);settle(m===ans,'"'+ans+'"');};$('opts').appendChild(b);});}
+function rKatatanya([sent,ans]){const o=shuffle([ans,...pickDistinct(KATA_TANYA,opts()-1,[ans])]);const hi=sent.replace('___',`<b style="color:${C[cur.gm.color][0]}">___</b>`);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext">“${hi}”</div><div class="hint">Kata tanya apa yang tepat?</div>`)+`<div class="answers ${o.length>=3?'tri':''}" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===ans?'correct':'wrong');if(x!==ans)markCorrect(cap(ans));settle(x===ans,'"'+ans+'"');};$('opts').appendChild(b);});}
+/* Pengecoh utamanya bentuk lain dari kata dasar yang sama; ditambal dari bank lain bila kurang. */
+function rImbuhan([sent,ans,distr]){const d=pickDistinct(distr||[],opts()-1,[ans]);if(d.length<opts()-1)d.push(...pickDistinct(IMBUHAN.map(x=>x[1]),opts()-1-d.length,[ans,...d]));const o=shuffle([ans,...d]);const hi=sent.replace('___',`<b style="color:${C[cur.gm.color][0]}">___</b>`);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext">“${hi}”</div><div class="hint">Pilih kata berimbuhan yang tepat!</div>`)+`<div class="answers wide" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===ans?'correct':'wrong');if(x!==ans)markCorrect(ans);settle(x===ans,'"'+ans+'"');};$('opts').appendChild(b);});}
+/* Kata pertama sudah kapital di bank soal, jadi ia tak pernah jadi pilihan (tak ambigu). */
+function rKapital([sent,ans]){const clean=w=>w.replace(/[.,?!"“”]/g,'');const words=sent.split(' ').map(clean).filter(Boolean);const low=ans.toLowerCase();const target=words.find(w=>w.toLowerCase()===low)||ans;const pool=[...new Set(words.slice(1).filter(w=>w.toLowerCase()!==low))];const o=shuffle([target,...pickDistinct(pool,opts()-1,[target])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qtext">“${esc(sent)}”</div><div class="hint">Kata mana yang seharusnya diawali huruf kapital?</div>`)+`<div class="answers wide" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===target?'correct':'wrong');if(x!==target)markCorrect(target);settle(x===target,cap(target));};$('opts').appendChild(b);});}
+function rJeniskata([word,jenis]){const keys=['benda','kerja','sifat'];$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qword" style="font-size:1.7rem">${cap(word)}</div><div class="hint">“${word}” termasuk jenis kata apa?</div>${spk(word)}`)+`<div class="answers tri" id="opts"></div>`;keys.forEach(k=>{const b=document.createElement('button');b.className='abtn';b.textContent=JENIS_LABEL[k];b.onclick=()=>{lockOpts();b.classList.add(k===jenis?'correct':'wrong');if(k!==jenis)markCorrect(JENIS_LABEL[jenis]);settle(k===jenis,JENIS_LABEL[jenis]);};$('opts').appendChild(b);});}
+function rPeribahasa([pb,makna]){const pool=PERIBAHASA.map(x=>x[1]).filter(x=>x!==makna);const o=shuffle([makna,...pickDistinct(pool,opts()-1,[makna])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="bigemoji">🗣️</div><div class="qtext" style="font-size:1.05rem">“${esc(pb)}”</div><div class="hint">Apa makna peribahasa/ungkapan ini?</div>`)+`<div class="answers wide" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.style.fontSize='.92rem';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===makna?'correct':'wrong');if(x!==makna)markCorrect(makna);settle(x===makna,makna);};$('opts').appendChild(b);});}
+function rCerita([soal,ans]){const pool=[];for(let d=1;d<=4;d++){if(ans-d>0)pool.push(ans-d);pool.push(ans+d);}const o=shuffle([ans,...pickDistinct(pool,opts()-1,[ans])]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div class="qpara">🧮 ${esc(soal)}</div><div class="hint">Berapa jawabannya?</div>`)+`<div class="answers tri" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn tile';b.textContent=x;b.onclick=()=>{lockOpts();b.classList.add(x===ans?'correct':'wrong');if(x!==ans)markCorrect(ans);settle(x===ans,String(ans));};$('opts').appendChild(b);});}
+/* Kebalikan "Dengar & Pilih": suara -> tulisan, melatih anak mengenali bentuk kata. */
+function rDengarKata([emo,word]){const distract=pickDistinct(HURUF.map(h=>h[1]),opts()-1,[word]);const o=shuffle([word,...distract]);$('playArea').innerHTML=qcardHTML(cur.gm.color,`<button class="speakbtn" onclick="speak('${String(word).replace(/'/g,"\\'")}')">🔊 Dengar lagi</button><div class="hint">Dengarkan, lalu pilih tulisan kata yang benar!</div>`)+`<div class="answers" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===word?'correct':'wrong');if(x!==word)markCorrect(cap(word));settle(x===word,word+' '+emo);};$('opts').appendChild(b);});setTimeout(()=>speak(word),350);}
+function rAngka({emoji,count}){const correct=NUMWORDS[count];const pool=NUMWORDS.filter(x=>x!==correct);const o=shuffle([correct,...pickDistinct(pool,opts()-1,[correct])]);const grid=Array.from({length:count}).map(()=>emoji).join(' ');$('playArea').innerHTML=qcardHTML(cur.gm.color,`<div style="font-size:2rem;line-height:1.5;word-break:break-word">${grid}</div><div class="hint">Berapa jumlahnya?</div>`)+`<div class="answers ${o.length>=3?'tri':''}" id="opts"></div>`;o.forEach(x=>{const b=document.createElement('button');b.className='abtn';b.textContent=cap(x);b.onclick=()=>{lockOpts();b.classList.add(x===correct?'correct':'wrong');if(x!==correct)markCorrect(cap(correct));settle(x===correct,correct+' ('+count+')');};$('opts').appendChild(b);});}
+
+/* ==================================================== finish + progress */
+function finish(){
+  const right=cur.results.filter(Boolean).length;
+  const stars=right>=ROUNDS*0.8?3:right>=ROUNDS*0.6?2:1;
+  /* Potret "sebelum" — dipakai untuk tahu apa saja yang BARU terbuka sesi ini.
+     Harus diambil sebelum totalStars berubah, termasuk sebelum bonus misi. */
+  const wasNew=!prog.gamesPlayed[cur.gm.id];
+  const stick0=stickerCount(),lenc0=lencanaSet(),open0=GAMES.filter(g=>isUnlocked(g.id)).map(g=>g.id);
+  if(cur.score>(prog.best[cur.gm.id]||0))prog.best[cur.gm.id]=cur.score;
+  prog.bestStars=prog.bestStars||{};
+  if(stars>bestStars(cur.gm.id))prog.bestStars[cur.gm.id]=stars;
+  prog.totalStars+=stars;prog.xp+=cur.score;
+  const t=todayStr();
+  if(prog.lastPlayed!==t){prog.streak=(prog.lastPlayed===yesterdayStr())?prog.streak+1:1;prog.lastPlayed=t;}
+  prog.gamesPlayed[cur.gm.id]=true;
+  /* hitungan misi harian, lalu klaim yang sudah tercapai (menambah totalStars) */
+  const dc=ensureDaily().c;
+  dc.games++;dc.stars+=stars;dc.correct+=right;
+  if(stars>=3)dc.perfect++;
+  dc.combo=Math.max(dc.combo,cur.maxCombo||0);
+  if(!dc.cats.includes(cur.gm.cat))dc.cats.push(cur.gm.cat);
+  if(wasNew)dc.baru++;
+  const mis=claimMissions();
+  prog.history.unshift({game:cur.gm.name,level:LEVELS[level].name,correct:right,rounds:ROUNDS,stars,score:cur.score,ts:Date.now()});
+  prog.history=prog.history.slice(0,30);
+  const newly=[];BADGES.forEach(b=>{if(!prog.badges.includes(b.id)&&b.check(prog)){prog.badges.push(b.id);newly.push(b);}});
+  saveProgress();
+  setStars(prog.totalStars);
+  const gotStick=stickerCount()-stick0;
+  const gotLenc=lencanaSet().filter(x=>!lenc0.includes(x));
+  const gotOpen=GAMES.filter(g=>isUnlocked(g.id)&&!open0.includes(g.id));
+  sfx(stars>=2?'win':'correct');
+  const plv=playerLevel(prog.xp);
+  $('resStars').textContent='⭐'.repeat(stars);$('resName').textContent=player;
+  $('stTotal').textContent=prog.totalStars;$('stRoom').textContent=room;$('stGame').textContent=cur.gm.name;
+  $('stFocus').textContent=CATS.find(x=>x.id===cur.gm.cat).name;$('stPlv').textContent='Lv '+plv.level;
+  $('stCorrect').textContent=right+' / '+ROUNDS;$('stDelta').textContent='+'+stars+' bintang';$('stXp').textContent='+'+cur.score+' XP';
+  /* Semua yang baru didapat sesi ini, ditumpuk jadi satu baris di modal hasil. */
+  const bits=[];
+  if(mis.bonus)bits.push(`<span class="nb">🎯 Misi selesai +${mis.bonus} ⭐</span>`);
+  gotOpen.forEach(g=>bits.push(`<span class="nb">🔓 ${esc(g.name)} terbuka</span>`));
+  if(gotStick>0)bits.push(`<span class="nb">🎟️ ${gotStick} stiker baru</span>`);
+  gotLenc.forEach(id=>bits.push(`<span class="nb">🏅 ${esc((LENCANA.find(x=>x.id===id)||{}).name||'')}</span>`));
+  newly.forEach(b=>bits.push(`<span class="nb">${b.emoji} ${esc(b.name)}</span>`));
+  const nb=$('newBadges');
+  if(bits.length){nb.classList.remove('hidden');nb.innerHTML='Baru didapat: '+bits.join('');}
+  else nb.classList.add('hidden');
+  /* Toast bergiliran supaya tidak saling menimpa. */
+  const toasts=[]
+    .concat(newly)
+    .concat(mis.won.map(m=>({emoji:'🎯',name:'Misi selesai!',desc:m.text(m.target)+' · +'+MISSION_BONUS+' ⭐'})))
+    .concat(gotOpen.map(g=>({emoji:'🔓',name:'Permainan baru!',desc:g.name+' sudah terbuka'})))
+    .concat(gotLenc.map(id=>({emoji:'🏅',name:'Lencana Ahli!',desc:(LENCANA.find(x=>x.id===id)||{}).name||''})))
+    .concat(gotStick>0?[{emoji:'🎟️',name:'Stiker baru!',desc:gotStick+' stiker masuk album'}]:[]);
+  toasts.forEach((b,i)=>setTimeout(()=>badgeToast(b),i*600));
+  openModal('resultModal');
+  if(stars>=2)confetti();
+  submitScore({correct:right,rounds:ROUNDS,delta:stars,game:cur.gm.name,focus:CATS.find(x=>x.id===cur.gm.cat).name,level:LEVELS[level].name});
+}
+function closeResult(){closeModal('resultModal');goHome();setTimeout(maybeOfferInstall,900);}
+
+/* ==================================================== leaderboard */
+function localBoard(){try{return JSON.parse(localStorage.getItem(LS_BOARD)||'{}');}catch(e){return {};}}
+function saveLocalBoard(b){try{localStorage.setItem(LS_BOARD,JSON.stringify(b));}catch(e){}}
+async function submitScore(r){
+  const entry={name:player,total:prog.totalStars,game:r.game,level:r.level,focus:r.focus,correct:r.correct,rounds:r.rounds,delta:r.delta,ts:Date.now()};
+  if(ONLINE){try{await fetch('/api/score',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({room,...entry})});}catch(e){ONLINE=false;}}
+  if(!ONLINE){const b=localBoard();b[room]=b[room]||{};b[room][player]=entry;saveLocalBoard(b);}
+  refreshBoard();
+}
+async function refreshBoard(manual){
+  let rows=[];
+  if(ONLINE){try{const res=await fetch('/api/leaderboard?room='+encodeURIComponent(room));const j=await res.json();rows=j.board||[];}catch(e){ONLINE=false;}}
+  if(!ONLINE){const b=localBoard()[room]||{};rows=Object.values(b).sort((a,z)=>z.total-a.total);}
+  const el=$('lbList');if(!el)return;el.innerHTML='';
+  if(!rows.length)el.innerHTML='<div class="lbempty">Belum ada skor di room ini. Main satu game untuk mulai! 🌟</div>';
+  const medal=['🥇','🥈','🥉'];
+  rows.slice(0,20).forEach((r,i)=>{const div=document.createElement('div');div.className='lbrow'+(r.name===player?' me':'');div.innerHTML=`<div class="rank">${medal[i]||(i+1)}</div><div class="who"><div class="nm">${esc(r.name)}</div><div class="mt">${esc(r.game||'')} · ${esc(r.level||'')} · ${r.correct??'?'}/${r.rounds??'?'} benar · +${r.delta??0} bintang</div></div><div class="st">⭐ ${r.total??0}</div>`;el.appendChild(div);});
+  if(manual)showFeedback('Papan bintang diperbarui',true);
+  updateModeNote();
+}
+function updateModeNote(){const h=ONLINE?'<span class="dot-on">● Mode server</span> — papan bintang & Live aktif.':'<span class="dot-off">● Mode lokal</span> — papan bintang per perangkat. Fitur Live & sinkron lintas perangkat perlu mode server.';['modeNote','wizModeNote'].forEach(id=>{const n=$(id);if(n)n.innerHTML=h;});}
+function startPolling(){stopPolling();if(ONLINE)pollTimer=setInterval(()=>{if(!$('home').classList.contains('hidden'))refreshBoard();},5000);}
+function stopPolling(){if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
+async function detectServer(){await detectCaps();updateModeNote();if(ONLINE)loadServerContent();if(!$('home').classList.contains('hidden')){refreshBoard();startPolling();}}
+async function loadServerContent(){try{const r=await fetch('/api/content');const j=await r.json();if(j&&j.content){applyContent(j.content);if(!$('home').classList.contains('hidden'))renderHome();}}catch(e){}}
+
+/* ==================================================== LIVE multiplayer */
+const LQ_MS=15000,LR_MS=4000;
+const LIVEQ=[{id:'kosakata',name:'Kosakata',emoji:'🔤'},{id:'gambar',name:'Tebak Gambar',emoji:'🖼️'},{id:'antonim',name:'Lawan Kata',emoji:'🔄'},{id:'sinonim',name:'Persamaan',emoji:'🟰'},{id:'warna',name:'Warna',emoji:'🎨'},{id:'beda',name:'Yang Beda',emoji:'🧐'},{id:'tanda',name:'Tanda Baca',emoji:'❓'},{id:'baca',name:'Baca & Jawab',emoji:'📖'},{id:'katatanya',name:'Kata Tanya',emoji:'❔'},{id:'jeniskata',name:'Jenis Kata',emoji:'🏷️'},{id:'peribahasa',name:'Peribahasa',emoji:'🗣️'},{id:'campur',name:'Campur',emoji:'🎲'}];
+let live={timer:null,tick:null,view:null,joined:false,renderKey:'',myChoice:null,pickType:'campur',anchor:null};
+
+function mcq(correct,pool,n){const o=shuffle([correct,...pickDistinct(pool,n-1,[correct])]);return {options:o,answer:o.indexOf(correct)};}
+function genOne(type){
+  const n=opts();
+  if(type==='kosakata'){const [emo,word]=shuffle(HURUF)[0];const first=word[0];const m=mcq(first,'abcdeghijklmnoprstuwy'.split(''),Math.max(3,n));return {prompt:emo+'  _'+word.slice(1),sub:'Huruf apa yang hilang?',options:m.options,answer:m.answer};}
+  if(type==='gambar'){const [emo,word]=shuffle(HURUF)[0];const m=mcq(emo,HURUF.map(h=>h[0]),Math.max(3,n));return {prompt:'Pilih gambar untuk kata:',sub:cap(word),options:m.options,answer:m.answer};}
+  if(type==='antonim'){const [w,a]=shuffle(ANTONIM)[0];const m=mcq(cap(a),ANTONIM.flat().filter(x=>x!==w&&x!==a).map(cap),Math.max(3,n));return {prompt:'Lawan kata dari "'+w+'"?',sub:'',options:m.options,answer:m.answer};}
+  if(type==='tanda'){const [s,mk]=shuffle(TANDA)[0];const o=['.','?','!'];return {prompt:'“'+s+' ___”',sub:'Tanda baca yang tepat?',options:o,answer:o.indexOf(mk)};}
+  if(type==='baca'){const b=shuffle(BACA)[0];const [q,o,ans]=shuffle(b.q)[0];const order=shuffle(o.map((x,i)=>({x,i})));return {para:b.p,prompt:q,sub:'',options:order.map(z=>z.x),answer:order.findIndex(z=>z.i===ans)};}
+  if(type==='sinonim'){const [w,a]=shuffle(SINONIM)[0];const m=mcq(cap(a),SINONIM.flat().filter(x=>x!==w&&x!==a).map(cap),Math.max(3,n));return {prompt:'Persamaan kata dari "'+w+'"?',sub:'',options:m.options,answer:m.answer};}
+  if(type==='warna'){const SQ={merah:'🟥',biru:'🟦',hijau:'🟩',kuning:'🟨',ungu:'🟪',oranye:'🟧',hitam:'⬛',putih:'⬜',cokelat:'🟫'};const pick=shuffle(WARNA.filter(w=>SQ[w[0]]))[0];const m=mcq(cap(pick[0]),Object.keys(SQ).map(cap),Math.max(3,n));return {prompt:SQ[pick[0]],sub:'Apa nama warna ini?',options:m.options,answer:m.answer};}
+  if(type==='beda'){const b=shuffle(BEDA)[0];const o=shuffle([...b.g,b.odd].map(cap));return {prompt:'Mana yang berbeda?',sub:'',options:o,answer:o.indexOf(cap(b.odd))};}
+  if(type==='katatanya'){const [s,a]=shuffle(KATATANYA)[0];const m=mcq(cap(a),KATA_TANYA.map(cap),Math.max(3,n));return {prompt:'“'+s+'”',sub:'Kata tanya yang tepat?',options:m.options,answer:m.answer};}
+  if(type==='jeniskata'){const [w,j]=shuffle(JENISKATA)[0];const o=['benda','kerja','sifat'];return {prompt:cap(w),sub:'Termasuk jenis kata apa?',options:o.map(k=>JENIS_LABEL[k]),answer:o.indexOf(j)};}
+  if(type==='peribahasa'){const [p,mk]=shuffle(PERIBAHASA)[0];const m=mcq(mk,PERIBAHASA.map(x=>x[1]).filter(x=>x!==mk),Math.max(3,n));return {prompt:'“'+p+'”',sub:'Apa maknanya?',options:m.options,answer:m.answer};}
+  return null;
+}
+function genLive(type,count){const out=[];const types=type==='campur'?['kosakata','gambar','antonim','sinonim','warna','beda','tanda','baca','katatanya','jeniskata','peribahasa']:[type];for(let i=0;i<count;i++){const t=types[i%types.length];const q=genOne(t);if(q)out.push(q);}return out;}
+
+function goLive(){if(!player){showSetup();return;}if(!ONLINE){showFeedback('Fitur Live butuh mode server (Vercel KV).',false);return;}stopPolling();hideAll();reveal($('live'));$('liveCode').textContent=room;live.joined=false;live.renderKey='';live.myChoice=null;livePoll();startLiveTimer();}
+function leaveLive(){if(live.view&&live.view.exists)livePost({action:'leave'}).catch(()=>{});stopLiveTimer();goHome();}
+function startLiveTimer(){stopLiveTimer();live.timer=setInterval(livePoll,1300);live.tick=setInterval(liveTick,200);}
+function stopLiveTimer(){if(live.timer){clearInterval(live.timer);live.timer=null;}if(live.tick){clearInterval(live.tick);live.tick=null;}}
+async function liveGet(){const r=await fetch(`/api/live?room=${encodeURIComponent(room)}&name=${encodeURIComponent(player)}`);return r.json();}
+async function livePost(body){const r=await fetch('/api/live',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({room,name:player,...body})});return r.json();}
+async function livePoll(){try{const v=await liveGet();if(v.exists&&!live.joined){live.joined=true;await livePost({action:'join'});return livePoll();}live.view=v;renderLive(v);}catch(e){}}
+
+function renderLive(v){
+  const area=$('liveArea');
+  if(!v||!v.exists){renderLiveSetup(area);live.renderKey='setup';return;}
+  const key=v.phase+':'+v.qIndex;
+  if(key!==live.renderKey){live.renderKey=key;live.myChoice=(v.myAnswer!=null?v.myAnswer:null);buildLive(area,v);
+    if(v.phase==='question')live.anchor={at:Date.now(),msLeft:v.msLeft,dur:LQ_MS};
+    else if(v.phase==='reveal'){live.anchor={at:Date.now(),msLeft:v.msLeft,dur:LR_MS};const ok=live.myChoice!=null&&v.question&&live.myChoice===v.question.answer;sfx(ok?'correct':'wrong');if(ok)sparkleBurst($('liveOpts'));}
+    else{live.anchor=null;if(v.phase==='ended')sfx('win');}}
+  updateLiveDyn(v);
+}
+function renderLiveSetup(area){
+  area.innerHTML=`<div class="panel"><div class="ptitle">Buat kuis bareng 🎉</div>
+    <div class="pdesc">Belum ada kuis aktif di room <b>${esc(room)}</b>. Pilih jenis kuis lalu buat. Teman lain cukup masuk room ini dan menunggu.</div>
+    <div class="livetype" id="liveType"></div>
+    <div class="row" style="margin-top:12px"><button class="btn solid" onclick="liveCreate()">Buat kuis (8 soal)</button></div></div>`;
+  const lt=$('liveType');LIVEQ.forEach(q=>{const b=document.createElement('button');b.className=(q.id===live.pickType?'on':'');b.innerHTML=`<span class="e">${q.emoji}</span>${q.name}`;b.onclick=()=>{live.pickType=q.id;document.querySelectorAll('#liveType button').forEach(x=>x.classList.remove('on'));b.classList.add('on');};lt.appendChild(b);});
+}
+async function liveCreate(){const questions=genLive(live.pickType,8);const v=await livePost({action:'create',gameId:live.pickType,level:LEVELS[level].name,focus:live.pickType,questions});live.joined=true;live.view=v;live.renderKey='';renderLive(v);showFeedback('Kuis dibuat! Bagikan kode '+room,true);}
+async function liveStart(){await livePost({action:'start'});livePoll();}
+async function liveRestart(){await livePost({action:'restart'});live.renderKey='';livePoll();}
+
+function buildLive(area,v){
+  const scoreboard=`<div class="panel"><div class="plabel">Pemain</div><div id="lvPlayers"></div></div>`;
+  if(v.phase==='lobby'){
+    area.innerHTML=`<div class="livegrid"><div><div class="panel">
+      <div class="ptitle">Ruang tunggu</div>
+      <div class="pdesc">Jenis kuis: <b>${esc((LIVEQ.find(x=>x.id===v.gameId)||{}).name||v.gameId)}</b> • ${v.total} soal • Level ${esc(v.level)}</div>
+      <div class="codebox"><span class="k">Kode</span><span class="code">${esc(v.code)}</span></div>
+      <div class="row" style="margin-top:12px">
+        ${v.isHost?'<button class="btn solid" onclick="liveStart()">▶ Mulai kuis</button>':'<div class="pdesc">Menunggu host memulai…</div>'}
+        <button class="btn sm" onclick="copyCode()">Salin kode</button>
+        <button class="btn sm" onclick="copyLink()">Salin link</button>
+      </div></div></div>${scoreboard}</div>`;
+  } else if(v.phase==='question'||v.phase==='reveal'){
+    const q=v.question||{};
+    area.innerHTML=`<div class="livegrid"><div>
+      <div class="livebar"><i id="lvBar"></i></div>
+      <div class="hud"><div>Soal ${v.qIndex+1}/${v.total}</div><div id="lvAns" style="font-size:.82rem;color:var(--ink-soft)"></div></div>
+      <div class="qcard" style="border-color:var(--accent);background:var(--teal-bg)">
+        ${q.para?`<div class="qpara">📖 ${esc(q.para)}</div>`:''}
+        <div class="qtext">${esc(q.prompt||'')}</div>
+        ${q.sub?`<div class="qword" style="font-size:1.6rem">${esc(q.sub)}</div>`:''}
+      </div>
+      <div class="answers ${(q.options||[]).length>=4?'tri':(q.options||[]).length===3?'tri':''}" id="liveOpts"></div>
+    </div>${scoreboard}</div>`;
+    const wrap=$('liveOpts');(q.options||[]).forEach((o,i)=>{const b=document.createElement('button');b.className='abtn'+(String(o).length<=2?' tile':'');b.textContent=o;b.dataset.i=i;b.onclick=()=>liveAnswer(i);wrap.appendChild(b);});
+  } else { // ended
+    area.innerHTML=`<div class="livegrid"><div><div class="panel" style="text-align:center">
+      <div style="font-size:2.4rem">🏆</div><div class="ptitle">Kuis selesai!</div>
+      <div class="pdesc">Skor akhir di room ${esc(v.code)}</div>
+      <div class="row" style="justify-content:center;margin-top:12px">
+        ${v.isHost?'<button class="btn solid" onclick="liveRestart()">🔁 Main lagi</button>':''}
+        <button class="btn" onclick="leaveLive()">🏠 Menu</button></div>
+    </div></div>${scoreboard}</div>`;
+  }
+}
+function updateLiveDyn(v){
+  const pl=$('lvPlayers');
+  if(pl){pl.innerHTML='';(v.players||[]).forEach((p,i)=>{const d=document.createElement('div');d.className='playerchip';d.innerHTML=`<span class="pdot ${p.online?'on':''}"></span><span>${(['🥇','🥈','🥉'][i]||'')} ${esc(p.name)}${p.name===v.host?' 👑':''}${p.name===player?' (kamu)':''}</span><span class="ps">${p.score}</span>`;pl.appendChild(d);});}
+  const ans=$('lvAns');if(ans&&v.players){const answered=v.players.length;ans.textContent='';}
+  if(v.phase==='question'){const wrap=$('liveOpts');if(wrap){wrap.querySelectorAll('.abtn').forEach((b,i)=>{if(live.myChoice!=null){b.disabled=true;if(i===live.myChoice)b.classList.add('picked');}});}}
+  if(v.phase==='reveal'){const wrap=$('liveOpts');const q=v.question||{};if(wrap){wrap.querySelectorAll('.abtn').forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.classList.add('correct');else if(i===live.myChoice)b.classList.add('wrong');});}}
+}
+function liveTick(){if(!live.anchor)return;const bar=$('lvBar');if(!bar)return;const rem=Math.max(0,live.anchor.msLeft-(Date.now()-live.anchor.at));bar.style.width=Math.max(0,Math.min(100,(rem/live.anchor.dur)*100))+'%';const wrap=bar.closest('.livebar');if(wrap)wrap.classList.toggle('low',live.anchor.dur===LQ_MS&&rem<4000);}
+function liveAnswer(i){if(live.myChoice!=null||!live.view||live.view.phase!=='question')return;sfx('tap');live.myChoice=i;const wrap=$('liveOpts');if(wrap)wrap.querySelectorAll('.abtn').forEach((b,j)=>{b.disabled=true;if(j===i)b.classList.add('picked');});livePost({action:'answer',qIndex:live.view.qIndex,choice:i}).then(v=>{live.view=v;updateLiveDyn(v);}).catch(()=>{});}
+
+/* ==================================================== profile */
+function openProfile(){renderProfile();openModal('profileModal');}
+function closeProfile(){closeModal('profileModal');}
+function renderProfile(){
+  const plv=playerLevel(prog.xp);const pct=Math.round(plv.into/plv.need*100);const rk=rankOf(prog.totalStars);
+  const badges=BADGES.map(b=>{const have=prog.badges.includes(b.id);return `<div class="badge ${have?'have':''}" title="${esc(b.desc)}"><div class="be">${b.emoji}</div><div class="bn">${esc(b.name)}</div></div>`;}).join('');
+  const hist=prog.history.length?prog.history.slice(0,12).map(h=>`<div class="histrow"><span class="hg">${esc(h.game)}</span><span class="hm">${esc(h.level)} · ${h.correct}/${h.rounds} · +${h.stars}⭐ · ${h.score} XP</span></div>`).join(''):'<div class="pdesc">Belum ada riwayat. Ayo main! 🌟</div>';
+  $('profileBody').innerHTML=`
+    <div class="resHead"><div class="stars">${CFG.mascot}</div><div class="nm">${esc(player||'Pemain')}</div>
+      <div class="pdesc">Level ${plv.level} • ${prog.xp} XP total</div></div>
+    <div class="xpbar"><i style="width:${pct}%"></i></div>
+    <div class="pdesc" style="text-align:center">${plv.into}/${plv.need} XP menuju Level ${plv.level+1}</div>
+    <div class="statgrid" style="margin-top:14px">
+      <div class="statbox"><div class="l">Total bintang</div><div class="v">⭐ ${prog.totalStars}</div></div>
+      <div class="statbox"><div class="l">Runtun harian</div><div class="v">🔥 ${prog.streak} hari</div></div>
+      <div class="statbox"><div class="l">Pangkat</div><div class="v">${rk.cur.emoji} ${esc(rk.cur.name)}</div></div>
+      <div class="statbox"><div class="l">Stiker</div><div class="v">🎟️ ${stickerCount()}/${STICKERS.length}</div></div>
+      <div class="statbox"><div class="l">Permainan terbuka</div><div class="v">${unlockedCount()}/${GAMES.length}</div></div>
+      <div class="statbox"><div class="l">Lencana Ahli</div><div class="v">🏅 ${lencanaSet().length}/${LENCANA.length}</div></div>
+      <div class="statbox"><div class="l">Game dimainkan</div><div class="v">${prog.history.length}</div></div>
+      <div class="statbox"><div class="l">Badge</div><div class="v">${prog.badges.length}/${BADGES.length}</div></div>
+    </div>
+    <div class="appline ${TEACHER?'ok':''}" style="margin-top:14px">
+      <div class="ai">${TEACHER?'🔓':'🔒'}</div>
+      <div class="at"><div class="an">Mode guru — buka semua permainan</div>
+      <div class="ad">${TEACHER?'Semua permainan bisa dimainkan tanpa menunggu bintang.':'Permainan terbuka bertahap seiring bintang terkumpul.'}</div></div>
+      <button class="btn sm ${TEACHER?'coral':'solid'}" onclick="toggleTeacher()">${TEACHER?'Matikan':'Nyalakan'}</button>
+    </div>
+    <div class="section-t" style="font-family:'Baloo 2';font-weight:700;margin:16px 0 4px;color:var(--accent)">Badge</div>
+    <div class="badgegrid">${badges}</div>
+    <div class="section-t" style="font-family:'Baloo 2';font-weight:700;margin:16px 0 4px;color:var(--accent)">Riwayat terakhir</div>
+    <div class="hist">${hist}</div>
+    <div class="reslink"><button class="bigbtn coral" onclick="closeProfile()">Tutup</button></div>`;
+}
+
+/* ==================================================== admin */
+/* Panel admin -> admin.html (lihat shared.js untuk konfigurasi & bank soal) */
+
+/* ==================================================== modal utils */
+function openModal(id){$(id).classList.remove('hidden');}
+function closeModal(id){$(id).classList.add('hidden');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){
+  if(!$('installSheet').classList.contains('hidden')){closeInstall();return;}
+  ['resultModal','profileModal'].forEach(id=>{if(!$(id).classList.contains('hidden')){if(id==='resultModal')closeResult();else closeModal(id);}});}});
+/* Ketuk di luar kartu = "nanti saja". */
+$('installSheet').addEventListener('click',e=>{if(e.target===$('installSheet'))closeInstall();});
+/* Tab tetap berputar di dalam popup selama terbuka. */
+$('installSheet').addEventListener('keydown',e=>{
+  if(e.key!=='Tab')return;
+  const f=$('instCard').querySelectorAll('button:not([disabled])');if(!f.length)return;
+  const first=f[0],last=f[f.length-1];
+  if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+  else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+});
+document.addEventListener('pointerdown',e=>{if(e.target.closest('.btn,.selcard,.gcard,.bigbtn,.pill,.soundbtn,.adminlink,.speakbtn'))sfx('tap');},{passive:true});
+
+/* ==================================================== init */
+(function init(){
+  bootContent();
+  applyBranding();
+  migrateProgress();
+  const params=new URLSearchParams(location.search);
+  if(params.get('room')){room=params.get('room').toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,8);localStorage.setItem(LS_ROOM,room);}
+  if(params.get('level')&&LEVELS[params.get('level')]){level=params.get('level');localStorage.setItem('bic_level',level);}
+  $('totalStars').textContent=prog.totalStars;
+  $('soundBtn').textContent=SOUND.on?'🔊':'🔇';
+  if(player)goHome();else showSetup();
+  detectServer();
+  checkPersist();
+  /* iOS tidak punya beforeinstallprompt — tawaran untuk pemain lama muncul dari sini. */
+  setTimeout(maybeOfferInstall,12000);
+  if('serviceWorker' in navigator && location.protocol.startsWith('http')){
+    navigator.serviceWorker.register('sw.js').then(()=>{
+      /* controller baru muncul setelah SW aktif — segarkan status "siap offline". */
+      navigator.serviceWorker.ready.then(()=>setTimeout(renderAppPanel,300));
+    }).catch(()=>{});
+  }
+})();
+</script>
+</body>
+</html>

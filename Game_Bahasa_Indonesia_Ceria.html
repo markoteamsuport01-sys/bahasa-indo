@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Petualangan Bahasa Indonesia Ceria</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --coral:#FF6B6B; --coral-bg:#FFE3E3;
+  --amber:#F59F00; --amber-bg:#FFF3BF;
+  --green:#37B24D; --green-bg:#D3F9D8;
+  --blue:#1C7ED6;  --blue-bg:#D0EBFF;
+  --purple:#AE3EC9;--purple-bg:#F3D9FA;
+  --teal:#0CA678;  --teal-bg:#C3FAE8;
+  --ink:#2f2f45; --ink-soft:#5b5b70;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{
+  font-family:'Poppins',sans-serif;color:var(--ink);min-height:100vh;
+  background:linear-gradient(160deg,#FFF9E6 0%,#FFEFEF 45%,#E8F7FF 100%);
+  background-attachment:fixed;
+}
+.wrap{max-width:520px;margin:0 auto;padding:18px 16px 40px;position:relative}
+h1,h2,h3,.baloo{font-family:'Baloo 2',cursive}
+button{font-family:inherit;cursor:pointer;border:none}
+
+/* ---------- top bar ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+.brand{font-family:'Baloo 2',cursive;font-weight:800;font-size:1.05rem;line-height:1.1}
+.brand span{color:var(--coral)}
+.starchip{background:#fff;border:2.5px solid var(--amber);border-radius:999px;
+  padding:5px 14px;font-weight:700;font-size:.95rem;display:flex;align-items:center;gap:6px;
+  box-shadow:0 3px 0 var(--amber)}
+.backbtn{background:#fff;border:2.5px solid var(--ink);border-radius:999px;padding:5px 14px;
+  font-weight:700;font-size:.9rem;box-shadow:0 3px 0 var(--ink);color:var(--ink)}
+.backbtn:active{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+
+/* ---------- home ---------- */
+.hero{text-align:center;margin:8px 0 20px}
+.hero .big{font-size:2rem;font-weight:800;line-height:1.1}
+.hero .big em{font-style:normal;color:var(--coral)}
+.hero .big u{text-decoration:none;color:var(--blue)}
+.hero p{color:var(--ink-soft);font-size:.9rem;margin-top:6px}
+.mascot{font-size:3rem;animation:float 3s ease-in-out infinite;display:inline-block}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+
+.gamegrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gcard{background:#fff;border:3px solid;border-radius:20px;padding:14px 12px;text-align:center;
+  transition:transform .15s;position:relative}
+.gcard:active{transform:scale(.96)}
+.gcard .gemoji{font-size:2.2rem;display:block}
+.gcard .gname{font-family:'Baloo 2',cursive;font-weight:700;font-size:1rem;line-height:1.15;margin-top:4px}
+.gcard .gmod{font-size:.68rem;font-weight:600;color:#fff;border-radius:999px;padding:2px 10px;
+  display:inline-block;margin-top:6px}
+.gcard .gbest{font-size:.7rem;color:var(--ink-soft);margin-top:5px;min-height:1em}
+
+/* ---------- game screen ---------- */
+.gamehead{border-radius:18px;padding:12px 16px;color:#fff;margin-bottom:12px}
+.gamehead .t{font-family:'Baloo 2',cursive;font-weight:700;font-size:1.15rem}
+.gamehead .s{font-size:.75rem;opacity:.95}
+.hud{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;
+  font-weight:600;font-size:.85rem}
+.dots{display:flex;gap:5px}
+.dot{width:11px;height:11px;border-radius:50%;background:#fff;border:2px solid #cfcfda}
+.dot.ok{background:var(--green);border-color:var(--green)}
+.dot.bad{background:var(--coral);border-color:var(--coral)}
+.dot.now{border-color:var(--ink)}
+
+.qcard{background:#fff;border:3px solid;border-radius:22px;padding:20px 16px;text-align:center;
+  min-height:170px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.qcard .bigemoji{font-size:3.4rem;line-height:1}
+.qcard .qword{font-family:'Baloo 2',cursive;font-weight:800;font-size:2rem;letter-spacing:2px}
+.qcard .qtext{font-size:1.05rem;font-weight:600;line-height:1.5}
+.qcard .qpara{background:var(--blue-bg);border-radius:14px;padding:12px;font-size:.9rem;
+  text-align:left;line-height:1.6}
+.qcard .hint{font-size:.78rem;color:var(--ink-soft)}
+
+.slots{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;min-height:52px}
+.slot{min-width:52px;height:48px;border-bottom:4px dotted #c8c8d6;border-radius:6px;
+  font-family:'Baloo 2',cursive;font-weight:800;font-size:1.5rem;display:flex;
+  align-items:center;justify-content:center;padding:0 8px}
+.slot.filled{border-bottom-style:solid}
+
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.answers.wide{grid-template-columns:1fr}
+.answers.tri{grid-template-columns:repeat(3,1fr)}
+.abtn{background:#fff;border:3px solid var(--ink);border-radius:16px;padding:13px 10px;
+  font-weight:700;font-size:1.05rem;color:var(--ink);box-shadow:0 4px 0 var(--ink);
+  transition:transform .1s}
+.abtn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--ink)}
+.abtn.correct{background:var(--green);border-color:var(--green);color:#fff;box-shadow:0 4px 0 #2b8c3c}
+.abtn.wrong{background:var(--coral);border-color:var(--coral);color:#fff;box-shadow:0 4px 0 #d84f4f;
+  animation:shake .35s}
+.abtn:disabled{cursor:default;opacity:.9}
+.abtn.tile{font-family:'Baloo 2',cursive;font-size:1.3rem;padding:10px}
+.abtn.used{opacity:.25;pointer-events:none}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+
+.util{display:flex;justify-content:center;gap:10px;margin-top:12px}
+.util button{background:#fff;border:2.5px solid var(--ink-soft);color:var(--ink-soft);
+  border-radius:999px;padding:6px 16px;font-weight:600;font-size:.85rem}
+
+/* ---------- feedback ---------- */
+.feedback{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(140%);
+  background:var(--ink);color:#fff;border-radius:18px;padding:12px 22px;font-weight:700;
+  font-size:1rem;transition:transform .25s;z-index:50;max-width:90%;text-align:center;
+  box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.feedback.show{transform:translateX(-50%) translateY(0)}
+.feedback.good{background:var(--green)}
+.feedback.bad{background:var(--coral)}
+
+/* ---------- result ---------- */
+.result{background:#fff;border:3px solid var(--amber);border-radius:24px;padding:26px 18px;
+  text-align:center}
+.result .stars{font-size:2.6rem;letter-spacing:6px;margin:8px 0}
+.result .stars .on{animation:pop .5s backwards}
+.result .stars .on:nth-child(2){animation-delay:.15s}
+.result .stars .on:nth-child(3){animation-delay:.3s}
+@keyframes pop{0%{transform:scale(0)}70%{transform:scale(1.3)}100%{transform:scale(1)}}
+.result h2{font-size:1.5rem;font-weight:800}
+.result .score{font-size:1rem;color:var(--ink-soft);margin-bottom:14px}
+.bigbtn{border-radius:999px;padding:12px 26px;font-family:'Baloo 2',cursive;font-weight:700;
+  font-size:1.05rem;color:#fff;margin:4px}
+.bigbtn.play{background:var(--green);box-shadow:0 4px 0 #2b8c3c}
+.bigbtn.menu{background:var(--blue);box-shadow:0 4px 0 #155fa8}
+.bigbtn:active{transform:translateY(3px);box-shadow:none}
+
+/* ---------- confetti ---------- */
+.confetti{position:fixed;top:-12px;border-radius:3px;z-index:60;pointer-events:none;
+  animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg)}}
+
+.hidden{display:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+}
+@media (max-width:360px){
+  .gamegrid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">Bahasa Indonesia<br><span>Ceria</span> 🎈</div>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="backbtn hidden" id="btnBack" onclick="goHome()">⬅ Menu</button>
+      <div class="starchip">⭐ <span id="totalStars">0</span></div>
+    </div>
+  </div>
+
+  <!-- ================= HOME ================= -->
+  <div id="home">
+    <div class="hero">
+      <span class="mascot">🦉</span>
+      <div class="big">Petualangan <em>Bahasa</em><br><u>Indonesia</u> Ceria!</div>
+      <p>Pilih permainan, kumpulkan bintang, dan jadilah jago bahasa! 🌟</p>
+    </div>
+    <div class="gamegrid" id="gameGrid"></div>
+  </div>
+
+  <!-- ================= GAME ================= -->
+  <div id="game" class="hidden">
+    <div class="gamehead" id="gameHead">
+      <div class="t" id="ghTitle"></div>
+      <div class="s" id="ghSub"></div>
+    </div>
+    <div class="hud">
+      <div>Skor: <span id="hudScore">0</span></div>
+      <div class="dots" id="hudDots"></div>
+    </div>
+    <div id="playArea"></div>
+  </div>
+
+  <!-- ================= RESULT ================= -->
+  <div id="resultScr" class="hidden">
+    <div class="result">
+      <h2 id="resTitle">Hebat sekali! 🎉</h2>
+      <div class="stars" id="resStars"></div>
+      <div class="score" id="resScore"></div>
+      <button class="bigbtn play" onclick="replay()">🔁 Main lagi</button>
+      <button class="bigbtn menu" onclick="goHome()">🏠 Menu</button>
+    </div>
+  </div>
+
+</div>
+<div class="feedback" id="feedback"></div>
+
+<script>
+/* ============================================================ data */
+const C = {
+  coral:['#FF6B6B','#FFE3E3'], amber:['#F59F00','#FFF3BF'],
+  green:['#37B24D','#D3F9D8'], blue:['#1C7ED6','#D0EBFF'],
+  purple:['#AE3EC9','#F3D9FA'], teal:['#0CA678','#C3FAE8']
+};
+
+const HURUF = [
+  ['🍎','apel'],['⚽','bola'],['🐱','kucing'],['🐟','ikan'],['🌂','payung'],
+  ['🐘','gajah'],['🏠','rumah'],['🍞','roti'],['👟','sepatu'],['🐔','ayam'],
+  ['🥛','susu'],['📚','buku'],['🌙','bulan'],['⭐','bintang'],['🚗','mobil']
+];
+const SUKU = [
+  ['⚽','bola',['bo','la']],['👀','mata',['ma','ta']],['📚','buku',['bu','ku']],
+  ['🍞','roti',['ro','ti']],['🐄','sapi',['sa','pi']],['🎩','topi',['to','pi']],
+  ['🚂','kereta',['ke','re','ta']],['🚲','sepeda',['se','pe','da']],
+  ['🌈','pelangi',['pe','la','ngi']],['🥥','kelapa',['ke','la','pa']],
+  ['🌞','matahari',['ma','ta','ha','ri']],['🧹','sapu',['sa','pu']]
+];
+const KALIMAT = [
+  'Ibu memasak nasi','Adik minum susu','Budi bermain bola','Kucing makan ikan',
+  'Ayah membaca koran','Saya suka membaca buku','Rina pergi ke sekolah',
+  'Kakak menulis surat','Nenek menyiram bunga','Kami belajar bersama'
+];
+const TANDA = [
+  ['Siapa namamu','?'],['Saya suka membaca','.'],['Wah, indah sekali','!'],
+  ['Di mana rumahmu','?'],['Ayo cuci tangan','!'],['Hari ini hujan','.'],
+  ['Kapan kamu ulang tahun','?'],['Hore, kita menang','!'],
+  ['Adik tidur siang','.'],['Mengapa kamu terlambat','?']
+];
+const ANTONIM = [
+  ['besar','kecil'],['panjang','pendek'],['terang','gelap'],['rajin','malas'],
+  ['tinggi','rendah'],['cepat','lambat'],['panas','dingin'],['ramai','sepi'],
+  ['berani','takut'],['bersih','kotor']
+];
+const BACA = [
+  {p:'Sinta memelihara kucing bernama Momo. Setiap pagi Sinta memberi Momo makan ikan. Momo suka bermain bola benang di halaman.',
+   q:[['Siapa nama kucing Sinta?',['Momo','Sinta','Ikan'],0],
+      ['Apa makanan Momo setiap pagi?',['Roti','Ikan','Nasi'],1],
+      ['Di mana Momo suka bermain?',['Di kamar','Di sekolah','Di halaman'],2]]},
+  {p:'Taman kota ramai pada hari Minggu. Banyak anak bermain layang-layang di lapangan. Pedagang es krim berkeliling dengan sepedanya.',
+   q:[['Kapan taman kota menjadi ramai?',['Hari Senin','Hari Minggu','Malam hari'],1],
+      ['Apa yang dimainkan anak-anak?',['Layang-layang','Bola','Boneka'],0],
+      ['Siapa yang berkeliling dengan sepeda?',['Guru','Polisi','Pedagang es krim'],2]]},
+  {p:'Seekor semut hanyut di sungai. Merpati menjatuhkan daun untuk menolongnya. Semut pun selamat dan berterima kasih kepada merpati.',
+   q:[['Siapa yang menolong semut?',['Merpati','Kerbau','Kancil'],0],
+      ['Di mana semut hanyut?',['Di laut','Di sungai','Di kolam'],1]]},
+  {p:'Rina bangun pagi-pagi. Ia mandi lalu sarapan roti dan susu. Rina berangkat ke sekolah dengan hati senang.',
+   q:[['Apa sarapan Rina?',['Nasi goreng','Roti dan susu','Buah'],1],
+      ['Bagaimana perasaan Rina?',['Sedih','Marah','Senang'],2]]}
+];
+
+/* ============================================================ games meta */
+const GAMES = [
+  {id:'huruf',  name:'Tebak Huruf',      emoji:'🔤', mod:'Modul 1', color:'coral',
+   sub:'Huruf apa yang hilang?'},
+  {id:'suku',   name:'Susun Suku Kata',  emoji:'🧩', mod:'Modul 2', color:'amber',
+   sub:'Ketuk suku kata sesuai urutan!'},
+  {id:'kalimat',name:'Susun Kalimat',    emoji:'📝', mod:'Modul 4', color:'green',
+   sub:'Urutkan kata menjadi kalimat!'},
+  {id:'tanda',  name:'Tanda Baca',       emoji:'❓', mod:'Modul 6', color:'blue',
+   sub:'Pilih tanda baca yang tepat!'},
+  {id:'antonim',name:'Lawan Kata',       emoji:'🔄', mod:'Modul 7', color:'purple',
+   sub:'Cari lawan katanya!'},
+  {id:'baca',   name:'Baca & Jawab',     emoji:'📖', mod:'Modul 8', color:'teal',
+   sub:'Baca dulu, lalu jawab!'}
+];
+const ROUNDS = 8;
+const best = {};       /* per-game best score, in memory */
+let totalStars = 0;
+
+/* ============================================================ helpers */
+const $ = id => document.getElementById(id);
+const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+const cap = s => s.charAt(0).toUpperCase()+s.slice(1);
+
+function showFeedback(msg, good){
+  const f = $('feedback');
+  f.textContent = msg;
+  f.className = 'feedback show ' + (good?'good':'bad');
+  clearTimeout(f._t);
+  f._t = setTimeout(()=>f.classList.remove('show'), 1200);
+}
+function confetti(){
+  const colors = Object.values(C).map(c=>c[0]);
+  for(let i=0;i<36;i++){
+    const d = document.createElement('div');
+    d.className='confetti';
+    d.style.left = Math.random()*100+'vw';
+    d.style.width = d.style.height = (6+Math.random()*8)+'px';
+    d.style.background = colors[i%colors.length];
+    d.style.animationDuration = (1.6+Math.random()*1.4)+'s';
+    d.style.animationDelay = (Math.random()*.4)+'s';
+    document.body.appendChild(d);
+    setTimeout(()=>d.remove(), 3600);
+  }
+}
+
+/* ============================================================ home */
+function renderHome(){
+  $('totalStars').textContent = totalStars;
+  const g = $('gameGrid'); g.innerHTML='';
+  GAMES.forEach(gm=>{
+    const [c,bg] = C[gm.color];
+    const el = document.createElement('button');
+    el.className='gcard';
+    el.style.borderColor = c;
+    el.style.background = '#fff';
+    el.innerHTML = `<span class="gemoji">${gm.emoji}</span>
+      <span class="gname" style="color:${c}">${gm.name}</span><br>
+      <span class="gmod" style="background:${c}">${gm.mod}</span>
+      <div class="gbest">${best[gm.id]!==undefined ? 'Terbaik: '+best[gm.id]+' ⭐' : 'Belum dimainkan'}</div>`;
+    el.onclick = ()=>startGame(gm.id);
+    g.appendChild(el);
+  });
+}
+function goHome(){
+  $('game').classList.add('hidden');
+  $('resultScr').classList.add('hidden');
+  $('btnBack').classList.add('hidden');
+  $('home').classList.remove('hidden');
+  renderHome();
+}
+
+/* ============================================================ engine */
+let cur = null; /* {game, round, score, results[], queue} */
+
+function startGame(id){
+  const gm = GAMES.find(g=>g.id===id);
+  cur = {gm, round:0, score:0, results:[], queue: buildQueue(id)};
+  $('home').classList.add('hidden');
+  $('resultScr').classList.add('hidden');
+  $('game').classList.remove('hidden');
+  $('btnBack').classList.remove('hidden');
+  const [c] = C[gm.color];
+  $('gameHead').style.background = c;
+  $('ghTitle').textContent = gm.emoji+' '+gm.name;
+  $('ghSub').textContent = gm.sub+' \u2022 '+gm.mod;
+  nextRound();
+}
+function replay(){ startGame(cur.gm.id); }
+
+function buildQueue(id){
+  if(id==='huruf')   return shuffle(HURUF).slice(0,ROUNDS);
+  if(id==='suku')    return shuffle(SUKU).slice(0,ROUNDS);
+  if(id==='kalimat') return shuffle(KALIMAT).slice(0,ROUNDS);
+  if(id==='tanda')   return shuffle(TANDA).slice(0,ROUNDS);
+  if(id==='antonim') return shuffle(ANTONIM).slice(0,ROUNDS);
+  if(id==='baca'){
+    const q=[];
+    shuffle(BACA).forEach(b=>b.q.forEach(x=>q.push({p:b.p,q:x})));
+    return shuffle(q).slice(0,ROUNDS);
+  }
+}
+function drawHud(){
+  $('hudScore').textContent = cur.score;
+  const d = $('hudDots'); d.innerHTML='';
+  for(let i=0;i<ROUNDS;i++){
+    const dot=document.createElement('div');
+    dot.className='dot'+(cur.results[i]===true?' ok':cur.results[i]===false?' bad':i===cur.round?' now':'');
+    d.appendChild(dot);
+  }
+}
+function nextRound(){
+  if(cur.round>=ROUNDS) return finish();
+  drawHud();
+  const id = cur.gm.id, item = cur.queue[cur.round];
+  if(id==='huruf')   rHuruf(item);
+  if(id==='suku')    rSuku(item);
+  if(id==='kalimat') rKalimat(item);
+  if(id==='tanda')   rTanda(item);
+  if(id==='antonim') rAntonim(item);
+  if(id==='baca')    rBaca(item);
+}
+function settle(good, correctText){
+  cur.results[cur.round] = good;
+  if(good){ cur.score += 10; showFeedback(shuffle(['Hebat! 🎉','Keren! 🌟','Pintar sekali! 👏','Tepat! ✨'])[0], true); }
+  else    { showFeedback('Belum tepat 😅 Jawabannya: '+correctText, false); }
+  drawHud();
+  cur.round++;
+  setTimeout(nextRound, good?900:1500);
+}
+function qcardHTML(color, inner){
+  const [c,bg] = C[color];
+  return `<div class="qcard" style="border-color:${c};background:${bg}">${inner}</div>`;
+}
+
+/* ============================================================ rounds */
+function rHuruf([emo, word]){
+  const first = word[0];
+  const masked = '_'+word.slice(1);
+  const pool = 'bcdghjklmnprst'.split('').filter(x=>x!==first);
+  const opts = shuffle([first, ...shuffle(pool).slice(0,3)]);
+  $('playArea').innerHTML = qcardHTML(cur.gm.color,
+    `<div class="bigemoji">${emo}</div>
+     <div class="qword">${masked}</div>
+     <div class="hint">Huruf apa yang hilang?</div>`)+
+    `<div class="answers" id="opts"></div>`;
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='abtn tile'; b.textContent=o;
+    b.onclick=()=>{
+      lockOpts();
+      b.classList.add(o===first?'correct':'wrong');
+      if(o!==first) markCorrect(first);
+      settle(o===first, first);
+    };
+    $('opts').appendChild(b);
+  });
+}
+
+function rSuku([emo, word, parts]){
+  let picked=[];
+  const tiles = shuffle(parts.map((p,i)=>({p,i})));
+  const render=()=>{
+    $('playArea').innerHTML = qcardHTML(cur.gm.color,
+      `<div class="bigemoji">${emo}</div>
+       <div class="slots">${parts.map((_,i)=>
+         `<div class="slot ${picked[i]!==undefined?'filled':''}">${picked[i]??''}</div>`).join('')}</div>
+       <div class="hint">Ketuk suku kata sesuai urutan!</div>`)+
+      `<div class="answers ${parts.length>2?'tri':''}" id="opts"></div>
+       <div class="util"><button onclick="window._undoSuku()">↩ Hapus</button></div>`;
+    tiles.forEach(t=>{
+      const b=document.createElement('button');
+      b.className='abtn tile'+(t.used?' used':''); b.textContent=t.p;
+      b.onclick=()=>{ t.used=true; picked.push(t.p); check(); };
+      $('opts').appendChild(b);
+    });
+  };
+  const check=()=>{
+    if(picked.length===parts.length){
+      const good = picked.join('')===word;
+      render(); lockOpts();
+      settle(good, word);
+    } else render();
+  };
+  window._undoSuku=()=>{
+    if(!picked.length) return;
+    const last=picked.pop();
+    const t=tiles.find(x=>x.used && x.p===last); if(t) t.used=false;
+    render();
+  };
+  render();
+}
+
+function rKalimat(sentence){
+  const words = sentence.split(' ');
+  let picked=[];
+  const tiles = shuffle(words.map((w,i)=>({w,i})));
+  const render=()=>{
+    $('playArea').innerHTML = qcardHTML(cur.gm.color,
+      `<div class="qtext" style="min-height:2.2em">${picked.join(' ')||'…'}</div>
+       <div class="hint">Ketuk kata untuk menyusun kalimat (${picked.length}/${words.length})</div>`)+
+      `<div class="answers wide" id="opts"></div>
+       <div class="util"><button onclick="window._undoKal()">↩ Hapus</button></div>`;
+    tiles.forEach(t=>{
+      const b=document.createElement('button');
+      b.className='abtn'+(t.used?' used':''); b.textContent=t.w;
+      b.onclick=()=>{ t.used=true; picked.push(t.w); check(); };
+      $('opts').appendChild(b);
+    });
+  };
+  const check=()=>{
+    if(picked.length===words.length){
+      const good = picked.join(' ')===sentence;
+      render(); lockOpts();
+      settle(good, sentence+'.');
+    } else render();
+  };
+  window._undoKal=()=>{
+    if(!picked.length) return;
+    const last=picked.pop();
+    const t=tiles.find(x=>x.used && x.w===last); if(t) t.used=false;
+    render();
+  };
+  render();
+}
+
+function rTanda([sent, mark]){
+  $('playArea').innerHTML = qcardHTML(cur.gm.color,
+    `<div class="qtext">\u201c${sent} <b style="color:${C[cur.gm.color][0]}">__</b>\u201d</div>
+     <div class="hint">Tanda baca apa yang tepat di akhir kalimat?</div>`)+
+    `<div class="answers tri" id="opts"></div>`;
+  ['.','?','!'].forEach(m=>{
+    const b=document.createElement('button');
+    b.className='abtn tile'; b.textContent=m;
+    b.onclick=()=>{
+      lockOpts();
+      b.classList.add(m===mark?'correct':'wrong');
+      if(m!==mark) markCorrect(mark);
+      const names={'.':'titik ( . )','?':'tanda tanya ( ? )','!':'tanda seru ( ! )'};
+      settle(m===mark, names[mark]);
+    };
+    $('opts').appendChild(b);
+  });
+}
+
+function rAntonim([word, anto]){
+  const pool = ANTONIM.flat().filter(x=>x!==word && x!==anto);
+  const opts = shuffle([anto, ...shuffle(pool).slice(0,3)]);
+  $('playArea').innerHTML = qcardHTML(cur.gm.color,
+    `<div class="qword" style="font-size:1.7rem">${cap(word)}</div>
+     <div class="hint">Apa lawan kata dari \u201c${word}\u201d?</div>`)+
+    `<div class="answers" id="opts"></div>`;
+  opts.forEach(o=>{
+    const b=document.createElement('button');
+    b.className='abtn'; b.textContent=cap(o);
+    b.onclick=()=>{
+      lockOpts();
+      b.classList.add(o===anto?'correct':'wrong');
+      if(o!==anto) markCorrect(cap(anto));
+      settle(o===anto, anto);
+    };
+    $('opts').appendChild(b);
+  });
+}
+
+function rBaca(item){
+  const [qq, opts, ans] = item.q;
+  const order = shuffle(opts.map((o,i)=>({o,i})));
+  $('playArea').innerHTML = qcardHTML(cur.gm.color,
+    `<div class="qpara">📖 ${item.p}</div>
+     <div class="qtext" style="font-size:.98rem">${qq}</div>`)+
+    `<div class="answers wide" id="opts"></div>`;
+  order.forEach(({o,i})=>{
+    const b=document.createElement('button');
+    b.className='abtn'; b.style.fontSize='.95rem'; b.textContent=o;
+    b.onclick=()=>{
+      lockOpts();
+      b.classList.add(i===ans?'correct':'wrong');
+      if(i!==ans) markCorrect(opts[ans]);
+      settle(i===ans, opts[ans]);
+    };
+    $('opts').appendChild(b);
+  });
+}
+
+function lockOpts(){ document.querySelectorAll('#opts .abtn').forEach(b=>b.disabled=true); }
+function markCorrect(text){
+  document.querySelectorAll('#opts .abtn').forEach(b=>{
+    if(b.textContent===String(text)) b.classList.add('correct');
+  });
+}
+
+/* ============================================================ finish */
+function finish(){
+  const right = cur.results.filter(Boolean).length;
+  const stars = right>=ROUNDS*0.8 ? 3 : right>=ROUNDS*0.6 ? 2 : 1;
+  const prevBest = best[cur.gm.id]||0;
+  if(cur.score>prevBest) best[cur.gm.id]=cur.score;
+  totalStars += stars;
+  $('totalStars').textContent = totalStars;
+
+  $('game').classList.add('hidden');
+  $('resultScr').classList.remove('hidden');
+  $('resTitle').textContent = stars===3?'Luar biasa! 🎉':stars===2?'Hebat! 👏':'Ayo coba lagi! 💪';
+  $('resStars').innerHTML = [0,1,2].map(i=>
+    `<span class="${i<stars?'on':''}" style="${i<stars?'':'opacity:.25'}">⭐</span>`).join('');
+  $('resScore').textContent = `Benar ${right} dari ${ROUNDS} soal \u2022 Skor: ${cur.score}`;
+  if(stars>=2) confetti();
+}
+
+/* ============================================================ init */
+renderHome();
+</script>
+</body>
+</html>

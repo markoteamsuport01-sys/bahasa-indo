@@ -1,0 +1,8 @@
+{
+  "name": "bahasa-indonesia-ceria",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Game edukasi Bahasa Indonesia + room, leaderboard, white-label admin",
+  "engines": { "node": ">=18" }
+}
