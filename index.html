@@ -684,7 +684,6 @@ const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
 function badgeToast(b){sfx('badge');const t=$('badgeToast');t.innerHTML=`<span class="be">${b.emoji}</span><div><div style="font-weight:800">Badge baru!</div><div style="font-size:.82rem">${esc(b.name)} — ${esc(b.desc)}</div></div>`;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3200);}
 function confetti(){const cols=[CFG.accent,...Object.values(C).map(c=>c[0])];for(let i=0;i<40;i++){const d=document.createElement('div');d.className='confetti';d.style.left=Math.random()*100+'vw';d.style.width=d.style.height=(6+Math.random()*8)+'px';d.style.background=cols[i%cols.length];d.style.animationDuration=(1.6+Math.random()*1.4)+'s';d.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(d);setTimeout(()=>d.remove(),3600);}}
 /* ---- suara ucap: Gemini (native ID) -> fallback TTS browser ---- */
-/* TTS_AVAILABLE -> shared.js */
 let TTS_VOICE=localStorage.getItem('bic_voice')||'';
 const ttsCache=new Map();
 let ttsAudio=null;
@@ -702,17 +701,44 @@ async function speakGemini(text){
   try{if(ttsAudio){ttsAudio.pause();}}catch(e){}
   ttsAudio=new Audio(url);await ttsAudio.play();
 }
+/* ---- PRIORITAS 1: MP3 lokal (bunyi di semua perangkat, offline) ---- */
+/* ---- PRIORITAS 1: MP3 lokal (bunyi di semua perangkat, offline) ---- */
+const AUDIO_MISS=new Set();
+function localUrl(t){
+  return '/audio/'+encodeURIComponent(t.trim().toLowerCase()
+    .replace(/[!?.…,'"]/g,'').replace(/\s+/g,'-'))+'.mp3';
+}
+function playLocal(text){
+  const url=localUrl(text);
+  if(AUDIO_MISS.has(url))return Promise.resolve(false);
+  return fetch(url,{method:'HEAD'}).then(r=>{
+    if(!r.ok){AUDIO_MISS.add(url);return false;}
+    return new Promise(res=>{
+      const a=new Audio(url);
+      a.onended=()=>res(true);a.onerror=()=>res(false);
+      a.play().catch(()=>res(false));
+    });
+  }).catch(()=>false);
+}
+
+/* ---- speak: MP3 lokal -> Gemini TTS -> TTS browser ---- */
 function speak(text){
   if(!SOUND.on)return;
   text=String(text||'').trim();if(!text)return;
-  if(TTS_AVAILABLE){speakGemini(text).catch(()=>speakBrowser(text));}
-  else speakBrowser(text);
+  playLocal(text).then(ok=>{
+    if(ok)return;
+    if(TTS_AVAILABLE)speakGemini(text).catch(()=>speakBrowser(text));
+    else speakBrowser(text);
+  });
 }
 function spk(t){return `<button class="miniSpk" onclick="speak('${String(t).replace(/'/g,"\\'")}')" aria-label="Dengar pengucapan">🔊 Dengar</button>`;}
 
 /* ---- suara (Web Audio) + animasi ---- */
 const REDUCED=(window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)||false;
 const SOUND={on:localStorage.getItem('bic_sound')!=='off',ctx:null};
+/* Bangunkan audio di sentuhan pertama — wajib untuk iframe/autoplay policy */
+['pointerdown','touchstart','keydown'].forEach(ev=>
+  document.addEventListener(ev,()=>actx(),{capture:true,passive:true}));
 function actx(){try{if(!SOUND.ctx)SOUND.ctx=new (window.AudioContext||window.webkitAudioContext)();if(SOUND.ctx.state==='suspended')SOUND.ctx.resume();}catch(e){}return SOUND.ctx;}
 function tone(freq,start,dur,type,vol){const c=actx();if(!c)return;const o=c.createOscillator(),g=c.createGain();o.type=type||'sine';o.frequency.value=freq;o.connect(g);g.connect(c.destination);const t=c.currentTime+start;g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(vol||0.15,t+0.015);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.start(t);o.stop(t+dur+0.03);}
 function sfx(n){if(!SOUND.on)return;try{

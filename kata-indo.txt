@@ -1,0 +1,1045 @@
+apel
+bola
+kucing
+ikan
+payung
+gajah
+rumah
+roti
+sepatu
+ayam
+susu
+buku
+bulan
+bintang
+mobil
+pisang
+kodok
+bunga
+keju
+wortel
+lebah
+semangka
+sepeda
+balon
+pinguin
+kaktus
+anggur
+kura
+kaus
+lilin
+jerapah
+matahari
+sekolah
+pelangi
+harimau
+kepiting
+pesawat
+terompet
+layangan
+kacamata
+mahkota
+jendela
+kentang
+helikopter
+bo
+la
+mata
+ma
+ta
+bu
+ku
+ro
+ti
+sapi
+sa
+pi
+topi
+to
+sang
+nga
+kereta
+ke
+re
+se
+pe
+da
+ngi
+kelapa
+pa
+ga
+jah
+ang
+gur
+ha
+ri
+sapu
+pu
+kupu
+buaya
+a
+ya
+mang
+ka
+ko
+lah
+pohon
+po
+hon
+pintu
+pin
+tu
+kursi
+kur
+si
+pena
+na
+semut
+mut
+gunung
+gu
+nung
+nasi
+gendang
+gen
+dang
+yam
+hujan
+hu
+jan
+je
+ra
+pah
+mau
+ting
+wat
+te
+rom
+pet
+ca
+mah
+jen
+de
+ken
+tang
+ngan
+he
+li
+kop
+ter
+Ibu memasak nasi
+Adik minum susu
+Budi bermain bola
+Kucing makan ikan
+Ayah membaca koran
+Saya suka membaca buku
+Rina pergi ke sekolah
+Kakak menulis surat
+Nenek menyiram bunga
+Kami belajar bersama
+Burung terbang tinggi
+Ikan berenang di kolam
+Petani menanam padi
+Guru mengajar murid
+Anjing menggonggong keras
+Matahari bersinar terang
+Hujan turun sore hari
+Kakek memancing ikan
+Ibu membeli sayur segar
+Adik bermain di taman kota
+Kucing tidur di sofa
+Ibu menyapu lantai rumah
+Adik menggambar pemandangan indah
+Kami bermain di halaman
+Ayah mencuci mobil biru
+Nenek memasak sayur bayam
+Murid membaca buku cerita
+Kakak menyanyi lagu daerah
+Paman memelihara ayam kampung
+Kita menjaga kebersihan kelas
+Siapa namamu
+Siapa namamu?
+Saya suka membaca
+Saya suka membaca.
+Wah, indah sekali
+Wah, indah sekali!
+Di mana rumahmu
+Di mana rumahmu?
+Ayo cuci tangan
+Ayo cuci tangan!
+Hari ini hujan
+Hari ini hujan.
+Kapan kamu ulang tahun
+Kapan kamu ulang tahun?
+Hore, kita menang
+Hore, kita menang!
+Adik tidur siang
+Adik tidur siang.
+Mengapa kamu terlambat
+Mengapa kamu terlambat?
+Selamat pagi, teman-teman
+Selamat pagi, teman-teman!
+Berapa umurmu sekarang
+Berapa umurmu sekarang?
+Kucingku sangat lucu
+Kucingku sangat lucu.
+Awas, ada mobil
+Awas, ada mobil!
+Bolehkah aku ikut
+Bolehkah aku ikut?
+Ibu sedang memasak
+Ibu sedang memasak.
+Siapa yang datang
+Siapa yang datang?
+Betapa lucunya kucing itu
+Betapa lucunya kucing itu!
+Aku suka warna biru
+Aku suka warna biru.
+Ke mana kamu pergi
+Ke mana kamu pergi?
+Hati-hati di jalan
+Hati-hati di jalan!
+Adik sedang belajar
+Adik sedang belajar.
+Apa nama binatang itu
+Apa nama binatang itu?
+Wow, hebat sekali
+Wow, hebat sekali!
+Kami tinggal di desa
+Kami tinggal di desa.
+Mengapa kamu menangis
+Mengapa kamu menangis?
+Ayo kita berangkat
+Ayo kita berangkat!
+Bunga itu sangat harum
+Bunga itu sangat harum.
+Berapa harga buku ini
+Berapa harga buku ini?
+Jangan lupa berdoa
+Jangan lupa berdoa!
+besar
+kecil
+panjang
+pendek
+terang
+gelap
+rajin
+malas
+tinggi
+rendah
+cepat
+lambat
+panas
+dingin
+ramai
+sepi
+berani
+takut
+bersih
+kotor
+tua
+muda
+kaya
+miskin
+baru
+lama
+manis
+pahit
+naik
+turun
+buka
+tutup
+siang
+malam
+depan
+belakang
+kuat
+lemah
+banyak
+sedikit
+jauh
+dekat
+tebal
+tipis
+keras
+lunak
+basah
+kering
+penuh
+kosong
+mudah
+sulit
+datang
+pergi
+menang
+kalah
+awal
+akhir
+luas
+sempit
+Sinta memelihara kucing bernama Momo. Setiap pagi Sinta memberi Momo makan ikan. Momo suka bermain bola benang di halaman.
+Siapa nama kucing Sinta?
+Momo
+Sinta
+Ikan
+Apa makanan Momo setiap pagi?
+Roti
+Nasi
+Di mana Momo suka bermain?
+Di kamar
+Di sekolah
+Di halaman
+Taman kota ramai pada hari Minggu. Banyak anak bermain layang-layang di lapangan. Pedagang es krim berkeliling dengan sepedanya.
+Kapan taman kota menjadi ramai?
+Hari Senin
+Hari Minggu
+Malam hari
+Apa yang dimainkan anak-anak?
+Layang-layang
+Bola
+Boneka
+Siapa yang berkeliling dengan sepeda?
+Guru
+Polisi
+Pedagang es krim
+Seekor semut hanyut di sungai. Merpati menjatuhkan daun untuk menolongnya. Semut pun selamat dan berterima kasih kepada merpati.
+Siapa yang menolong semut?
+Merpati
+Kerbau
+Kancil
+Di mana semut hanyut?
+Di laut
+Di sungai
+Di kolam
+Rina bangun pagi-pagi. Ia mandi lalu sarapan roti dan susu. Rina berangkat ke sekolah dengan hati senang.
+Apa sarapan Rina?
+Nasi goreng
+Roti dan susu
+Buah
+Bagaimana perasaan Rina?
+Sedih
+Marah
+Senang
+Pak Tani menanam jagung di ladang. Setiap hari ia menyiram tanamannya. Setelah beberapa bulan, jagung pun siap dipanen.
+Apa yang ditanam Pak Tani?
+Padi
+Jagung
+Cabai
+Apa yang dilakukan setiap hari?
+Menyiram
+Memupuk
+Memanen
+Kapan jagung dipanen?
+Esok hari
+Setelah beberapa bulan
+Minggu depan
+Dodi menanam bunga matahari di halaman rumah. Ia menyiramnya setiap sore. Bunga itu tumbuh tinggi dan mekar berwarna kuning.
+Apa yang ditanam Dodi?
+Bunga matahari
+Bunga mawar
+Pohon mangga
+Kapan Dodi menyiram bunganya?
+Setiap pagi
+Setiap malam
+Setiap sore
+Apa warna bunga itu?
+Merah
+Kuning
+Biru
+Setiap hari Minggu, Andi membantu ayah mencuci mobil. Andi menyiapkan ember dan sabun. Setelah selesai, mobil menjadi bersih dan mengkilap.
+Kapan Andi membantu ayah?
+Hari Sabtu
+Apa yang disiapkan Andi?
+Ember dan sabun
+Sapu dan pel
+Pensil dan buku
+Bagaimana mobil setelah dicuci?
+Kotor
+Basah saja
+Bersih dan mengkilap
+Bu Rina adalah seorang guru. Ia mengajar di kelas satu. Murid-murid sangat menyayangi Bu Rina karena ia sabar dan ramah.
+Apa pekerjaan Bu Rina?
+Dokter
+Petani
+Bu Rina mengajar di kelas berapa?
+Kelas satu
+Kelas dua
+Kelas tiga
+Mengapa murid menyayangi Bu Rina?
+Karena galak
+Karena sabar dan ramah
+Karena kaya
+Kelinci dan kura-kura berlomba lari. Kelinci berlari cepat lalu tertidur di tengah jalan. Kura-kura berjalan pelan tanpa henti dan akhirnya menang.
+Siapa yang berlomba?
+Kelinci dan kura-kura
+Kucing dan tikus
+Semut dan gajah
+Mengapa kelinci kalah?
+Ia tersesat
+Ia tertidur
+Ia sakit
+Siapa pemenangnya?
+Kelinci
+Kura-kura
+Keduanya
+Di pagi hari, Nisa membantu ibu menyapu lantai. Setelah itu ia sarapan bubur ayam. Nisa lalu berangkat ke sekolah naik sepeda.
+Apa yang dibantu Nisa?
+Menyapu lantai
+Mencuci piring
+Memasak nasi
+Apa sarapan Nisa?
+Bubur ayam
+Mi goreng
+Naik apa Nisa ke sekolah?
+Bus
+Sepeda
+Jalan kaki
+Hutan adalah rumah bagi banyak binatang. Pohon-pohon di hutan menghasilkan udara bersih. Kita harus menjaga hutan agar tetap lestari.
+Hutan adalah rumah bagi siapa?
+Banyak binatang
+Manusia saja
+Tidak ada
+Apa yang dihasilkan pohon di hutan?
+Udara bersih
+Air keruh
+Asap
+pintar
+pandai
+senang
+gembira
+hewan
+binatang
+kembang
+baju
+pakaian
+lelah
+capai
+cantik
+elok
+laju
+bohong
+dusta
+bertemu
+berjumpa
+pandang
+lihat
+agung
+sedih
+duka
+marah
+geram
+ngeri
+mungil
+indah
+permai
+perkasa
+guru
+pengajar
+murid
+pelajar
+teman
+kawan
+ayah
+bapak
+ibu
+bunda
+wajah
+muka
+suara
+bunyi
+hutan
+rimba
+sungai
+kali
+kampung
+desa
+lucu
+jenaka
+sopan
+santun
+merah
+biru
+kuning
+hijau
+ungu
+oranye
+merah muda
+cokelat
+hitam
+putih
+abu-abu
+biru muda
+biru tua
+hijau muda
+hijau tua
+merah tua
+kuning muda
+ungu muda
+krem
+emas
+perak
+tosca
+nila
+jingga
+lembayung
+magenta
+zaitun
+marun
+biru langit
+hijau lumut
+di
+Buku itu ada di atas meja
+Buku itu ada ___ atas meja
+Ayah pergi ke kantor
+Ayah pergi ___ kantor
+dari
+Ia pulang dari sekolah
+Ia pulang ___ sekolah
+Kucing tidur di bawah kursi
+Kucing tidur ___ bawah kursi
+Kami berlibur ke pantai
+Kami berlibur ___ pantai
+Adik meminta uang dari ibu
+Adik meminta uang ___ ibu
+Burung hinggap di dahan
+Burung hinggap ___ dahan
+Hadiah ini dari nenek
+Hadiah ini ___ nenek
+Mereka berjalan ke pasar untuk berbelanja
+Mereka berjalan ___ pasar untuk berbelanja
+Lukisan tergantung di dinding
+Lukisan tergantung ___ dinding
+Kereta berangkat dari stasiun menuju Bandung
+Kereta berangkat ___ stasiun menuju Bandung
+Kita menabung di bank
+Kita menabung ___ bank
+Kami belajar di dalam kelas
+Kami belajar ___ dalam kelas
+Ibu berangkat ke pasar pagi ini
+Ibu berangkat ___ pasar pagi ini
+Ayah baru pulang dari kantor
+Ayah baru pulang ___ kantor
+Sepatu itu tersimpan di rak
+Sepatu itu tersimpan ___ rak
+Adik berlari ke arah taman
+Adik berlari ___ arah taman
+Kue ini dibuat dari tepung beras
+Kue ini dibuat ___ tepung beras
+Bunga mawar tumbuh di taman
+Bunga mawar tumbuh ___ taman
+Kami akan pindah ke kota lain
+Kami akan pindah ___ kota lain
+Ia berasal dari Surabaya
+Ia berasal ___ Surabaya
+Buku itu tergeletak di lantai
+Buku itu tergeletak ___ lantai
+Mereka naik ke puncak bukit
+Mereka naik ___ puncak bukit
+Ibu menerima surat dari paman
+Ibu menerima surat ___ paman
+Kucing bersembunyi di kolong meja
+Kucing bersembunyi ___ kolong meja
+Kakak mengantar adik ke sekolah
+Kakak mengantar adik ___ sekolah
+Susu ini terbuat dari kedelai
+Susu ini terbuat ___ kedelai
+Kami berteduh di bawah pohon
+Kami berteduh ___ bawah pohon
+Kami berkunjung ke rumah nenek
+Kami berkunjung ___ rumah nenek
+Hadiah ini kudapat dari ayah
+Hadiah ini kudapat ___ ayah
+kambing
+meja
+jeruk
+dokter
+petani
+satu
+dua
+tiga
+hidung
+telinga
+pagi
+bus
+kakak
+boneka
+lemari
+pensil
+pulpen
+penghapus
+mangga
+durian
+rambutan
+angin
+petir
+gitar
+piano
+drum
+perawat
+bidan
+jagung
+senin
+selasa
+rabu
+kaus kaki
+padi
+kedelai
+laut
+danau
+singa
+beruang
+mi
+batu
+tangan
+kaki
+awan
+gelas
+piring
+sendok
+burung
+daun
+akar
+januari
+februari
+maret
+sabtu
+bulat
+segitiga
+persegi
+asin
+balon udara
+kapal selam
+izin
+ijin
+rapi
+rapih
+napas
+nafas
+utang
+hutang
+paham
+faham
+cabai
+cabe
+antre
+antri
+hafal
+hapal
+zaman
+jaman
+sopir
+supir
+atlet
+atlit
+daftar
+daptar
+sistem
+sistim
+risiko
+resiko
+teknik
+tehnik
+apotek
+apotik
+jadwal
+jadual
+peduli
+perduli
+ijazah
+ijasah
+praktik
+praktek
+nasihat
+nasehat
+telepon
+telpon
+sekadar
+sekedar
+hakikat
+hakekat
+konkret
+konkrit
+silakan
+silahkan
+kategori
+katagori
+provinsi
+propinsi
+terampil
+trampil
+kualitas
+kwalitas
+siapa
+siapa nama ibumu?
+___ nama ibumu?
+mengapa
+mengapa kamu menangis?
+___ kamu menangis?
+di mana
+di mana rumahmu?
+___ rumahmu?
+kapan
+kapan kamu berangkat ke sekolah?
+___ kamu berangkat ke sekolah?
+apa
+apa yang kamu bawa di tas?
+___ yang kamu bawa di tas?
+bagaimana
+bagaimana cara membuat layang-layang?
+___ cara membuat layang-layang?
+berapa
+berapa harga buku ini?
+___ harga buku ini?
+siapa yang menolong semut itu?
+___ yang menolong semut itu?
+mengapa kamu terlambat hari ini?
+___ kamu terlambat hari ini?
+di mana kita menyimpan sepatu?
+___ kita menyimpan sepatu?
+kapan hari ulang tahunmu?
+___ hari ulang tahunmu?
+apa makanan kesukaanmu?
+___ makanan kesukaanmu?
+bagaimana keadaan nenek sekarang?
+___ keadaan nenek sekarang?
+berapa jumlah murid di kelasmu?
+___ jumlah murid di kelasmu?
+siapa yang mengajar di kelas satu?
+___ yang mengajar di kelas satu?
+mengapa daun itu berwarna hijau?
+___ daun itu berwarna hijau?
+di mana kita bisa membeli buku tulis?
+___ kita bisa membeli buku tulis?
+kapan upacara bendera dimulai?
+___ upacara bendera dimulai?
+apa nama binatang berbelalai panjang?
+___ nama binatang berbelalai panjang?
+bagaimana rasanya buah durian?
+___ rasanya buah durian?
+berapa umurmu tahun ini?
+___ umurmu tahun ini?
+siapa pemenang lomba lari itu?
+___ pemenang lomba lari itu?
+mengapa ikan tidak bisa hidup di darat?
+___ ikan tidak bisa hidup di darat?
+di mana ayah menyimpan kunci motor?
+___ ayah menyimpan kunci motor?
+kapan kita berlibur ke rumah nenek?
+___ kita berlibur ke rumah nenek?
+apa warna kesukaanmu?
+___ warna kesukaanmu?
+bagaimana cara mencuci tangan yang benar?
+___ cara mencuci tangan yang benar?
+berapa kaki seekor kucing?
+___ kaki seekor kucing?
+siapa yang membuang sampah di sini?
+___ yang membuang sampah di sini?
+mengapa kita harus rajin belajar?
+___ kita harus rajin belajar?
+Ibu membaca koran di teras.
+Ibu ___ koran di teras.
+membaca
+dibaca
+pembaca
+terbaca
+Adik menendang bola ke gawang.
+Adik ___ bola ke gawang.
+menendang
+ditendang
+penendang
+tertendang
+Ayah mencuci mobil setiap Minggu.
+Ayah ___ mobil setiap Minggu.
+mencuci
+dicuci
+pencuci
+tercuci
+Baju kotor itu dicuci oleh kakak.
+Baju kotor itu ___ oleh kakak.
+pencucian
+Rina menulis surat untuk nenek.
+Rina ___ surat untuk nenek.
+menulis
+ditulis
+penulis
+tertulis
+Namaku sudah tertulis di papan tulis.
+Namaku sudah ___ di papan tulis.
+tulisan
+Kami bermain di lapangan sekolah.
+Kami ___ di lapangan sekolah.
+bermain
+dimainkan
+permainan
+pemain
+Andi seorang pemain bulu tangkis.
+Andi seorang ___ bulu tangkis.
+Bu Rina mengajar murid kelas satu.
+Bu Rina ___ murid kelas satu.
+mengajar
+diajar
+pelajaran
+Kami diajar oleh guru yang sabar.
+Kami ___ oleh guru yang sabar.
+ajaran
+Petani menanam padi di sawah.
+Petani ___ padi di sawah.
+menanam
+ditanam
+penanam
+tanaman
+Bunga itu ditanam oleh Dodi kemarin.
+Bunga itu ___ oleh Dodi kemarin.
+Kakak menyanyikan lagu daerah di panggung.
+Kakak ___ lagu daerah di panggung.
+menyanyikan
+dinyanyikan
+penyanyi
+nyanyian
+Lagu itu dinyanyikan dengan merdu.
+Lagu itu ___ dengan merdu.
+Adik menggambar pemandangan gunung.
+Adik ___ pemandangan gunung.
+menggambar
+digambar
+penggambar
+gambaran
+Anak ayam itu mengikuti induknya.
+Anak ayam itu ___ induknya.
+mengikuti
+diikuti
+pengikut
+ikutan
+Paman memelihara ayam di kandang.
+Paman ___ ayam di kandang.
+memelihara
+dipelihara
+pemelihara
+peliharaan
+Kucing itu dipelihara dengan baik.
+Kucing itu ___ dengan baik.
+Nenek menyiram bunga setiap sore.
+Nenek ___ bunga setiap sore.
+menyiram
+disiram
+penyiram
+siraman
+Tanaman itu disiram setiap pagi.
+Tanaman itu ___ setiap pagi.
+Kami berkumpul di halaman sekolah.
+Kami ___ di halaman sekolah.
+berkumpul
+dikumpulkan
+pengumpul
+kumpulan
+Sampah itu dikumpulkan di satu tempat.
+Sampah itu ___ di satu tempat.
+Adik memakai topi ke sekolah.
+Adik ___ topi ke sekolah.
+memakai
+dipakai
+pemakai
+Seragam itu dipakai pada hari Senin.
+Seragam itu ___ pada hari Senin.
+Kakek memancing ikan di sungai.
+Kakek ___ ikan di sungai.
+memancing
+dipancing
+pemancing
+pancingan
+Pak Budi adalah pemancing yang sabar.
+Pak Budi adalah ___ yang sabar.
+Burung itu terbang tinggi di langit.
+Burung itu ___ tinggi di langit.
+terbang
+diterbangkan
+penerbang
+penerbangan
+Layang-layang itu diterbangkan oleh Andi.
+Layang-layang itu ___ oleh Andi.
+Ibu memasak nasi goreng untuk kami.
+Ibu ___ nasi goreng untuk kami.
+memasak
+dimasak
+pemasak
+masakan
+Sayur itu dimasak oleh nenek.
+Sayur itu ___ oleh nenek.
+Ayah pergi ke bandung naik kereta.
+bandung
+Kami mengikuti upacara bendera setiap hari senin.
+Adik saya lahir pada bulan agustus tahun lalu.
+agustus
+Teman baruku di sekolah itu bernama rina.
+rina
+Kami belajar bahasa indonesia di sekolah.
+indonesia
+Ibu memasak rendang yang khas dari kota padang.
+padang
+Kakak berlibur ke pulau bali bersama keluarga besar.
+bali
+Sungai terpanjang di Kalimantan adalah kapuas.
+kapuas
+Kami mendaki gunung merapi bersama ayah.
+merapi
+Paman saya bekerja di sebuah pabrik di kota surabaya.
+surabaya
+Kami ke rumah nenek pada hari minggu.
+minggu
+Presiden pertama negara Indonesia kita bernama soekarno.
+soekarno
+Kami menonton tarian saman dari Aceh.
+saman
+Ibu saya berasal dari sebuah kota bernama medan.
+medan
+Pelajaran matematika ada pada hari selasa.
+Liburan sekolah kami akan dimulai pada bulan juni.
+juni
+Kakakku bernama dita dan adikku Rudi.
+dita
+Ayah membaca koran kompas setiap pagi.
+kompas
+Kami belajar bahasa inggris pada hari Rabu.
+inggris
+Nenek saya tinggal di sebuah desa bernama sukamaju.
+sukamaju
+Pesawat itu terbang tinggi menuju kota jakarta.
+jakarta
+Kami berenang bersama teman di pantai kuta.
+kuta
+Bulan desember adalah bulan terakhir dalam satu tahun.
+desember
+Guru kelas kami di sekolah itu bernama hendra.
+hendra
+Kami menanam pohon pada hari kamis.
+kamis
+Kota yogyakarta sangat terkenal dengan makanan gudeg.
+yogyakarta
+Adik menonton film pada hari sabtu.
+Ibu saya lahir pada tanggal lima bulan maret.
+Kami mengunjungi museum di kota semarang.
+semarang
+Danau toba berada di Sumatra Utara.
+toba
+Besar pasak daripada tiang
+Pengeluaran lebih besar daripada pendapatan
+Ada gula ada semut
+Tempat yang menyenangkan banyak didatangi orang
+Bagai air di daun talas
+Orang yang tidak punya pendirian
+Sedia payung sebelum hujan
+Bersiap sebelum terjadi hal yang buruk
+Tong kosong nyaring bunyinya
+Banyak bicara tetapi sedikit ilmunya
+Air susu dibalas air tuba
+Kebaikan dibalas dengan kejahatan
+Berakit-rakit ke hulu, berenang-renang ke tepian
+Bersusah dahulu, bersenang kemudian
+Malu bertanya sesat di jalan
+Kalau tidak mau bertanya akan tersesat
+Rajin pangkal pandai
+Kerajinan membuat orang menjadi pandai
+Hemat pangkal kaya
+Berhemat membuat orang menjadi kaya
+Bersatu kita teguh, bercerai kita runtuh
+Bersatu menjadi kuat, berpecah menjadi lemah
+Sambil menyelam minum air
+Mengerjakan dua hal sekaligus
+Buah jatuh tidak jauh dari pohonnya
+Sifat anak biasanya mirip orang tuanya
+Seperti katak dalam tempurung
+Orang yang sedikit pengetahuannya
+Panjang tangan
+Suka mencuri
+Ringan tangan
+Suka menolong orang lain
+Buah tangan
+Oleh-oleh
+Naik darah
+Menjadi marah
+Besar kepala
+Sombong
+Rendah hati
+Tidak sombong
+Kutu buku
+Orang yang sangat suka membaca
+Kambing hitam
+Orang yang disalahkan padahal tidak bersalah
+Tangan kanan
+Orang kepercayaan
+Banting tulang
+Bekerja keras
+Angkat kaki
+Pergi meninggalkan tempat
+Gulung tikar
+Berhenti berusaha karena bangkrut
+Buah bibir
+Bahan pembicaraan orang banyak
+Keras kepala
+Sulit dinasihati
+Murah hati
+Suka memberi kepada orang lain
+Cepat kaki ringan tangan
+Rajin bekerja dan suka menolong
+makan
+berlari
+tidur
+menyapu
+melompat
+menyanyi
+minum
+ramah
+Kata Benda
+Kata Kerja
+Kata Sifat
+Ani punya 3 apel. Ibu memberi 2 apel lagi. Berapa apel Ani sekarang?
+lima
+5
+Budi punya 7 kelereng. Ia memberi 3 kepada adik. Berapa sisa kelereng Budi?
+empat
+4
+Di kandang ada 4 ayam dan 5 bebek. Berapa jumlah semuanya?
+sembilan
+9
+Rina membeli 6 permen, lalu 2 dimakan. Berapa permen yang tersisa?
+Ada 8 burung di dahan. 3 burung terbang pergi. Berapa burung yang tinggal?
+Ibu membeli 5 jeruk pagi ini dan 4 jeruk sore hari. Berapa jeruk ibu?
+Kelas satu punya 10 pensil. 4 pensil dipinjam. Berapa pensil yang ada di kelas?
+enam
+6
+Andi menanam 2 pohon setiap hari selama 3 hari. Berapa pohon yang ditanam?
+Ada 12 kue dibagi sama rata untuk 3 anak. Berapa kue untuk tiap anak?
+Di rak ada 3 baris buku. Tiap baris berisi 5 buku. Berapa jumlah bukunya?
+15
+Sinta punya 9 balon. 2 balon meletus. Berapa balon Sinta sekarang?
+tujuh
+7
+Ayah membeli 2 kotak telur. Tiap kotak berisi 6 telur. Berapa telur semuanya?
+12
+Ada 15 murid di kelas. 7 murid perempuan. Berapa murid laki-laki?
+delapan
+8
+Dodi punya 4 kelereng merah dan 6 kelereng biru. Berapa kelereng Dodi?
+sepuluh
+10
+Nenek memetik 20 mangga, lalu 5 dibagikan. Berapa mangga yang tersisa?
+Di taman ada 6 kupu-kupu. Datang 6 kupu-kupu lagi. Berapa semuanya?
+Kakak membeli 3 buku seharga 2 ribu tiap buku. Berapa ribu yang dibayar?
+Ada 18 kursi disusun jadi 2 baris sama banyak. Berapa kursi tiap baris?
+Rudi punya 5 ekor ikan. Ayah memberi 5 ekor lagi. Berapa ikan Rudi?
+Ada 14 pensil. 6 pensil patah. Berapa pensil yang masih baik?
+Ibu memasak 8 kue. Adik makan 1, kakak makan 2. Berapa kue yang tersisa?
+Di kolam ada 7 katak. 4 katak melompat keluar. Berapa katak di kolam?
+3
+Setiap hari Andi membaca 3 halaman. Berapa halaman dalam 4 hari?
+Ada 16 permen dibagi untuk 4 anak sama banyak. Berapa permen tiap anak?
+Rina punya 11 stiker. Ia memberi 5 kepada teman. Berapa sisa stikernya?
+Di lapangan ada 9 anak. Datang 8 anak lagi. Berapa anak sekarang?
+17
+Paman punya 13 ayam. 4 ayam dijual. Berapa ayam paman sekarang?
+Ada 5 meja. Tiap meja ada 4 gelas. Berapa gelas semuanya?
+20
+Ibu membeli 10 roti. 3 dimakan pagi, 2 dimakan sore. Berapa sisanya?
+Adik punya 6 mobil mainan. Kakak punya 7. Berapa mobil mainan mereka?
+13
+nol

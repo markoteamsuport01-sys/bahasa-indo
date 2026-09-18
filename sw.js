@@ -1,6 +1,6 @@
 /* Service worker — offline shell cache.
    Bump CACHE version whenever the shell changes to force update. */
-const CACHE = 'bic-shell-v5';
+const CACHE = 'bic-shell-v7';
 const SHELL = [
   './',
   './index.html',
